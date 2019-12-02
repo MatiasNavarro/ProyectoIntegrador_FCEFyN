@@ -1,8 +1,8 @@
-import urllib
+import os
 from bs4 import BeautifulSoup
 
-
-html = open("../Redes_de_Petri/states_POPN.html",'r')
+archivo = input("Path del archivo (html): ")
+html = open(archivo,'r')
 soup = BeautifulSoup(html,'lxml')
 
 
@@ -26,34 +26,37 @@ text = '\n'.join(chunk for chunk in chunks if chunk)
 
 print(text)
 
-f = open ("state_POPN.txt", "w")
+
+f = open ("state.txt", "w")
 f.write(text)
 f.close()
 
-f1 = open('state_POPN.txt', 'r')
-f2 = open('state_POPN.txt.tmp', 'w')
+f1 = open('state.txt', 'r')
+f2 = open('state.txt.tmp', 'w')
 for line in f1:
     f2.write(line.replace('\n', ' '))
 f1.close()
 f2.close()
 
-f1 = open('state_POPN.txt.tmp', 'r')
-f2 = open('state_POPN.txt', 'w')
+f1 = open('state.txt.tmp', 'r')
+f2 = open('state.txt', 'w')
 for line in f1:
     f2.write(line.replace(']', '] \n'))
 f1.close()
 f2.close()
 
-f1 = open('state_POPN.txt', 'r')
-f2 = open('state_POPN.txt.tmp', 'w')
+f1 = open('state.txt', 'r')
+f2 = open('state.txt.tmp', 'w')
 for line in f1:
     f2.write(line.replace(':', ''))
 f1.close()
 f2.close()
 
-f1 = open('state_POPN.txt.tmp', 'r')
-f2 = open('state_POPN.txt', 'w')
+f1 = open('state.txt.tmp', 'r')
+f2 = open('state.txt', 'w')
 for line in f1:
     f2.write(line.replace('Reachability/Coverability Graph Information', ''))
 f1.close()
 f2.close()
+
+os.remove("state.txt.tmp")
