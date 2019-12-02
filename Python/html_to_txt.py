@@ -49,7 +49,7 @@ def clean_file(text):
 
 
 # Abre un archivo html a partir del path indicado por consola, y lo carga en un archivo
-# BeatifulSoup para extraer los datos de dicho archivo.
+# BeatifulSoup para extraer los datos html de dicho archivo.
 archivo = input("Path del archivo (html): ")
 html = open(archivo,'r')
 soup = BeautifulSoup(html,'lxml')
