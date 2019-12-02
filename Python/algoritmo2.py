@@ -24,12 +24,12 @@ def fun_deadlock (matriz,estado,cantidad_estados,cantidad_transiciones):
             # print "Estado nuevo", estado
             # print matriz
             fun_deadlock(matriz,i,cantidad_estados,cantidad_transiciones)       
-            print("Post recursion",estado)
+            #print("Post recursion",estado)
 archivo = open("./state.txt","r")
 f = open ("filtrado_prueba.txt", "w")
 
 cantidad_estados=0
-cantidad_transiciones=14
+cantidad_transiciones=20
 
 #Obtenemos la cantidad de estados y filtramos la informacion
 for lineas in archivo.readlines() :
@@ -113,41 +113,13 @@ for i in range (0,cantidad_estados):
 
 print("Transiciones sensibilizadas sin deadlock")
 print (matriz)
-# print("82",matriz[82])
-# print("46",matriz[46])
-# print("81",matriz[81])
-# print("168",matriz[168])
-# print("80",matriz[80])
-# print("167",matriz[167])
-# print("540",matriz[540])
-# print("866",matriz[866])
-# print("539",matriz[539])
-# print("557",matriz[557])
-# print("540",matriz[540])
-# print("872",matriz[872])
-# print("50",matriz[50])
-# print("556",matriz[556])
-# print("928",matriz[928])
-# print("132",matriz[132])
-# print("535",matriz[535])
-# print("167",matriz[167])
-# print("534",matriz[534])
-# print("1417",matriz[1417])
-# print("431",matriz[431])
-# print("533",matriz[533])
-# print("430",matriz[430])
-# print("532",matriz[532])
-# print("537",matriz[537])
-# print("166",matriz[166])
-# print("539",matriz[539])
-# print("538",matriz[538])
-# print("542",matriz[542])
-# print("556",matriz[556])
-# print("634",matriz[634])
-# print("537",matriz[537])
-# print("541",matriz[541])
-# print("555",matriz[555])
-# print("538",matriz[538])
-# print("554",matriz[554])
-# print("464",matriz[464])
-# print("536",matriz[536])
+
+f = open("matriz.txt","w")
+for i in range (0,cantidad_estados):
+    f.write("[  ")
+    for j in range (0,cantidad_transiciones):
+        f.write(str(int(matriz[i][j])))
+        f.write("  ")
+    f.write("] \n")
+f.close()
+os.remove("filtrado_prueba.txt")
