@@ -131,7 +131,7 @@ for i in range (0,cantidad_estados):
             matriz[i][j]=0
         else:
             matriz[i][j]=1
-
+%time 
 #Almacenamiento de matriz final en un archivo .txt y posterior cierre del mismo evitando inconvenientes
 f = open("matriz.txt","w")
 for i in range (0,cantidad_estados):
