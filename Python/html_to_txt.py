@@ -44,6 +44,34 @@ def clean_file(text):
     f1.close()
     f2.close()
 
+    f1 = open('state.txt', 'r')
+    f2 = open('state.txt.tmp', 'w')
+    for line in f1:
+        f2.write(line.replace('Number of places ', 'p '))
+    f1.close()
+    f2.close()
+
+    f1 = open('state.txt.tmp', 'r')
+    f2 = open('state.txt', 'w')
+    for line in f1:
+        f2.write(line.replace('Number of transitions ', '\n t '))
+    f1.close()
+    f2.close()
+
+    f1 = open('state.txt', 'r')
+    f2 = open('state.txt.tmp', 'w')
+    for line in f1:
+        f2.write(line.replace('R', '\n R'))
+    f1.close()
+    f2.close()
+
+    f1 = open('state.txt.tmp', 'r')
+    f2 = open('state.txt', 'w')
+    for line in f1:
+        f2.write(line)
+    f1.close()
+    f2.close()
+
     #Elimina archivo temporal
     os.remove("state.txt.tmp")
 
