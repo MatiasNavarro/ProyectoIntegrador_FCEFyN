@@ -1,0 +1,141 @@
+Session started: 12/12/19 14:44
+Loaded: /home/anij/facu/Tesis/Proyecto/ProyectoIntegrador_FCEFyN/Snoopy-Net/unnamed1.pn
+ Charlie (v2.0-b212-r8932) - unnamed1.pn
+
+Analyzer has finished: Structural Analyzer
+starts analysis with following options:
+charlie.analyzer.structural.StructuralOptionSet
+
+number of places: 3
+number of transitions: 3
+number of arcs: 6
+
+input places:
+no input places
+output places:
+	|2.P_2	:1
+input transitions:
+no input transitions
+output transitions:
+no output transitions
+
+Structural coupled conflict sets: 
+
+1	|0.T_0	:1
+2	|1.T_1	:1,
+	|2.T_2	:1
+ 
+Structural equal conflict sets: 
+
+1	|0.T_0	:1
+2	|1.T_1	:1,
+	|2.T_2	:1
+ 
+time:  0 m 0 s
+
+
+Structural Analysis Results:
+  PUR   ORD   HOM   NBM   CSV   SCF   FT0   TF0   FP0   PF0   CON   SC    NC  
+   Y     Y     Y     Y     Y     N     Y     Y     Y     N     Y     N     SM 
+ RKTH   STP   CPI   CTI  SCTI    SB   k-B   1-B   DCF   DSt   DTr   LIV   REV 
+   -     -     -     -     -     -     -     N     -     -     -     -     -  
+  SSI   RNK  SCCS  SEQS 
+   -     -      2     2 
+
+AppliedResults output:
+
+
+Applying rule:
+CSV => k-B
+
+
+Applying rule:
+CSV => SB
+
+
+Applying rule:
+SM & ORD => [SB & k-B & CSV]
+
+
+Applying rule:
+SM & CSV & CON => rank = |P| - 1
+
+
+Applying rule:
+CSV => CPI
+
+
+Applying rule:
+SM & CSV => CPI
+
+
+Applying rule:
+CPI => k-B
+
+
+Applying rule:
+rank(IM) != |SCCS| - 1 => !RKTH
+
+
+Applying rule:
+SB => k-B
+
+
+Applying rule:
+CPI => SB
+
+
+Applying rule:
+SM & CON & CPI => rank(IM) = |P| - 1
+
+  PUR   ORD   HOM   NBM   CSV   SCF   FT0   TF0   FP0   PF0   CON   SC    NC  
+   -     -     -     -     Y     -     -     -     -     -     -     -     -  
+ RKTH   STP   CPI   CTI  SCTI    SB   k-B   1-B   DCF   DSt   DTr   LIV   REV 
+   N     -     Y     -     -     Y     Y     -     -     -     -     -     -  
+  SSI   RNK  SCCS  SEQS 
+   -      2    -     -  
+
+Analyzer has finished: Siphon Analyzer
+Analyzer: Siphon Analyzer
+start time: 12/12/19 14:45
+starts analysis with following options:
+siphon options
+Siphon Analyzer:
+ computing siphons
+
+STP is not valid
+ counter examples:
+    minimal siphon:
+	|0.P_0	:1,
+	|1.P_1	:1
+	maximal trap:
+	empty set
+	is not sufficiently marked
+ siphons with sufficiently marked traps:
+1 minimal siphons computed 740:00:00:004
+time: 740:00:00:006
+
+
+AppliedResults output:
+
+
+Applying rule:
+!STP & HOM & NMB & FC => !LIV
+
+  PUR   ORD   HOM   NBM   CSV   SCF   FT0   TF0   FP0   PF0   CON   SC    NC  
+   -     -     -     -     -     -     -     -     -     -     -     -     -  
+ RKTH   STP   CPI   CTI  SCTI    SB   k-B   1-B   DCF   DSt   DTr   LIV   REV 
+   -     -     -     -     -     -     -     -     -     -     -     N     -  
+  SSI   RNK  SCCS  SEQS 
+   -     -     -     -  
+
+---------------FINAL RESULTS----------------------
+
+  PUR   ORD   HOM   NBM   CSV   SCF   FT0   TF0   FP0   PF0   CON   SC    NC  
+   Y     Y     Y     Y     Y     N     Y     Y     Y     N     Y     N     SM 
+ RKTH   STP   CPI   CTI  SCTI    SB   k-B   1-B   DCF   DSt   DTr   LIV   REV 
+   N     N     Y     -     -     Y     Y     N     -     -     -     N     -  
+  SSI   RNK  SCCS  SEQS 
+   Y      2     2     2 
+--------------------------------------------------
+Session finished: 12/12/19 14:49
