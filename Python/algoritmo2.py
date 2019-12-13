@@ -69,10 +69,10 @@ plaza_tmp_file = open("plaza.txt","w")
 
 # Inicializacion de parametros globales
 cantidad_estados=0
-cantidad_transiciones=0 #Panama 14,21,22,32
-cantidad_plazas=0       #Prueba2 4,4,1,1
-cantidad_sifones=74      #POPN 20,26,74,130
-cantidad_traps=130
+cantidad_transiciones=0     #Panama 14,21,22,32
+cantidad_plazas=0           #Prueba2 4,4,1,1
+cantidad_sifones=1         #POPN 20,26,74,130
+cantidad_traps=1
 
 #Obtenemos la cantidad de estados y filtramos la informacion
 for lineas in state_file.readlines() :
