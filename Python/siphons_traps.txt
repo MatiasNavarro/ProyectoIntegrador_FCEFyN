@@ -1,0 +1,5 @@
+ Minimal siphons 
+P1 P2
+ Minimal traps 
+P4
+ Analysis time: 0.0s
