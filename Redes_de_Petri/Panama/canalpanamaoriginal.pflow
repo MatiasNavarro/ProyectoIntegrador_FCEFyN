@@ -176,22 +176,6 @@
             <tokens>1</tokens>
             <isStatic>false</isStatic>
         </place>
-        <place>
-            <id>P25</id>
-            <x>204</x>
-            <y>43</y>
-            <label>P22</label>
-            <tokens>3</tokens>
-            <isStatic>false</isStatic>
-        </place>
-        <place>
-            <id>P26</id>
-            <x>-149</x>
-            <y>50</y>
-            <label>P23</label>
-            <tokens>3</tokens>
-            <isStatic>false</isStatic>
-        </place>
         <transition>
             <id>T1</id>
             <x>-428</x>
@@ -374,18 +358,6 @@
             <guard>none</guard>
             <stochasticProperties distribution="Exponential" labelVar1="Rate (λ)" labelVar2=" " var1="1.0" var2="1.0"/>
         </transition>
-        <arc>
-            <type>regular</type>
-            <sourceId>P26</sourceId>
-            <destinationId>T13</destinationId>
-            <multiplicity>1</multiplicity>
-        </arc>
-        <arc>
-            <type>regular</type>
-            <sourceId>P25</sourceId>
-            <destinationId>T1</destinationId>
-            <multiplicity>1</multiplicity>
-        </arc>
         <arc>
             <type>regular</type>
             <sourceId>P14</sourceId>
@@ -688,42 +660,6 @@
             <type>regular</type>
             <sourceId>P1</sourceId>
             <destinationId>T1</destinationId>
-            <multiplicity>1</multiplicity>
-        </arc>
-        <arc>
-            <type>regular</type>
-            <sourceId>P26</sourceId>
-            <destinationId>T1</destinationId>
-            <multiplicity>1</multiplicity>
-        </arc>
-        <arc>
-            <type>regular</type>
-            <sourceId>P25</sourceId>
-            <destinationId>T13</destinationId>
-            <multiplicity>1</multiplicity>
-        </arc>
-        <arc>
-            <type>regular</type>
-            <sourceId>T10</sourceId>
-            <destinationId>P25</destinationId>
-            <multiplicity>1</multiplicity>
-        </arc>
-        <arc>
-            <type>regular</type>
-            <sourceId>T6</sourceId>
-            <destinationId>P25</destinationId>
-            <multiplicity>1</multiplicity>
-        </arc>
-        <arc>
-            <type>regular</type>
-            <sourceId>T8</sourceId>
-            <destinationId>P26</destinationId>
-            <multiplicity>1</multiplicity>
-        </arc>
-        <arc>
-            <type>regular</type>
-            <sourceId>T4</sourceId>
-            <destinationId>P26</destinationId>
             <multiplicity>1</multiplicity>
         </arc>
     </subnet>
