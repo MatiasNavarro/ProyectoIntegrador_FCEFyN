@@ -8,8 +8,8 @@ import sys
 cantidad_estados=0
 cantidad_transiciones=0 #Panama 14,21,22,32
 cantidad_plazas=0       #Prueba2 4,4,1,1
-cantidad_sifones=2      #POPN 20,26,74,130
-cantidad_traps=1        #Prueba3 8,7,2,1
+cantidad_sifones=18      #POPN 20,26,74,130
+cantidad_traps=37        #Prueba3 8,7,2,1
 
 def fun_deadlock (matriz_es_tr,estado,sifon,matriz_sifones,matriz_es_pl):
     """ Apartir de matriz de Estados x Transiciones = [proximo estado(Tx)] 
@@ -21,27 +21,29 @@ def fun_deadlock (matriz_es_tr,estado,sifon,matriz_sifones,matriz_es_pl):
         estado -- Estado que posee Deadlock.
         cantidad_estados -- cantidad de estados que posee dicha RdP.
         cantidad_transiciones -- cantidad de transiciones que posee la RdP."""
-
     for i in range (0,cantidad_estados):
         tr_aux=-1
         cont_transiciones=0
         flag_path_deadlock=0
         for j in range (0,cantidad_transiciones):
-            if(matriz_es_tr[i][j]==estado):
+            if(matriz_es_tr[i][j]==estado): #En el estado que estoy me lleva a Deadlock?
                 flag_path_deadlock=1
                 matriz_es_tr[i][j]=-1
-                tr_aux=j
+                tr_aux=j                    #Se guarda para despues inhibirla
             if(matriz_es_tr[i][j]!=-1):
                 cont_transiciones=cont_transiciones+1
             
-        if(flag_path_deadlock==1):
-            print("ESTADO,FUNCION",estado)
-            for l in range(0,len(sifon)):
-                if(fun_sifones(i,matriz_sifones,matriz_es_pl,sifon[l])==1):
-                    print("Transicion ",tr_aux+1,"inhibir con esta cantidad de toquen ",sifon[l][1]-1)
-        if(cont_transiciones==0 and flag_path_deadlock==1):
-            fun_deadlock(matriz_es_tr,i,sifon,matriz_sifones,matriz_es_pl)       
-
+        if(cont_transiciones==0 and flag_path_deadlock==1): #Yo tambien soy deadlock
+            print("ESTADO DEADLOCK",estado)
+            fun_deadlock(matriz_es_tr,i,sifon,matriz_sifones,matriz_es_pl)  
+        else:
+            if(flag_path_deadlock==1):
+                print("ESTADO,FUNCION",estado)
+                for k in range(0,len(sifon)):
+                    if(fun_sifones(i,matriz_sifones,matriz_es_pl,sifon[k])==1): 
+                        print("Transicion ",tr_aux+1,"inhibir con esta cantidad de toquen ",sifon[k][1]-1)
+                    #No hay else, no puede estar en cero porque en ese estado no es deadlock
+                
 def fun_sifones_deadlock(estado,matriz_sifones,matriz_es_pl):
     """ Apartir de matriz de Estados x Plazas = [Marcado] 
         se recorre la fila de la matriz donde se encuentra el estado deadlock, 
@@ -54,25 +56,26 @@ def fun_sifones_deadlock(estado,matriz_sifones,matriz_es_pl):
         matriz_es_pl -- EstadosxPlazas = [Marcado para ese estado].
         cantidad_plazas -- cantidad de plazas que posee la RdP.
         cantidad_sifones -- cantidad de sifones que posee dicha RdP."""
+    print(matriz_es_pl)
 
-    print("Sifones que no se cumplen en el estado deadlock ",estado,"\n")
+    print("Sifones que no se cumplen en el estado deadlock ",estado)
     aux=np.zeros(cantidad_plazas)
     for j in range(0,cantidad_plazas):
-        if(matriz_es_pl[estado][j]>=1):
+        if(matriz_es_pl[estado][j]>=1): #Obtenemos las plazas(marcadas) del estado deadlock
             aux[j]=1
- 
+
     for i in range(0,cantidad_sifones):
         cont=0
         for j in range(0,cantidad_plazas):
-            if(int(matriz_sifones[i][j] and aux[j])==1):
-                cont=cont+1
+            if(int(matriz_sifones[i][j] and aux[j])==1): 
+                cont=cont+1             #Si el contador es distinto de cero, el sifon no esta vacio
         if(cont==0):
             marcado=0
             print("Sifon numero",i,matriz_sifones[i])
             for j in range(0,cantidad_plazas):
                 if(matriz_sifones[i][j]==1):
-                    marcado=marcado+matriz_es_pl[0][j]
-            sifon_deadlock.append([estado,i,marcado])
+                    marcado=marcado+matriz_es_pl[0][j] #Es 0 en fila, porque es el estado inicial en el que se encontraban las palzas de los sifones
+            sifon_deadlock.append([estado,i,marcado]) #Devuelve el sifon y su marcado inicial, para ese estado deadlock
 
 def fun_sifones(estado,matriz_sifones,matriz_es_pl,sifon):
     cont=0
@@ -80,8 +83,8 @@ def fun_sifones(estado,matriz_sifones,matriz_es_pl,sifon):
     for j in range(0,cantidad_plazas):
         if(matriz_es_pl[estado][j]>=1):
             aux[j]=1
-    for j in range(0,cantidad_plazas):
-        if(int(matriz_sifones[sifon[0]][j] and aux[j])==1):
+    for k in range(0,cantidad_plazas):
+        if(int(matriz_sifones[sifon[0]][k] and aux[k])==1):
                 cont=cont+1
     if(cont==0):
         return 0 #Sifon vacio
@@ -97,7 +100,7 @@ plaza_tmp_file = open("plaza.txt","w")
 #Obtenemos la cantidad de estados y filtramos la informacion
 for lineas in state_file.readlines() :
     if(len(lineas)>2):
-        if(lineas.find("R")!=-1):
+        if(lineas.find("R")!=-1): #Estado
             indice = lineas.find("S")
             estado = lineas[indice:lineas.find(" [")]
             cantidad_estados = cantidad_estados +1
@@ -105,7 +108,7 @@ for lineas in state_file.readlines() :
             plaza_tmp_file.write(lineas[indice+1:lineas.find("]")] + "\n") #Nos quedamos con el marcado para ese estado
             filtrado_prueba_file.write(estado)
             filtrado_prueba_file.write("\n")
-        elif (lineas.find("D")!=-1):
+        elif (lineas.find("D")!=-1): #Deadlock
             indice = lineas.find("S")
             estado = lineas[indice:lineas.find(" [")]
             cantidad_estados=cantidad_estados +1
@@ -113,12 +116,12 @@ for lineas in state_file.readlines() :
             filtrado_prueba_file.write("\n")
             indice = lineas.find("[")
             plaza_tmp_file.write(lineas[indice+1:lineas.find("]")] + "\n") #Nos quedamos con el marcado para ese estado
-        elif (lineas.find("p")!=-1 or lineas.find("t")!=-1):    #VER
+        elif (lineas.find("p")!=-1 or lineas.find("t")!=-1):   
             if(lineas.find("p")!=-1): #Obtenemos el numero de plazas
                 cantidad_plazas= int(lineas[lineas.find("p ")+1:lineas.find("\n")])
             else:                     #Obtenemos el numero de transiciones
                 cantidad_transiciones= int(lineas[lineas.find("t ")+1:lineas.find("\n")])
-        else:
+        else:   
             indice = lineas.find("T")
             transicion=lineas[indice:lineas.find(" [")]
             transicion=transicion.replace(" => "," ")
@@ -133,14 +136,13 @@ plaza_tmp_file.close()
 #Matriz de estados-transiciones
 matriz_es_tr =np.zeros((cantidad_estados,cantidad_transiciones)) - 1
 
-#Matriz de estados-plazas
+#Matriz de estados-plazas (Marcado)
 plaza_file = open('plaza.txt', 'r')
 matriz_es_pl = np.loadtxt('plaza.txt',delimiter=", ",dtype=int)
 plaza_file.close
 
 #Elimina archivo temporal
 os.remove("plaza.txt")
-
 #print (matriz_es_pl)
 
 #Inicializacion de matriz a partir de la información filtrada de la RdP.
@@ -183,6 +185,13 @@ for lineas in archivo.readlines() :
 
 archivo.close()
 
+print(matriz_es_pl[478][:])
+print(matriz_es_tr[478][:])
+# print(matriz_es_tr[:][len(matriz_es_tr)-2])
+# print(matriz_es_tr[1556][:])
+# print(matriz_es_tr[1317][:])
+# print(matriz_es_tr[1280][:])
+#exit()
 #print("Estados con deadlock",state_deadlock)
 # print("\n")
 # print("Estados alcanzables a partir de las respectivas transiciones:")
@@ -194,7 +203,6 @@ archivo.close()
 #hay un 1 en las plazas que conforman esos sifones o traps
 matriz_sifones =np.zeros((cantidad_sifones,cantidad_plazas))
 matriz_traps =np.zeros((cantidad_traps,cantidad_plazas))
-
 #Flag en 0 significa que es trap, en 1 que es un sifon
 flag_siphones=0
 sifones_file = open("./siphons_traps.txt","r")
@@ -210,43 +218,43 @@ for lineas in sifones_file.readlines() :
             flag_siphones=0
         else:
             if(flag_siphones==1):
-                inicio=lineas.find("\n")
+                length=lineas.find("\n")
                 indice_sifon=indice_sifon+1
-                for i in range (0,inicio+1):
+                for i in range (0,length+1):
                     if(lineas[i].find("P")!=-1):
                         indice1=i
                     if(lineas[i].find(" ")!=-1 or lineas[i].find("\n")!=-1):
                         indice2=i
                         matriz_sifones[indice_sifon][int(lineas[indice1+1:indice2])-1]=1
             if(flag_siphones==0):
-                inicio=lineas.find("\n")
+                length=lineas.find("\n")
                 indice_traps=indice_traps+1
-                for i in range (0,inicio+1):
+                for i in range (0,length+1):
                     if(lineas[i].find("P")!=-1):
                         indice1=i
                     if(lineas[i].find(" ")!=-1 or lineas[i].find("\n")!=-1):
                         indice2=i
                         matriz_traps[indice_traps][int(lineas[indice1+1:indice2])-1]=1
-
 sifones_file.close()
 
 sifon_deadlock=[] #Estado_deadlock-sifon
 sifon_deadlock_m=[] #Sifon-marcado
 
-print(matriz_es_tr)
 #Llamada recursiva a fun_deadlock en busqueda de caminos que dirigen al deadlock
 for i in range (0, len(state_deadlock)):
     fun_sifones_deadlock(state_deadlock[i],matriz_sifones,matriz_es_pl)
 print("Estados con deadlock",state_deadlock)
+
 print("Estado deadlock,sifon,marcado del sifon ",sifon_deadlock)
+
 for i in range (0, len(state_deadlock)):    
     aux_sifon_deadlock=[]
     for j in range(0,len(sifon_deadlock)):
-        if(state_deadlock[i]==sifon_deadlock[j][0]):
-            aux_sifon_deadlock.append([sifon_deadlock[j][1],sifon_deadlock[j][2]])
+        if(state_deadlock[i]==sifon_deadlock[j][0]): #Busca que sifones no se cumplen en ese estado
+            aux_sifon_deadlock.append([sifon_deadlock[j][1],sifon_deadlock[j][2]]) #Guarda en un auxiliar los sifones y sus marcados
     print(aux_sifon_deadlock)
     fun_deadlock(matriz_es_tr,state_deadlock[i],aux_sifon_deadlock,matriz_sifones,matriz_es_pl)
-exit()
+
 
 # print("Estados alcanzables a partir de las respectivas transiciones, sin deadlock")
 # print (matriz)
