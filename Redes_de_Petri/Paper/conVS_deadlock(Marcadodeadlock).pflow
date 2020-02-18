@@ -13,7 +13,7 @@
             <x>-375</x>
             <y>23</y>
             <label>P1</label>
-            <tokens>3</tokens>
+            <tokens>1</tokens>
             <isStatic>false</isStatic>
         </place>
         <place>
@@ -53,7 +53,7 @@
             <x>-129</x>
             <y>-105</y>
             <label>P6</label>
-            <tokens>0</tokens>
+            <tokens>2</tokens>
             <isStatic>false</isStatic>
         </place>
         <place>
@@ -61,7 +61,7 @@
             <x>47</x>
             <y>-111</y>
             <label>P7</label>
-            <tokens>2</tokens>
+            <tokens>0</tokens>
             <isStatic>false</isStatic>
         </place>
         <place>
@@ -101,7 +101,7 @@
             <x>357</x>
             <y>59</y>
             <label>P12</label>
-            <tokens>3</tokens>
+            <tokens>1</tokens>
             <isStatic>false</isStatic>
         </place>
         <place>
@@ -117,7 +117,7 @@
             <x>52</x>
             <y>206</y>
             <label>P14</label>
-            <tokens>2</tokens>
+            <tokens>0</tokens>
             <isStatic>false</isStatic>
         </place>
         <place>
@@ -125,7 +125,7 @@
             <x>234</x>
             <y>202</y>
             <label>P15</label>
-            <tokens>0</tokens>
+            <tokens>2</tokens>
             <isStatic>false</isStatic>
         </place>
         <place>
@@ -133,7 +133,7 @@
             <x>54</x>
             <y>-20</y>
             <label>P16</label>
-            <tokens>2</tokens>
+            <tokens>0</tokens>
             <isStatic>false</isStatic>
         </place>
         <place>
@@ -141,7 +141,7 @@
             <x>49</x>
             <y>136</y>
             <label>P17</label>
-            <tokens>2</tokens>
+            <tokens>0</tokens>
             <isStatic>false</isStatic>
         </place>
         <place>
@@ -149,7 +149,7 @@
             <x>47</x>
             <y>-223</y>
             <label>P18</label>
-            <tokens>4</tokens>
+            <tokens>0</tokens>
             <isStatic>false</isStatic>
         </place>
         <transition>
