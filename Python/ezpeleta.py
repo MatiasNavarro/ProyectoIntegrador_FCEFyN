@@ -160,7 +160,7 @@ os.remove("plaza.txt")
 #Cargando en la misma, para cada Estado(fila) en su respectiva interseccion con Transicion(columna)
 #el estado siguiente al que se llega a partir del disparo de dicha transicion.
 #Con: 
-#   un -1 si la transicion no esta sensibilizada para dicho estado,
+##   un -1 si la transicion no esta sensibilizada para dicho estado,
 #   el estado_siguiente(nro!=-1) al que se llega a partir del disparo
 #
 # Ademas se detectan aquellos estados que poseen Deadlock
