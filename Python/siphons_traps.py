@@ -67,7 +67,7 @@ def clean_file(text):
     f1 = open('siphons_traps.txt.tmp', 'r')
     f2 = open('siphons_traps.txt', 'w')
     for line in f1:
-        f2.write(line)
+        f2.write(line.replace('P', ''))
     f1.close()
     f2.close()
 
