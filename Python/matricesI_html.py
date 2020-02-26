@@ -79,32 +79,32 @@ def clean_file(text):
     #Elimina archivo temporal
     os.remove("matricesI.txt.tmp")
 
+def main():
+    # Abre un archivo html a partir del path indicado por consola, y lo carga en un archivo
+    # BeatifulSoup para extraer los datos html de dicho archivo.
+    archivo = input("Path del archivo de Matrices I(html): ")
+    html = open(archivo,'r')
+    soup = BeautifulSoup(html,'lxml')
 
-# Abre un archivo html a partir del path indicado por consola, y lo carga en un archivo
-# BeatifulSoup para extraer los datos html de dicho archivo.
-archivo = input("Path del archivo (html): ")
-html = open(archivo,'r')
-soup = BeautifulSoup(html,'lxml')
+    # Elimina todos elementos de estilo
+    for script in soup(["style"]):
+        script.extract()
 
-# Elimina todos elementos de estilo
-for script in soup(["style"]):
-    script.extract()
-
-# Obtener texto del archivo BeautifulSoup
-text = soup.get_text(separator='\n', strip=True)
+    # Obtener texto del archivo BeautifulSoup
+    text = soup.get_text(separator='\n', strip=True)
 
 
-# break into lines and remove leading and trailing space on each
-# Elimina los saltos de lina y los espacios al principio y al final de cada línea
-lines = (line.strip() for line in text.split("\n"))
+    # break into lines and remove leading and trailing space on each
+    # Elimina los saltos de lina y los espacios al principio y al final de cada línea
+    lines = (line.strip() for line in text.split("\n"))
 
-# break multi-headlines into a line each
-# Separa varios encabezados en cada linea
-chunks = (phrase.strip() for line in lines for phrase in line.split("  "))
+    # break multi-headlines into a line each
+    # Separa varios encabezados en cada linea
+    chunks = (phrase.strip() for line in lines for phrase in line.split("  "))
 
-# drop blank lines
-# Elimina líneas en blanco
-text = '\n'.join(chunk for chunk in chunks if chunk)
+    # drop blank lines
+    # Elimina líneas en blanco
+    text = '\n'.join(chunk for chunk in chunks if chunk)
 
-#Llamada a la funcion clean_file()
-clean_file(text)
+    #Llamada a la funcion clean_file()
+    clean_file(text)

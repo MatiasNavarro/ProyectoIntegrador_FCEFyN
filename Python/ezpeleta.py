@@ -3,6 +3,7 @@ import numpy as np
 import time
 import re
 import sys
+import html_txt_all as hta 
 
 # Inicializacion de parametros globales
 cantidad_estados=0
@@ -102,6 +103,9 @@ def fun_sifones_deadlock(estado,matriz_sifones,matriz_es_pl,idle):
                     sifon_deadlock.append([estado,i,marcado]) #Devuelve el sifon y su marcado inicial, para ese estado deadlock
             else:
                 sifon_idle.append[i]
+
+#Conversion de archivos html a txt
+hta.main()
 
 #Apertura de archivos resultantes de la conversion de archivos .html to .txt 
 # obtenidos del SW Petrinator, para su siguiente manipulacion y filtrado.
