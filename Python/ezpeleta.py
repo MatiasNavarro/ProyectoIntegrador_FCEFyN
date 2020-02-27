@@ -45,27 +45,40 @@ def supervisor(sifon,matriz_pos,matriz_pre,matriz_sifones):
 
     #Transiciones que salen del estado idle, le quitan tokens a los supervisores
     #estas se encuentran en el estado inicial (0) y son las transiciones
-    #que son distintan de -1 en la matriz matriz_es_tr (estado-transicion)
+    #que son distintan de -1 en la matriz matriz_es_tr (estado-transicion) --> Transiciones 1 de Ezpeleta
     for ii in range(cantidad_transiciones):
         if(matriz_es_tr[0][ii]!=-1):
             print("Transicion output: ",ii+1) #+1 Por problemas de indice en petrinator empieza en 1
             trans_idle.append(ii)
-    tran_sifon=np.zeros(cantidad_transiciones)
-    plazas_sifon=matriz_sifones[sifon[1]]
-    #print(plazas_sifon)
+
+    tran_sifon=np.zeros(cantidad_transiciones) #Vector que indica que transiciones sacan/ponen tokens en el sifon
+
+    plazas_sifon=np.copy(matriz_sifones[sifon[1]]) #Las plazas que componen nuestro sifon
+
+    #Localizamos transiciones que colocan tokens al supervisor-->Transiciones 2 de Ezpeleta
     for i in range(0,cantidad_plazas):
         if(plazas_sifon[i]==1): #Es una plaza del sifon
             for j in range(0,cantidad_transiciones):
                 if(int(matriz_pre[i][j])==1):
                     tran_sifon[j]=tran_sifon[j]-1 #Le quita tokens al sifon
                 if(int(matriz_pos[i][j])==1):
-                    tran_sifon[j]=tran_sifon[j]+1 #Le quita tokens al sifon
+                    tran_sifon[j]=tran_sifon[j]+1 #Le agrega tokens al sifon
     
     for i in range(0,cantidad_transiciones):
         if(tran_sifon[i]>0):
-            print("Transicion input:", i+1)
+            print("Transicion input:", i+1) #Petrinator empieza en 1 y no en cero por eso el +1
+    
+    plazas_sifon_complemento=np.copy(plazas_sifon) #Usado para calcular la 3er transicion de Ezpeleta
 
-    trans_pla_idle=[]
+    #Obtenemos los complementos
+    for i in range(0,len(tran_sifon)):
+        if(tran_sifon[i]>0):
+            for j in range(0,cantidad_plazas):
+                if(int(matriz_pre[j][i])==1):#son las plazas que habilitan transiciones que agregan mas 
+                                             #tokens de los que sacan del sifon.
+                    plazas_sifon_complemento[j]=1
+
+    trans_pla_idle=[] #Transicion idle y la/s plaza/s a la/s que le pone tokens
     for i in range(0,len(trans_idle)):
         p_idle=[]
         for j in range (0,cantidad_plazas):
@@ -73,36 +86,47 @@ def supervisor(sifon,matriz_pos,matriz_pre,matriz_sifones):
                 p_idle.append(int(j))
         trans_pla_idle.append([trans_idle[i],p_idle])
     
-    print(trans_pla_idle)
+    t_invariant=[[1,1,0,0,0,0,0,0,0,0,1],[1,0,1,1,1,1,0,0,0,0,0],[0,0,0,0,0,0,1,1,1,1,0]]
+  
+    #print("Transicion idle y la/s plaza/s a la/s que le pone tokens", trans_pla_idle)
     for i in range(0,len(trans_pla_idle)):
+        pla_trans=[]
         for j in range(0,len(trans_pla_idle[i][1])):
             for k in range(0,cantidad_transiciones):
                 if((int(matriz_pre[trans_pla_idle[i][1][j]][k])==1)):
-                    print(k)
+                    pla_trans.append(k) #transiciones a la que la plaza habilita
+        if(len(pla_trans)>1): #Esta en conflicto, ya que habilita a mas de 1 transicion
+            #print("Plaza", trans_pla_idle[i][1]) #Petrinator empieza en 1 y no en cero por eso el +1
+            #print("Transiciones en conflicto que plaza esa habilita: ",pla_trans) #Petrinator empieza en 1 y no en cero por eso el +1
+            for ii in range(0,len(pla_trans)):
+                flag_sifon=0
+                for jj in range(0,len(t_invariant)):
+                    if(int(t_invariant[jj][pla_trans[ii]])==1): #La T en conflicto forma parte del T invariante?
+                        aux_t=np.copy(t_invariant[jj])  #Guardamos el T invatiante
+                        for aa in range(0,len(aux_t)):
+                            if(int(aux_t[aa])==1): #Buscamos la T que forma parte del T-invariante
+                                for bb in range(0,len(matriz_pos)):
+                                    if(int(matriz_pos[bb][aa])==1):
+                                        if(int(plazas_sifon_complemento[bb])==1): #La T alimenta a alguna plaza del sifon'
+                                            flag_sifon=1
+
+                if(flag_sifon==0):                                 
+                    print("Transicion input:",int(pla_trans[ii])+1)
+                #else:
+                 #   print("ESTA TRANSICION FORMA PARTE DEL CAMINO DEL SIFON:",int(pla_trans[ii])+1)
+
+        #else:
+         #   print("Plaza", trans_pla_idle[i][1]) #Petrinator empieza en 1 y no en cero por eso el +1
+          #  print("Transiciones que no estan en conflicto que plaza esa habilita: ",pla_trans)
+
 
     #YA TENEMOS LAS TRANSICIONES EN CONFLICTO
     # VER SI HAY MAS DE UNA, DE HABER MAS DE UNA -> NOS INTERESA PORQUE HAY CONFLICTO
     # VER SI ALGUNA DE ESAS NO VA A UN SIFON/COMPLEMENTO DEL MISMO
     # DE SER ASI, ESTA TRANSICION ALIMENTA AL SUPERVISOR
 
-
-    # print("Transiciones idle", trans_idle)
-    # for i in range (0,len(trans_idle)):
-    #     flag=0
-    #     for j in range (0,cantidad_plazas):
-    #         if(int(matriz_pos[j][trans_idle[i]])!=0):
-    #             if(flag==0):
-    #                 aux_idle.append(list([trans_idle[i],j]))
-    #                 flag=1
-    #             else:
-    #                 list(aux_idle[i][1].append(j)
-    
-    # print(aux_idle)
-
     exit()
 
-
-                
 
 def fun_sifones_deadlock(estado,matriz_sifones,matriz_es_pl,idle):
     """ Devuelve los sifones que se vacian en ese estado de deadlock
@@ -304,10 +328,15 @@ print("Estados con deadlock",state_deadlock)
 print("Estado deadlock, sifon asociado al deadlock y su marcado",sifon_deadlock)
 
 #Nos quedamos con un solo sifon
-sifon=sifon_deadlock[0]
+sifon=np.copy(sifon_deadlock[0])
 
 #AGREGADO DE SUPERVISOR
 supervisor(sifon,matriz_pos,matriz_pre,matriz_sifones)
 
 #Elimina archivo temporal
 os.remove("filtrado_prueba.txt")
+
+##
+# 1-obtener t-invariantes
+# 2-calcular los bad-siphons
+##
