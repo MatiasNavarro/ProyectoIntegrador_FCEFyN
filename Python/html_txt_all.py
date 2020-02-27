@@ -1,8 +1,8 @@
-import html_to_txt as htt
+import state_deadlock as sd
 import matricesI_html as mih
 import siphons_traps as st
 
 def main():
-    htt.main()
+    sd.main()
     mih.main()
     st.main()

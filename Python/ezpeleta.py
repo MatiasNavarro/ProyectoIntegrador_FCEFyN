@@ -38,6 +38,7 @@ def matriz(cantidad_plazas,cantidad_transiciones):
     return matriz_I_pos,matriz_I_neg
 
 def supervisor(sifon,matriz_pos,matriz_pre,matriz_sifones):
+    trans_idle=[]
     #Marcado del supervisor
     print("Sifon a controlar: ",sifon[1])
     print("Marcado del supervisor",sifon[2]-1) #Es la posicion 2 debido que el sifon esta declarado estado deadlock[0], numero sifon[1], marcado sifon[2]
@@ -47,8 +48,8 @@ def supervisor(sifon,matriz_pos,matriz_pre,matriz_sifones):
     #que son distintan de -1 en la matriz matriz_es_tr (estado-transicion)
     for ii in range(cantidad_transiciones):
         if(matriz_es_tr[0][ii]!=-1):
-            print("Transicion output: ",ii+1)
-    
+            print("Transicion output: ",ii+1) #+1 Por problemas de indice en petrinator empieza en 1
+            trans_idle.append(ii)
     tran_sifon=np.zeros(cantidad_transiciones)
     plazas_sifon=matriz_sifones[sifon[1]]
     #print(plazas_sifon)
@@ -63,6 +64,44 @@ def supervisor(sifon,matriz_pos,matriz_pre,matriz_sifones):
     for i in range(0,cantidad_transiciones):
         if(tran_sifon[i]>0):
             print("Transicion input:", i+1)
+
+    trans_pla_idle=[]
+    for i in range(0,len(trans_idle)):
+        p_idle=[]
+        for j in range (0,cantidad_plazas):
+            if(int(matriz_pos[j][trans_idle[i]])!=0):
+                p_idle.append(int(j))
+        trans_pla_idle.append([trans_idle[i],p_idle])
+    
+    print(trans_pla_idle)
+    for i in range(0,len(trans_pla_idle)):
+        for j in range(0,len(trans_pla_idle[i][1])):
+            for k in range(0,cantidad_transiciones):
+                if((int(matriz_pre[trans_pla_idle[i][1][j]][k])==1)):
+                    print(k)
+
+    #YA TENEMOS LAS TRANSICIONES EN CONFLICTO
+    # VER SI HAY MAS DE UNA, DE HABER MAS DE UNA -> NOS INTERESA PORQUE HAY CONFLICTO
+    # VER SI ALGUNA DE ESAS NO VA A UN SIFON/COMPLEMENTO DEL MISMO
+    # DE SER ASI, ESTA TRANSICION ALIMENTA AL SUPERVISOR
+
+
+    # print("Transiciones idle", trans_idle)
+    # for i in range (0,len(trans_idle)):
+    #     flag=0
+    #     for j in range (0,cantidad_plazas):
+    #         if(int(matriz_pos[j][trans_idle[i]])!=0):
+    #             if(flag==0):
+    #                 aux_idle.append(list([trans_idle[i],j]))
+    #                 flag=1
+    #             else:
+    #                 list(aux_idle[i][1].append(j)
+    
+    # print(aux_idle)
+
+    exit()
+
+
                 
 
 def fun_sifones_deadlock(estado,matriz_sifones,matriz_es_pl,idle):
@@ -219,8 +258,6 @@ for line in pasi:
             cantidad_traps = aux_t -1
 
 pasi.seek(0)
-# print("Sifones = ",cantidad_sifones)
-# print("Trampas = ",cantidad_traps)
 
 siphons = np.loadtxt(pasi,delimiter=' '' ',skiprows=1,max_rows=cantidad_sifones, dtype=bytes).astype(str)
 traps = np.loadtxt(pasi,delimiter=' '' ',skiprows=1,max_rows=cantidad_traps, dtype=bytes).astype(str)
@@ -235,14 +272,6 @@ for i in range(len(traps)):
 
 siphons = aux_si
 traps = aux_tr
-# print("Sifones")
-# for i in range(0,len(siphons)):
-#     print(siphons[i])
-
-# print("Trampas")
-# for i in range(0,len(traps)):
-#     print(traps[i])
-
 
 #Creamos la matriz que representa por fila la cantidad de sifones o traps y por columna plazas
 #hay un 1 en las plazas que conforman esos sifones o traps
@@ -258,54 +287,7 @@ for i in range(0,len(traps)):
         matriz_traps[i][int(traps[i][j])-1]=1
         
 
-# #Flag en 0 significa que es trap, en 1 que es un sifon
-# flag_siphones=0
-# sifones_file = open("./siphons_traps.txt","r")
-# indice_sifon=-1
-# indice_traps=-1
-
-# #Llena las matrices de sifones y traps
-# for lineas in sifones_file.readlines() :
-#     if(len(lineas)>2):
-#         if(lineas.find("siphons")!=-1):
-#             flag_siphones=1
-#         elif(lineas.find("traps")!=-1):
-#             flag_siphones=0
-#         else:
-#             if(flag_siphones==1):
-#                 length=lineas.find("\n")
-#                 indice_sifon=indice_sifon+1
-#                 for i in range (0,length+1):
-#                     if(lineas[i].find("P")!=-1):
-#                         indice1=i
-#                     if(lineas[i].find(" ")!=-1 or lineas[i].find("\n")!=-1):
-#                         indice2=i
-#                         matriz_sifones[indice_sifon][int(lineas[indice1+1:indice2])-1]=1
-#             if(flag_siphones==0):
-#                 length=lineas.find("\n")
-#                 indice_traps=indice_traps+1
-#                 for i in range (0,length+1):
-#                     if(lineas[i].find("P")!=-1):
-#                         indice1=i
-#                     if(lineas[i].find(" ")!=-1 or lineas[i].find("\n")!=-1):
-#                         indice2=i
-#                         matriz_traps[indice_traps][int(lineas[indice1+1:indice2])-1]=1
-# sifones_file.close()
-
-
 (matriz_pos,matriz_pre)=matriz(cantidad_plazas,cantidad_transiciones)
-
-# print(matriz_pos)
-
-# print(matriz_pre)
-
-# print(matriz_es_pl)
-
-# print(matriz_es_tr)
-
-# print(matriz_sifones)
-
-# print(state_deadlock)
 
 sifon_idle=[] #Estado_idle sifon
 sifon_deadlock=[] #Estado_deadlock-sifon-marcado

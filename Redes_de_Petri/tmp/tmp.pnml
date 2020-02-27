@@ -9,7 +9,7 @@
                     </graphics>
                 </name>
                 <initialMarking>
-                    <text>3</text>
+                    <text>1</text>
                 </initialMarking>
                 <graphics>
                     <position x="16" y="363"/>
@@ -79,7 +79,7 @@
                     </graphics>
                 </name>
                 <initialMarking>
-                    <text>0</text>
+                    <text>2</text>
                 </initialMarking>
                 <graphics>
                     <position x="262" y="235"/>
@@ -93,7 +93,7 @@
                     </graphics>
                 </name>
                 <initialMarking>
-                    <text>2</text>
+                    <text>0</text>
                 </initialMarking>
                 <graphics>
                     <position x="360" y="232"/>
@@ -135,7 +135,7 @@
                     </graphics>
                 </name>
                 <initialMarking>
-                    <text>1</text>
+                    <text>0</text>
                 </initialMarking>
                 <graphics>
                     <position x="354" y="375"/>
@@ -149,7 +149,7 @@
                     </graphics>
                 </name>
                 <initialMarking>
-                    <text>0</text>
+                    <text>1</text>
                 </initialMarking>
                 <graphics>
                     <position x="475" y="390"/>
@@ -163,7 +163,7 @@
                     </graphics>
                 </name>
                 <initialMarking>
-                    <text>3</text>
+                    <text>2</text>
                 </initialMarking>
                 <graphics>
                     <position x="594" y="392"/>
