@@ -12,7 +12,98 @@ cantidad_plazas=0       #Prueba2 4,4,1,1
 cantidad_sifones=0      #POPN 20,26,74,130
 cantidad_traps=0        #Prueba3 8,7,2,1
 
-def matriz(cantidad_plazas,cantidad_transiciones):
+def siphones_traps(cantidad_plazas):
+    """ Devuelve una matriz de [sifones x plazas] y otra de [trampas x plazas]. Tambien devuelve cantidad de sifones y de trampas
+    Parametros:\n
+        cantidad_plazas
+    """
+    #Apertura de archivos resultantes de la conversion de archivos .html to .txt 
+    # obtenidos del SW Petrinator, para su siguiente manipulacion y filtrado.
+    pasi = open("./siphons_traps.txt","r")
+    i = 0 
+    aux_s = 0
+    aux_t = 0
+
+    for line in pasi:
+        i=i+1
+        if(i>1):
+            aux_s = aux_s + 1
+            aux_t = aux_t + 1 
+            if(line.find("Minimal traps")==1):
+                cantidad_sifones = aux_s - 1
+                aux_t = 0
+            if(line.find("Analysis")==1):
+                cantidad_traps = aux_t -1
+
+    pasi.seek(0)
+
+    siphons = np.loadtxt(pasi,delimiter=' '' ',skiprows=1,max_rows=cantidad_sifones, dtype=bytes).astype(str)
+    traps = np.loadtxt(pasi,delimiter=' '' ',skiprows=1,max_rows=cantidad_traps, dtype=bytes).astype(str)
+
+    aux_si = []
+    aux_tr = []
+    for i in range(len(siphons)):
+        aux_si.append(siphons[i].split(" "))
+
+    for i in range(len(traps)):
+        aux_tr.append(traps[i].split(" "))
+
+    siphons = aux_si
+    traps = aux_tr
+
+    #Creamos la matriz que representa por fila la cantidad de sifones o traps y por columna plazas
+    #hay un 1 en las plazas que conforman esos sifones o traps
+    matriz_sifones =np.zeros((cantidad_sifones,cantidad_plazas))
+    matriz_traps =np.zeros((cantidad_traps,cantidad_plazas))
+
+    for i in range(0,len(siphons)):
+        for j in range(0,len(siphons[i])):
+            matriz_sifones[i][int(siphons[i][j])-1]=1
+        
+    for i in range(0,len(traps)):
+        for j in range(0,len(traps[i])):
+            matriz_traps[i][int(traps[i][j])-1]=1
+
+    return matriz_sifones,matriz_traps,cantidad_sifones,cantidad_traps
+
+def invariantes(cantidad_transiciones):
+    """ Devuelve la matriz de invariantes de transicion, mediante la apertura de un archivo txt previamente convertido.
+    Parametros:\n
+        cantidad_transiciones
+    """
+    file = open('invariante.txt', 'r')
+    cont = 0
+    TInvariantes = []
+    PInvariantes = []
+    for line in file:
+        if(cont==0):
+            TInvariantes = line
+            cont = cont + 1
+        elif(cont==1):
+            PInvariantes = line
+            cont = cont + 1
+
+    aux_I = TInvariantes.split(' ')
+    TInvariantes = [] 
+    for i in range (cantidad_transiciones, len(aux_I)-2):
+        TInvariantes.append(aux_I[i])
+
+    M_TI = np.zeros((int(len(TInvariantes)/cantidad_transiciones), cantidad_transiciones))
+    m = 0
+    for i in range ((int(len(TInvariantes)/cantidad_transiciones))):
+        for j in range (cantidad_transiciones):
+            M_TI[i][j] = TInvariantes[m]
+            m = m + 1
+    
+    return M_TI
+
+
+def matriz_pre_pos(cantidad_plazas,cantidad_transiciones):
+    """ Obtiene la matriz pre y post a partir de un archivo txt previamente convertido
+    Parametros: \n
+        cantidad_plazas 
+        cantidad_transiciones
+    """
     #Apertura de archivos resultantes de la conversion de archivos .html to .txt 
     # obtenidos del SW Petrinator, para su siguiente manipulacion y filtrado.
     matriz_I = open("./matricesI.txt","r")
@@ -37,7 +128,18 @@ def matriz(cantidad_plazas,cantidad_transiciones):
 
     return matriz_I_pos,matriz_I_neg
 
-def supervisor(sifon,matriz_pos,matriz_pre,matriz_sifones):
+def supervisor(cantidad_transiciones,cantidad_plazas,sifon,matriz_es_tr,matriz_pos,matriz_pre,matriz_sifones,t_invariant):
+    """ Define el supervisor que va a controlar el bad-sifon. Esta funcion define las transiciones de entrada y salida de esta plaza
+    Parametros: \n
+        cantidad_transiciones
+        cantidad_plazas 
+        sifon -- bad sifon a controlar. Compuesto por 3 elementos: estado deadlock[0], numero sifon[1], marcado sifon[2]
+        matriz_es_tr -- [estado x transiciones]
+        matriz_pos
+        matriz_pre
+        matriz_sifones
+        t_invariant 
+    """
     trans_idle=[]
     #Marcado del supervisor
     print("Sifon a controlar: ",sifon[1])
@@ -86,8 +188,6 @@ def supervisor(sifon,matriz_pos,matriz_pre,matriz_sifones):
                 p_idle.append(int(j))
         trans_pla_idle.append([trans_idle[i],p_idle])
     
-    t_invariant=[[1,1,0,0,0,0,0,0,0,0,1],[1,0,1,1,1,1,0,0,0,0,0],[0,0,0,0,0,0,1,1,1,1,0]]
-  
     #print("Transicion idle y la/s plaza/s a la/s que le pone tokens", trans_pla_idle)
     for i in range(0,len(trans_pla_idle)):
         pla_trans=[]
@@ -120,14 +220,6 @@ def supervisor(sifon,matriz_pos,matriz_pre,matriz_sifones):
           #  print("Transiciones que no estan en conflicto que plaza esa habilita: ",pla_trans)
 
 
-    #YA TENEMOS LAS TRANSICIONES EN CONFLICTO
-    # VER SI HAY MAS DE UNA, DE HABER MAS DE UNA -> NOS INTERESA PORQUE HAY CONFLICTO
-    # VER SI ALGUNA DE ESAS NO VA A UN SIFON/COMPLEMENTO DEL MISMO
-    # DE SER ASI, ESTA TRANSICION ALIMENTA AL SUPERVISOR
-
-    exit()
-
-
 def fun_sifones_deadlock(estado,matriz_sifones,matriz_es_pl,idle):
     """ Devuelve los sifones que se vacian en ese estado de deadlock
         Apartir de matriz de Estados x Plazas = [Marcado] 
@@ -140,7 +232,7 @@ def fun_sifones_deadlock(estado,matriz_sifones,matriz_es_pl,idle):
         matriz_sifones -- [Marcado de plazas que componen el sifon]
         matriz_es_pl -- EstadosxPlazas = [Marcado para ese estado]."""
 
-    print("Sifones que no se cumplen en el estado deadlock ",estado)
+   # print("Sifones que no se cumplen en el estado deadlock ",estado)
     aux=np.zeros(cantidad_plazas)
     flag_sifon_idle=0
     for j in range(0,cantidad_plazas):
@@ -154,7 +246,7 @@ def fun_sifones_deadlock(estado,matriz_sifones,matriz_es_pl,idle):
                 cont=cont+1             #Si el contador es distinto de cero, el sifon no esta vacio
         if(cont==0):
             marcado=0
-            print("Sifon numero",i,matriz_sifones[i])
+            #print("Sifon numero",i,matriz_sifones[i])
             for j in range(0,cantidad_plazas):
                 if(matriz_sifones[i][j]==1):
                     marcado=marcado+matriz_es_pl[0][j] #Es 0 en fila, porque es el estado inicial en el que se encontraban las plazas de los sifones
@@ -263,55 +355,9 @@ for lineas in archivo.readlines() :
 
 archivo.close()
 
-#Apertura de archivos resultantes de la conversion de archivos .html to .txt 
-# obtenidos del SW Petrinator, para su siguiente manipulacion y filtrado.
-pasi = open("./siphons_traps.txt","r")
-i = 0 
-aux_s = 0
-aux_t = 0
+(matriz_sifones,matriz_traps,cantidad_sifones,cantidad_traps)=siphones_traps(cantidad_plazas)
 
-for line in pasi:
-    i=i+1
-    if(i>1):
-        aux_s = aux_s + 1
-        aux_t = aux_t + 1 
-        if(line.find("Minimal traps")==1):
-            cantidad_sifones = aux_s - 1
-            aux_t = 0
-        if(line.find("Analysis")==1):
-            cantidad_traps = aux_t -1
-
-pasi.seek(0)
-
-siphons = np.loadtxt(pasi,delimiter=' '' ',skiprows=1,max_rows=cantidad_sifones, dtype=bytes).astype(str)
-traps = np.loadtxt(pasi,delimiter=' '' ',skiprows=1,max_rows=cantidad_traps, dtype=bytes).astype(str)
-
-aux_si = []
-aux_tr = []
-for i in range(len(siphons)):
-    aux_si.append(siphons[i].split(" "))
-
-for i in range(len(traps)):
-    aux_tr.append(traps[i].split(" "))
-
-siphons = aux_si
-traps = aux_tr
-
-#Creamos la matriz que representa por fila la cantidad de sifones o traps y por columna plazas
-#hay un 1 en las plazas que conforman esos sifones o traps
-matriz_sifones =np.zeros((cantidad_sifones,cantidad_plazas))
-matriz_traps =np.zeros((cantidad_traps,cantidad_plazas))
-
-for i in range(0,len(siphons)):
-    for j in range(0,len(siphons[i])):
-        matriz_sifones[i][int(siphons[i][j])-1]=1
-    
-for i in range(0,len(traps)):
-    for j in range(0,len(traps[i])):
-        matriz_traps[i][int(traps[i][j])-1]=1
-        
-
-(matriz_pos,matriz_pre)=matriz(cantidad_plazas,cantidad_transiciones)
+(matriz_pos,matriz_pre)=matriz_pre_pos(cantidad_plazas,cantidad_transiciones)
 
 sifon_idle=[] #Estado_idle sifon
 sifon_deadlock=[] #Estado_deadlock-sifon-marcado
@@ -327,16 +373,43 @@ for i in range (0, len(state_deadlock)):
 print("Estados con deadlock",state_deadlock)
 print("Estado deadlock, sifon asociado al deadlock y su marcado",sifon_deadlock)
 
+sifones_not_bad=np.zeros(len(matriz_sifones))
+for ii in range (0, len(matriz_traps)):
+    for kk in range(0,len(matriz_sifones)):
+        indice_plazas=0
+        for jj in range (0,cantidad_plazas):
+            if(matriz_traps[ii][jj]==1):
+                if(matriz_sifones[kk][jj]==1):
+                    indice_plazas=indice_plazas+1
+        if(indice_plazas==np.sum(matriz_traps[ii])):
+            sifones_not_bad[kk]=1
+
+for i in range(0, len(sifones_not_bad)):
+    flag=0
+    if(sifones_not_bad[i]==0): #Es un bad siphon
+        for j in range(0, len(sifon_deadlock)):
+            if(flag!=1):
+                if(i==sifon_deadlock[j][1]): #Este bad siphon se vacia en deadlock? No hace falta agregarlo ya lo tenemos, en caso de no tenerlo agregarlo para controlarlo
+                    flag=1
+        if(flag==0): #No estaba incluido antes
+            marcado=0
+            for j in range(0,cantidad_plazas):
+                if(matriz_sifones[i][j]==1):
+                    marcado=marcado+matriz_es_pl[0][j] #Es 0 en fila, porque es el estado inicial en el que se encontraban las plazas de los sifones
+            if(marcado!=0):
+                sifon_deadlock.append(["inanicion",i,marcado])
+
+print(sifon_deadlock)
 #Nos quedamos con un solo sifon
 sifon=np.copy(sifon_deadlock[0])
 
-#AGREGADO DE SUPERVISOR
-supervisor(sifon,matriz_pos,matriz_pre,matriz_sifones)
+#Obtenemos T-invariantes
+t_invariant=invariantes(cantidad_transiciones)
+
+#Agregamos el supervisor del bad-sifon
+supervisor(cantidad_transiciones,cantidad_plazas,sifon,matriz_es_tr,matriz_pos,matriz_pre,matriz_sifones,t_invariant)
 
 #Elimina archivo temporal
 os.remove("filtrado_prueba.txt")
+exit()
 
-##
-# 1-obtener t-invariantes
-# 2-calcular los bad-siphons
-##
