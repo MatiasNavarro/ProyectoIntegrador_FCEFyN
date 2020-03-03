@@ -13,7 +13,7 @@
             <x>518</x>
             <y>-24</y>
             <label>P1</label>
-            <tokens>3</tokens>
+            <tokens>1</tokens>
             <isStatic>false</isStatic>
         </place>
         <place>
@@ -82,8 +82,8 @@
         </place>
         <place>
             <id>P10</id>
-            <x>246</x>
-            <y>245</y>
+            <x>238</x>
+            <y>258</y>
             <label>P10</label>
             <tokens>1</tokens>
             <isStatic>false</isStatic>
@@ -114,16 +114,16 @@
         </place>
         <place>
             <id>P14</id>
-            <x>-12</x>
-            <y>-34</y>
+            <x>23</x>
+            <y>-29</y>
             <label>P14</label>
             <tokens>1</tokens>
             <isStatic>false</isStatic>
         </place>
         <place>
             <id>P15</id>
-            <x>-19</x>
-            <y>200</y>
+            <x>-22</x>
+            <y>194</y>
             <label>P15</label>
             <tokens>0</tokens>
             <isStatic>false</isStatic>
@@ -134,14 +134,6 @@
             <y>-252</y>
             <label>P16</label>
             <tokens>0</tokens>
-            <isStatic>false</isStatic>
-        </place>
-        <place>
-            <id>P17</id>
-            <x>-20</x>
-            <y>303</y>
-            <label>P17</label>
-            <tokens>3</tokens>
             <isStatic>false</isStatic>
         </place>
         <place>
@@ -213,7 +205,15 @@
             <x>-477</x>
             <y>-25</y>
             <label>P26</label>
-            <tokens>3</tokens>
+            <tokens>1</tokens>
+            <isStatic>false</isStatic>
+        </place>
+        <place>
+            <id>P17</id>
+            <x>-20</x>
+            <y>303</y>
+            <label>P17</label>
+            <tokens>1</tokens>
             <isStatic>false</isStatic>
         </place>
         <transition>
@@ -413,8 +413,8 @@
         </transition>
         <transition>
             <id>T16</id>
-            <x>-143</x>
-            <y>143</y>
+            <x>-145</x>
+            <y>156</y>
             <label>T16</label>
             <timed>false</timed>
             <rate>1.0</rate>
@@ -476,6 +476,34 @@
             <guard>none</guard>
             <stochasticProperties distribution="Exponential" labelVar1="Rate (λ)" labelVar2=" " var1="1.0" var2="1.0"/>
         </transition>
+        <arc>
+            <type>regular</type>
+            <sourceId>T11</sourceId>
+            <destinationId>P17</destinationId>
+            <multiplicity>1</multiplicity>
+        </arc>
+        <arc>
+            <type>regular</type>
+            <sourceId>P17</sourceId>
+            <destinationId>T12</destinationId>
+            <multiplicity>1</multiplicity>
+            <breakPoint>
+                <x>-461</x>
+                <y>289</y>
+            </breakPoint>
+            <breakPoint>
+                <x>-547</x>
+                <y>141</y>
+            </breakPoint>
+            <breakPoint>
+                <x>-547</x>
+                <y>-148</y>
+            </breakPoint>
+            <breakPoint>
+                <x>-455</x>
+                <y>-268</y>
+            </breakPoint>
+        </arc>
         <arc>
             <type>regular</type>
             <sourceId>T1</sourceId>
@@ -703,12 +731,6 @@
         <arc>
             <type>regular</type>
             <sourceId>T11</sourceId>
-            <destinationId>P17</destinationId>
-            <multiplicity>1</multiplicity>
-        </arc>
-        <arc>
-            <type>regular</type>
-            <sourceId>T11</sourceId>
             <destinationId>P10</destinationId>
             <multiplicity>1</multiplicity>
         </arc>
@@ -914,28 +936,6 @@
             <breakPoint>
                 <x>-128</x>
                 <y>235</y>
-            </breakPoint>
-        </arc>
-        <arc>
-            <type>regular</type>
-            <sourceId>P17</sourceId>
-            <destinationId>T12</destinationId>
-            <multiplicity>1</multiplicity>
-            <breakPoint>
-                <x>-461</x>
-                <y>289</y>
-            </breakPoint>
-            <breakPoint>
-                <x>-547</x>
-                <y>141</y>
-            </breakPoint>
-            <breakPoint>
-                <x>-547</x>
-                <y>-148</y>
-            </breakPoint>
-            <breakPoint>
-                <x>-455</x>
-                <y>-268</y>
             </breakPoint>
         </arc>
         <arc>
