@@ -383,7 +383,7 @@ for ii in range (0, len(matriz_traps)):
                     indice_plazas=indice_plazas+1
         if(indice_plazas==np.sum(matriz_traps[ii])):
             sifones_not_bad[kk]=1
-
+#print(sifones_not_bad)
 for i in range(0, len(sifones_not_bad)):
     flag=0
     if(sifones_not_bad[i]==0): #Es un bad siphon
@@ -397,18 +397,21 @@ for i in range(0, len(sifones_not_bad)):
                 if(matriz_sifones[i][j]==1):
                     marcado=marcado+matriz_es_pl[0][j] #Es 0 en fila, porque es el estado inicial en el que se encontraban las plazas de los sifones
             if(marcado!=0):
-                sifon_deadlock.append(["inanicion",i,marcado])
+                sifon_deadlock.append([-1,i,marcado]) #El -1 indica que no es deadlock si no que es inanicion
 
 print(sifon_deadlock)
-#Nos quedamos con un solo sifon
-sifon=np.copy(sifon_deadlock[0])
 
 #Obtenemos T-invariantes
 t_invariant=invariantes(cantidad_transiciones)
 
-#Agregamos el supervisor del bad-sifon
-supervisor(cantidad_transiciones,cantidad_plazas,sifon,matriz_es_tr,matriz_pos,matriz_pre,matriz_sifones,t_invariant)
+for i in range(0, len(sifon_deadlock)):
+    #Nos quedamos con un solo sifon
+    print('\n')
+    sifon=np.copy(sifon_deadlock[i])
 
+    #Agregamos el supervisor del bad-sifon
+    supervisor(cantidad_transiciones,cantidad_plazas,sifon,matriz_es_tr,matriz_pos,matriz_pre,matriz_sifones,t_invariant)
+    exit()
 #Elimina archivo temporal
 os.remove("filtrado_prueba.txt")
 exit()
