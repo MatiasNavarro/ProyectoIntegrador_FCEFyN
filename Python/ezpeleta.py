@@ -128,6 +128,44 @@ def matriz_pre_pos(cantidad_plazas,cantidad_transiciones):
 
     return matriz_I_pos,matriz_I_neg
 
+
+def conflict_t_invariante(t_conflict,t_invariant,matriz_pre_pos,plazas_sifon_complemento):
+    for ii in range(0,len(t_conflict)):
+        flag_sifon=0
+        for jj in range(0,len(t_invariant)):
+            if(int(t_invariant[jj][t_conflict[ii]])==1): #La T en conflicto forma parte del T invariante?
+                aux_t=np.copy(t_invariant[jj])  #Guardamos el T invariante
+                for aa in range(0,len(aux_t)):
+                    if(int(aux_t[aa])==1): #Buscamos la T que forma parte del T-invariante
+                        for bb in range(0,len(matriz_pos)):
+                            if(int(matriz_pos[bb][aa])==1):
+                                if(int(plazas_sifon_complemento[bb])==1): #La T alimenta a alguna plaza del sifon'
+                                    flag_sifon=1
+
+        if(flag_sifon==0):                                 
+            print("Transicion input:",int(t_conflict[ii])+1)
+
+def path_conflict(t_idle,t_analizar,flag_idle,plazas_sifon_complemento):
+    if(t_idle!=t_analizar or flag_idle==1):
+        flag_idle=0
+        p_idle=[] #Plaza a las que le pone tokens la transicion
+        for jj in range (0,cantidad_plazas):
+            if(int(matriz_pos[jj][t_analizar])!=0): #A que plazas esta alimentando esa transicion(t_analizar)
+                p_idle.append(int(jj))
+        #print(p_idle)
+        for ii in range (0,len(p_idle)):
+            t_conflict=[] #Plaza que alimenta a las transiciones en conflicto
+            for mm in range (0,cantidad_transiciones): 
+                if(matriz_pre[p_idle[ii]][mm]==1):
+                    t_conflict.append(mm)             #Transiciones en conflicto sensibilizadas por esa plaza
+            if(len(t_conflict)>1): #La plaza sensibiliza a mas de una transicion? Hay conflicto
+         #       print(t_conflict)
+                conflict_t_invariante(t_conflict,t_invariant,matriz_pre_pos,plazas_sifon_complemento)
+            else: #no hay conflicto
+                path_conflict(t_idle,t_conflict[0],flag_idle,plazas_sifon_complemento)    
+    
+    
+
 def supervisor(cantidad_transiciones,cantidad_plazas,sifon,matriz_es_tr,matriz_pos,matriz_pre,matriz_sifones,t_invariant):
     """ Define el supervisor que va a controlar el bad-siphon. Esta funcion define el marcado de la plaza supervisor y las transiciones de entrada y salida del mismo
     Parametros: \n
@@ -181,7 +219,18 @@ def supervisor(cantidad_transiciones,cantidad_plazas,sifon,matriz_es_tr,matriz_p
                                              #tokens de los que sacan del sifon.
                     plazas_sifon_complemento[j]=1
     
-
+    for tt in range (0,len(trans_idle)):
+        cont_t_invariante=0 #indica en cuantos T-invariantes aparece la Transiciones habilitadas en estado idle
+                        #de ser =>2 implica que esta en conflicto
+        for yy in range (0,len(t_invariant)):
+            if(t_invariant[yy][trans_idle[tt]]==1):
+                cont_t_invariante=cont_t_invariante+1
+        if(cont_t_invariante>=2): 
+           # print("Transicion iddle que esta en dos T:",tt)
+            path_conflict(trans_idle[tt],trans_idle[tt],1,plazas_sifon_complemento) #El 1 indica que es flag_idle
+                
+    # ESTO LO HACIAMOS ANTES AHORA NO SIRVE
+    # 
     # trans_pla_idle=[] #Transicion idle y la/s plaza/s a la/s que le pone tokens
     
     # for i in range(0,len(trans_idle)):
@@ -213,53 +262,6 @@ def supervisor(cantidad_transiciones,cantidad_plazas,sifon,matriz_es_tr,matriz_p
 
     #             if(flag_sifon==0):                                 
     #                 print("Transicion input:",int(pla_trans[ii])+1)
-
-    for tt in range (0,len(trans_idle)):
-        cont_t_invariante=0 #indica en cuantos T-invariantes aparece la Transiciones habilitadas en estado idle
-                        #de ser =>2 implica que esta en conflicto
-        for yy in range (0,len(t_invariant)):
-            if(t_invariant[yy][trans_idle[tt]]==1):
-                cont_t_invariante=cont_t_invariante+1
-        if(cont_t_invariante>=2): 
-            print("Transicion iddle que esta en dos T:",tt)
-            while(flag_conflict):
-                    p_idle=[] #Plaza a las que le pone tokens la transicion
-                    t_conflicto=[] #Plaza que alimenta a las transiciones en conflicto
-                    for jj in range (0,cantidad_plazas):
-                        if(int(matriz_pos[jj][tt])!=0):
-                            p_idle.append(int(jj))
-                    print(p_idle) #LA T en conflicto es parte de mi SIFON GIGANTE? SI GOOD, NO BBAAAAD -> SACAR TOKEN
-                                # CON ESTA T RECORREMOS LOS T INVARIANTES Y BUSCAMOS EL QUE LA CONTENGA, RECORREMOS EL MISMO Y VEMOS
-                                # SI ALGUNA T LE ENTRA/SACA A UNA PLAZA DEL SIFON GIGANTE. DE NO SER ASI BAD, ESA DEVUELVE AL SUPERVISOR
-                    for ii in range (0,len(p_idle)):
-                        if(int(np.sum(matriz_pre[int(p_idle[ii])]))>1): #La plaza sensibiliza a mas de una transicion? Hay conflicto
-                            for mm in range (0,cantidad_transiciones):
-                                if(matriz_pre[p_idle[ii]][mm]==1):
-                                    t_conflicto.append(mm)
-                            print(t_conflicto)
-                            exit()
-    #print("Transicion idle y la/s plaza/s a la/s que le pone tokens", trans_pla_idle)
-    for i in range(0,len(trans_pla_idle)):
-        pla_trans=[]
-        for j in range(0,len(trans_pla_idle[i][1])):
-            for k in range(0,cantidad_transiciones):
-                if((int(matriz_pre[trans_pla_idle[i][1][j]][k])==1)):
-                    pla_trans.append(k) #transiciones a la que la plaza habilita
-        if(len(pla_trans)>1): #Esta en conflicto, ya que habilita a mas de 1 transicion
-            for ii in range(0,len(pla_trans)):
-                flag_sifon=0
-                for jj in range(0,len(t_invariant)):
-                    if(int(t_invariant[jj][pla_trans[ii]])==1): #La T en conflicto forma parte del T invariante?
-                        aux_t=np.copy(t_invariant[jj])  #Guardamos el T invariante
-                        for aa in range(0,len(aux_t)):
-                            if(int(aux_t[aa])==1): #Buscamos la T que forma parte del T-invariante
-                                for bb in range(0,len(matriz_pos)):
-                                    if(int(matriz_pos[bb][aa])==1):
-                                        if(int(plazas_sifon_complemento[bb])==1): #La T alimenta a alguna plaza del sifon'
-                                            flag_sifon=1
-
-                if(flag_sifon==0):                                 
-                    print("Transicion input:",int(pla_trans[ii])+1)
 
 def fun_sifones_deadlock(estado,matriz_sifones,matriz_es_pl,idle):
     """ Devuelve los sifones que se vacian en ese estado de deadlock
@@ -416,36 +418,41 @@ print("Estado deadlock, sifon asociado al deadlock y su marcado",sifon_deadlock)
 
 sifones_not_bad=np.zeros(len(matriz_sifones)) #Todos los que tengan 0 son bad siphon
 
-for ii in range (0, len(matriz_traps)):
-    for kk in range(0,len(matriz_sifones)):
-        indice_plazas=0
-        for jj in range (0,cantidad_plazas):
-            if(matriz_traps[ii][jj]==1):
-                if(matriz_sifones[kk][jj]==1):
-                    indice_plazas=indice_plazas+1
-        if(indice_plazas==np.sum(matriz_traps[ii])):
-            sifones_not_bad[kk]=1
-#print(sifones_not_bad)
-for i in range(0, len(sifones_not_bad)):
-    flag=0
-    if(sifones_not_bad[i]==0): #Es un bad siphon
-        for j in range(0, len(sifon_deadlock)):
-            if(flag!=1):
-                if(i==sifon_deadlock[j][1]): #Este bad siphon se vacia en deadlock? No hace falta agregarlo ya lo tenemos, en caso de no tenerlo agregarlo para controlarlo
-                    flag=1
-        if(flag==0): #No estaba incluido antes
-            marcado=0
-            for j in range(0,cantidad_plazas):
-                if(matriz_sifones[i][j]==1):
-                    marcado=marcado+matriz_es_pl[0][j] #Es 0 en fila, porque es el estado inicial en el que se encontraban las plazas de los sifones
-            if(marcado!=0):
-                sifon_deadlock.append([-1,i,marcado]) #El -1 indica que no es deadlock si no que es inanicion
 
-print(sifon_deadlock)
+###################################
+        ### ESTO SOLUCIONABA LO DE INANICION SI SIRVE INCLUIR
+# for ii in range (0, len(matriz_traps)): 
+#     for kk in range(0,len(matriz_sifones)):
+#         indice_plazas=0
+#         for jj in range (0,cantidad_plazas):
+#             if(matriz_traps[ii][jj]==1):
+#                 if(matriz_sifones[kk][jj]==1):
+#                     indice_plazas=indice_plazas+1
+#         if(indice_plazas==np.sum(matriz_traps[ii])):
+#             sifones_not_bad[kk]=1
+# #print(sifones_not_bad)
+# for i in range(0, len(sifones_not_bad)):
+#     flag=0
+#     if(sifones_not_bad[i]==0): #Es un bad siphon
+#         for j in range(0, len(sifon_deadlock)):
+#             if(flag!=1):
+#                 if(i==sifon_deadlock[j][1]): #Este bad siphon se vacia en deadlock? No hace falta agregarlo ya lo tenemos, en caso de no tenerlo agregarlo para controlarlo
+#                     flag=1
+#         if(flag==0): #No estaba incluido antes
+#             marcado=0
+#             for j in range(0,cantidad_plazas):
+#                 if(matriz_sifones[i][j]==1):
+#                     marcado=marcado+matriz_es_pl[0][j] #Es 0 en fila, porque es el estado inicial en el que se encontraban las plazas de los sifones
+#             if(marcado!=0):
+#                 sifon_deadlock.append([-1,i,marcado]) #El -1 indica que no es deadlock si no que es inanicion
+
+# print(sifon_deadlock)
+
+##################################################
 
 #Obtenemos T-invariantes
 t_invariant=invariantes(cantidad_transiciones)
-
+exit()
 for i in range(0, len(sifon_deadlock)):
     #Nos quedamos con un solo sifon
     print('\n')
@@ -453,7 +460,7 @@ for i in range(0, len(sifon_deadlock)):
 
     #Agregamos el supervisor del bad-sifon
     supervisor(cantidad_transiciones,cantidad_plazas,sifon,matriz_es_tr,matriz_pos,matriz_pre,matriz_sifones,t_invariant)
-   
+    
 #Elimina archivo temporal
 os.remove("filtrado_prueba.txt")
 exit()
