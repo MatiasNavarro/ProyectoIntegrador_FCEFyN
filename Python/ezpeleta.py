@@ -414,13 +414,13 @@ idle=0 #Sifones en estado deadlock
 for i in range (0, len(state_deadlock)):
     fun_sifones_deadlock(state_deadlock[i],matriz_sifones,matriz_es_pl,idle)
 print("Estados con deadlock",state_deadlock)
+print("Cantidad de estados con deadlock", len(state_deadlock))
 print("Estado deadlock, sifon asociado al deadlock y su marcado",sifon_deadlock)
-
-sifones_not_bad=np.zeros(len(matriz_sifones)) #Todos los que tengan 0 son bad siphon
-
+print("Cantidad de sifones vacios:", len(sifon_deadlock))
 
 ###################################
         ### ESTO SOLUCIONABA LO DE INANICION SI SIRVE INCLUIR
+#sifones_not_bad=np.zeros(len(matriz_sifones)) #Todos los que tengan 0 son bad siphon
 # for ii in range (0, len(matriz_traps)): 
 #     for kk in range(0,len(matriz_sifones)):
 #         indice_plazas=0
@@ -452,15 +452,26 @@ sifones_not_bad=np.zeros(len(matriz_sifones)) #Todos los que tengan 0 son bad si
 
 #Obtenemos T-invariantes
 t_invariant=invariantes(cantidad_transiciones)
-exit()
+
+listita=[]
 for i in range(0, len(sifon_deadlock)):
     #Nos quedamos con un solo sifon
+    flag=0
+    for j in range(0,len(listita)):
+        if(sifon_deadlock[i][1]==listita[j]):
+            flag=1
+    
+    if(flag==0):
+        listita.append(sifon_deadlock[i][1])
     print('\n')
+    
     sifon=np.copy(sifon_deadlock[i])
 
     #Agregamos el supervisor del bad-sifon
     supervisor(cantidad_transiciones,cantidad_plazas,sifon,matriz_es_tr,matriz_pos,matriz_pre,matriz_sifones,t_invariant)
-    
+
+print("sifones vacios sin repetir",listita)
+print("Cantidad de sifones vacios sin repetir",len(listita))
 #Elimina archivo temporal
 os.remove("filtrado_prueba.txt")
 exit()
