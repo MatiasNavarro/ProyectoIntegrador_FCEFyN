@@ -58,28 +58,14 @@ def clean_file(text):
         f2.write(line.replace('M', '\nM',1))
     f1.close()
     f2.close()
-
-    # f1 = open('invariante.txt', 'r')
-    # f2 = open('invariante.txt.tmp', 'w')
-    # for line in f1:
-    #     f2.write(line.replace('R', '\n R'))
-    # f1.close()
-    # f2.close()
-
-    # f1 = open('invariante.txt.tmp', 'r')
-    # f2 = open('invariante.txt', 'w')
-    # for line in f1:
-    #     f2.write(line)
-    # f1.close()
-    # f2.close()
-
+    
     #Elimina archivo temporal
     os.remove("invariante.txt.tmp")
 
 def main():
     # Abre un archivo html a partir del path indicado por consola, y lo carga en un archivo
     # BeatifulSoup para extraer los datos html de dicho archivo.
-    archivo = input("Path del archivo de Estados (html): ")
+    archivo = input("Path del archivo de invariantes (html): ")
     html = open(archivo,'r')
     soup = BeautifulSoup(html,'lxml')
 
@@ -105,32 +91,3 @@ def main():
 
     #Llamada a la funcion clean_file()
     clean_file(text)
-
-# file = open('invariante.txt', 'r')
-# cont = 0
-# TInvariantes = []
-# PInvariantes = []
-# for line in file:
-#     if(cont==0):
-#         TInvariantes = line
-#         cont = cont + 1
-#     elif(cont==1):
-#         PInvariantes = line
-#         cont = cont + 1
-
-# cantidad_transiciones = 11
-# aux_I = []
-# print(TInvariantes)
-# aux_I = TInvariantes.split(' ')
-# TInvariantes = [] 
-# for i in range (cantidad_transiciones, len(aux_I)-2):
-#     TInvariantes.append(aux_I[i])
-
-# M_TI = np.zeros((int(len(TInvariantes)/cantidad_transiciones), cantidad_transiciones))
-# m = 0
-# for i in range ((int(len(TInvariantes)/cantidad_transiciones))):
-#     for j in range (cantidad_transiciones):
-#         M_TI[i][j] = TInvariantes[m]
-#         m = m + 1
-
-# print(M_TI)

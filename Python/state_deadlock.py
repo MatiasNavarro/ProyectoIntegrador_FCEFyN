@@ -78,7 +78,7 @@ def clean_file(text):
 def main():
     # Abre un archivo html a partir del path indicado por consola, y lo carga en un archivo
     # BeatifulSoup para extraer los datos html de dicho archivo.
-    archivo = input("Path del archivo de Estados-Deadlock (html): ")
+    archivo = input("Path del archivo de grafo de alcanzabilidad (html): ")
     html = open(archivo,'r')
     soup = BeautifulSoup(html,'lxml')
 
