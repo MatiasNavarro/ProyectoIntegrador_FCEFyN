@@ -33,20 +33,34 @@ def clean_file(text):
     f1 = open('invariante.txt', 'r')
     f2 = open('invariante.txt.tmp', 'w')
     for line in f1:
-        f2.write(line.replace('The net is covered by positive T-Invariants, therefore it might be bounded and live. P-Invariants', ''))
+        f2.write(line.replace('The net is covered by positive T-Invariants, therefore it might be bounded and live. P-Invariants.', ''))
     f1.close()
     f2.close()
 
     f1 = open('invariante.txt.tmp', 'r')
     f2 = open('invariante.txt', 'w')
     for line in f1:
-        f2.write(line.replace('The net is covered by positive P-Invariants, therefore it is bounded. P-Invariant equations', ''))
+        f2.write(line.replace('The net is covered by positive P-Invariants, therefore it is bounded. P-Invariant equations.', ''))
     f1.close()
     f2.close()
 
     f1 = open('invariante.txt', 'r')
     f2 = open('invariante.txt.tmp', 'w')
-    T = 0
+    for line in f1:
+        f2.write(line.replace('The net is not covered by positive T-Invariants, therefore we do not know if it is bounded and live.', ''))
+    f1.close()
+    f2.close()
+
+    f1 = open('invariante.txt.tmp', 'r')
+    f2 = open('invariante.txt', 'w')
+    for line in f1:
+        f2.write(line.replace('The net is not covered by positive P-Invariants, therefore we do not know if it is bounded.', ''))
+    f1.close()
+    f2.close()
+    
+    
+    f1 = open('invariante.txt', 'r')
+    f2 = open('invariante.txt.tmp', 'w')
     for line in f1:
             f2.write(line.replace('P', '\nP',1))
     f1.close()
