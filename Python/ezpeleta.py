@@ -255,7 +255,7 @@ def fun_sifones_deadlock(estado,matriz_sifones,matriz_es_pl,idle):
                 if(flag_sifon_idle==0): #El sifon no estaba vacio en idle
                     sifon_deadlock.append([estado,i,marcado]) #Devuelve el sifon y su marcado inicial, para ese estado deadlock
             else:
-                sifon_idle.append[i]
+                sifon_idle.append(i)
 
 #Conversion de archivos html a txt
 hta.main()
