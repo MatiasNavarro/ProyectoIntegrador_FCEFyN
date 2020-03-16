@@ -4,13 +4,7 @@ import time
 import re
 import sys
 import html_txt_all as hta 
-
-# Inicializacion de parametros globales
-cantidad_estados=0
-cantidad_transiciones=0 #Panama 14,21,22,32
-cantidad_plazas=0       #Prueba2 4,4,1,1
-cantidad_sifones=0      #POPN 20,26,74,130
-cantidad_traps=0        #Prueba3 8,7,2,1
+import filter_data as filterdata
 
 def siphones_traps(cantidad_plazas):
     """ Devuelve una matriz de [sifones x plazas] y otra de [trampas x plazas]. Tambien devuelve cantidad de sifones y de trampas
@@ -97,7 +91,6 @@ def invariantes(cantidad_transiciones):
     
     return M_TI.astype(int)
 
-
 def matriz_pre_pos(cantidad_plazas,cantidad_transiciones):
     """ Devuelve la matriz pre y post a partir de un archivo txt previamente convertido
     Parametros: \n
@@ -127,7 +120,6 @@ def matriz_pre_pos(cantidad_plazas,cantidad_transiciones):
     matriz_I_neg = aux_neg.astype(int)
 
     return matriz_I_pos,matriz_I_neg
-
 
 def conflict_t_invariante(t_conflict,t_invariant,matriz_pre_pos,plazas_sifon_complemento):
     for ii in range(0,len(t_conflict)):
@@ -164,8 +156,6 @@ def path_conflict(t_idle,t_analizar,flag_idle,plazas_sifon_complemento):
             else: #no hay conflicto
                 path_conflict(t_idle,t_conflict[0],flag_idle,plazas_sifon_complemento)    
     
-    
-
 def supervisor(cantidad_transiciones,cantidad_plazas,sifon,matriz_es_tr,matriz_pos,matriz_pre,matriz_sifones,t_invariant):
     """ Define el supervisor que va a controlar el bad-siphon. Esta funcion define el marcado de la plaza supervisor y las transiciones de entrada y salida del mismo
     Parametros: \n
@@ -228,40 +218,6 @@ def supervisor(cantidad_transiciones,cantidad_plazas,sifon,matriz_es_tr,matriz_p
         if(cont_t_invariante>=2): 
            # print("Transicion iddle que esta en dos T:",tt)
             path_conflict(trans_idle[tt],trans_idle[tt],1,plazas_sifon_complemento) #El 1 indica que es flag_idle
-                
-    # ESTO LO HACIAMOS ANTES AHORA NO SIRVE
-    # 
-    # trans_pla_idle=[] #Transicion idle y la/s plaza/s a la/s que le pone tokens
-    
-    # for i in range(0,len(trans_idle)):
-    #     p_idle=[]
-    #     for j in range (0,cantidad_plazas):
-    #         if(int(matriz_pos[j][trans_idle[i]])!=0):
-    #             p_idle.append(int(j))
-    #     trans_pla_idle.append([trans_idle[i],p_idle])
-    
-    # #print("Transicion idle y la/s plaza/s a la/s que le pone tokens", trans_pla_idle)
-    # for i in range(0,len(trans_pla_idle)):
-    #     pla_trans=[]
-    #     for j in range(0,len(trans_pla_idle[i][1])):
-    #         for k in range(0,cantidad_transiciones):
-    #             if((int(matriz_pre[trans_pla_idle[i][1][j]][k])==1)):
-    #                 pla_trans.append(k) #transiciones a la que la plaza habilita
-    #     if(len(pla_trans)>1): #Esta en conflicto, ya que habilita a mas de 1 transicion
-    #         for ii in range(0,len(pla_trans)):
-    #             flag_sifon=0
-    #             for jj in range(0,len(t_invariant)):
-    #                 if(int(t_invariant[jj][pla_trans[ii]])==1): #La T en conflicto forma parte del T invariante?
-    #                     aux_t=np.copy(t_invariant[jj])  #Guardamos el T invariante
-    #                     for aa in range(0,len(aux_t)):
-    #                         if(int(aux_t[aa])==1): #Buscamos la T que forma parte del T-invariante
-    #                             for bb in range(0,len(matriz_pos)):
-    #                                 if(int(matriz_pos[bb][aa])==1):
-    #                                     if(int(plazas_sifon_complemento[bb])==1): #La T alimenta a alguna plaza del sifon'
-    #                                         flag_sifon=1
-
-    #             if(flag_sifon==0):                                 
-    #                 print("Transicion input:",int(pla_trans[ii])+1)
 
 def fun_sifones_deadlock(estado,matriz_sifones,matriz_es_pl,idle):
     """ Devuelve los sifones que se vacian en ese estado de deadlock
@@ -273,9 +229,9 @@ def fun_sifones_deadlock(estado,matriz_sifones,matriz_es_pl,idle):
     Parametros: \n
         estado -- Estado que posee Deadlock.
         matriz_sifones -- [Marcado de plazas que componen el sifon]
-        matriz_es_pl -- EstadosxPlazas = [Marcado para ese estado]."""
+        matriz_es_pl -- EstadosxPlazas = [Marcado para ese estado].
+        idle -- Indica si se agrega a la lista de sifon_idle o sifon_deadlock"""
 
-   # print("Sifones que no se cumplen en el estado deadlock ",estado)
     aux=np.zeros(cantidad_plazas)
     flag_sifon_idle=0
     for j in range(0,cantidad_plazas):
@@ -289,7 +245,6 @@ def fun_sifones_deadlock(estado,matriz_sifones,matriz_es_pl,idle):
                 cont=cont+1             #Si el contador es distinto de cero, el sifon no esta vacio
         if(cont==0):
             marcado=0
-            #print("Sifon numero",i,matriz_sifones[i])
             for j in range(0,cantidad_plazas):
                 if(matriz_sifones[i][j]==1):
                     marcado=marcado+matriz_es_pl[0][j] #Es 0 en fila, porque es el estado inicial en el que se encontraban las plazas de los sifones
@@ -305,102 +260,17 @@ def fun_sifones_deadlock(estado,matriz_sifones,matriz_es_pl,idle):
 #Conversion de archivos html a txt
 hta.main()
 
-#Apertura de archivos resultantes de la conversion de archivos .html to .txt 
-# obtenidos del SW Petrinator, para su siguiente manipulacion y filtrado.
-state_file = open("./state.txt","r")
-filtrado_prueba_file = open ("filtrado_prueba.txt", "w")
-plaza_tmp_file = open("plaza.txt","w")
+#Filtrado de archivos provenientes del Petrinator
+(cantidad_estados, cantidad_plazas , cantidad_transiciones, matriz_es_tr, matriz_es_pl, state_deadlock) = filterdata.main()
 
-#Obtenemos la cantidad de estados y filtramos la informacion
-for lineas in state_file.readlines() :
-    if(len(lineas)>2):
-        if(lineas.find("R")!=-1): #Estado
-            indice = lineas.find("S")
-            estado = lineas[indice:lineas.find(" [")]
-            cantidad_estados = cantidad_estados +1
-            indice = lineas.find("[")
-            plaza_tmp_file.write(lineas[indice+1:lineas.find("]")] + "\n") #Nos quedamos con el marcado para ese estado
-            filtrado_prueba_file.write(estado)
-            filtrado_prueba_file.write("\n")
-        elif (lineas.find("D")!=-1): #Deadlock
-            indice = lineas.find("S")
-            estado = lineas[indice:lineas.find(" [")]
-            cantidad_estados=cantidad_estados +1
-            filtrado_prueba_file.write(estado)
-            filtrado_prueba_file.write("\n")
-            indice = lineas.find("[")
-            plaza_tmp_file.write(lineas[indice+1:lineas.find("]")] + "\n") #Nos quedamos con el marcado para ese estado
-        elif (lineas.find("p")!=-1 or lineas.find("t")!=-1):   
-            if(lineas.find("p")!=-1): #Obtenemos el numero de plazas
-                cantidad_plazas= int(lineas[lineas.find("p ")+1:lineas.find("\n")])
-            else:                     #Obtenemos el numero de transiciones
-                cantidad_transiciones= int(lineas[lineas.find("t ")+1:lineas.find("\n")])
-        else:   
-            indice = lineas.find("T")
-            transicion=lineas[indice:lineas.find(" [")]
-            transicion=transicion.replace(" => "," ")
-            filtrado_prueba_file.write(transicion)
-            filtrado_prueba_file.write("\n")
 
-#Cierre de archivos
-state_file.close()
-filtrado_prueba_file.close()
-plaza_tmp_file.close()
-
-#Matriz de estados-transiciones
-matriz_es_tr =np.zeros((cantidad_estados,cantidad_transiciones)) - 1
-
-#Matriz de estados-plazas (Marcado)
-plaza_file = open('plaza.txt', 'r')
-matriz_es_pl = np.loadtxt('plaza.txt',delimiter=", ",dtype=int)
-plaza_file.close
-
-#Elimina archivo temporal
-os.remove("plaza.txt")
-
-#Inicializacion de matriz a partir de la información filtrada de la RdP.
-#Cargando en la misma, para cada Estado(fila) en su respectiva interseccion con Transicion(columna)
-#el estado siguiente al que se llega a partir del disparo de dicha transicion.
-#Con: 
-##   un -1 si la transicion no esta sensibilizada para dicho estado,
-#   el estado_siguiente(nro!=-1) al que se llega a partir del disparo
-#
-# Ademas se detectan aquellos estados que poseen Deadlock
-
-#Apertura de archivo ya filtrado segun nuestro interes de detectar caminos que lleven al Deadlock
-#luego el archivo se cierra para evitar inconvenientes.
-archivo = open("./filtrado_prueba.txt","r")
-
-cont_estados=0
-maq_estado = 0
-flag_deadlock = 1
-state_deadlock = []
-
-for lineas in archivo.readlines() :
-    if(maq_estado==0):        
-        if(lineas.find("S")!=-1):
-            maq_estado=1             
-    else:
-        if(lineas.find("T")!=-1):
-           indice_t=lineas[lineas.find("T")+1:lineas.find(" ")]
-           indice_s=lineas[lineas.find("S")+1:lineas.find("\n")]
-           matriz_es_tr[cont_estados][int(indice_t)-1]=int(indice_s)
-           flag_deadlock=0
-        else:
-            maq_estado=0 #Fin de codigo
-            if(flag_deadlock==1):
-                state_deadlock.append(cont_estados)
-            if(lineas.find("S")!=-1):
-                maq_estado=1
-                flag_deadlock = 1
-            if(cont_estados!=cantidad_estados):
-                cont_estados=cont_estados+1
-
-archivo.close()
-
+#Matrices
 (matriz_sifones,matriz_traps,cantidad_sifones,cantidad_traps)=siphones_traps(cantidad_plazas)
 
 (matriz_pos,matriz_pre)=matriz_pre_pos(cantidad_plazas,cantidad_transiciones)
+
+#T-invariantes
+t_invariant=invariantes(cantidad_transiciones)
 
 sifon_idle=[] #Estado_idle sifon
 sifon_deadlock=[] #Estado_deadlock-sifon-marcado
@@ -450,9 +320,6 @@ print("Cantidad de sifones vacios:", len(sifon_deadlock))
 
 ##################################################
 
-#Obtenemos T-invariantes
-t_invariant=invariantes(cantidad_transiciones)
-
 listita=[]
 for i in range(0, len(sifon_deadlock)):
     #Nos quedamos con un solo sifon
@@ -472,6 +339,7 @@ for i in range(0, len(sifon_deadlock)):
 
 print("sifones vacios sin repetir",listita)
 print("Cantidad de sifones vacios sin repetir",len(listita))
+
 #Elimina archivo temporal
 os.remove("filtrado_prueba.txt")
 exit()

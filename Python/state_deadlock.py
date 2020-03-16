@@ -16,6 +16,7 @@ def clean_file(text):
     f.write(text)
     f.close()
 
+    indice = 0
     f1 = open('state.txt', 'r')
     f2 = open('state.txt.tmp', 'w')
     for line in f1:
@@ -23,6 +24,35 @@ def clean_file(text):
     f1.close()
     f2.close()
 
+    ##############################################
+    # Estados de Deadlock 
+    ##############################################
+    fd1 = open('state.txt','r')
+    fd2 = open('deadlock.txt','w')
+    for line in fd1:
+        indice = line.find("Deadlock on ")
+        fd2.write(line[indice:line.find(" [")])
+    fd1.close()
+    fd2.close()
+
+    fd1 = open('deadlock.txt', 'r')
+    fd2 = open('deadlock.txt.tmp', 'w')
+    for line in fd1:
+        fd2.write(line.replace('Deadlock on', ''))
+    fd1.close()
+    fd2.close()
+
+    fd1 = open('deadlock.txt.tmp', 'r')
+    fd2 = open('deadlock.txt', 'w')
+    for line in fd1:
+        fd2.write(line.replace(' ', '\n'))
+    fd1.close()
+    fd2.close()
+    
+    #Elimina archivo temporal
+    os.remove("deadlock.txt.tmp")    
+    ###############################################
+    
     f1 = open('state.txt.tmp', 'r')
     f2 = open('state.txt', 'w')
     for line in f1:
@@ -78,7 +108,7 @@ def clean_file(text):
 def main():
     # Abre un archivo html a partir del path indicado por consola, y lo carga en un archivo
     # BeatifulSoup para extraer los datos html de dicho archivo.
-    archivo = input("Path del archivo de grafo de alcanzabilidad (html): ")
+    archivo = input("Path del archivo de Estados (html): ")
     html = open(archivo,'r')
     soup = BeautifulSoup(html,'lxml')
 
