@@ -1,0 +1,92 @@
+Minimal siphons sin supervisor
+{P13, P14, P15 }
+{P9, P10, P11 }
+{P6, P7, P8 }
+{P8, P11, P12, P15 }
+{P2, P3 }
+{P4, P5 }
+{P2, P3, P6 }                   //
+{P2, P3, P6, P9 }               //
+{P7, P8, P9, P10 }
+{P2, P3, P6, P9, P13 }
+{P1, P2, P5, P6, P9, P13 }
+{P10, P11, P13, P14 }
+{P7, P8, P10, P13, P14 }
+
+Minimal traps sin supervisor
+{P13, P14, P15 }  ***
+{P9, P10, P14, P15 }
+{P6, P7, P10, P14, P15 }
+{P2, P3 }
+{P8, P11, P12, P15 }
+{P4, P5 }
+{P6, P7, P8 }
+{P6, P7, P10, P11 }
+{P9, P10, P11 }
+{P1, P2, P5, P6, P9, P13 }
+{P1, P2, P3, P13 }              //
+{P1, P2, P3, P5, P13 }          //
+
+P-Invariant equations sin supervisor
+M(P1) + M(P2) + M(P5) + M(P6) + M(P9) + M(P13) = 4
+M(P2) + M(P3) = 1 
+M(P4) + M(P5) = 1 
+M(P6) + M(P7) + M(P8) = 2 
+M(P9) + M(P10) + M(P11) = 1 
+M(P8) + M(P11) + M(P12) + M(P15) = 3 
+M(P13) + M(P14) + M(P15) = 2
+
+......................................................
+
+Minimal siphons con supervisores
+{P10, P11, P13, P14 }               ***
+{P13, P14, P15 }                    ***
+{P6, P7, P8 }                       ***
+{P8, P11, P12, P15 }                ***
+{P2, P3 }                           ***
+{P4, P5 }                           ***
+{P2, P6, P11, P15, P18 }            x
+{P2, P6, P9, P15, P17 }             x
+{P2, P6, P9, P11, P15, P16 }        x
+{P1, P2, P5, P6, P9, P13 }          ***
+{P7, P8, P10, P13, P14 }            ***
+{P7, P8, P9, P10 }                  ***
+{P9, P10, P11 }                     ***
+
+Minimal traps con supervisores
+{P2, P6, P15, P17, P18 }            x
+{P13, P14, P15 }                    ***
+{P9, P10, P14, P15 }                ***
+{P6, P7, P10, P14, P15 }            ***
+{P8, P11, P12, P15 }                ***
+{P4, P5 }                           ***
+{P6, P7, P8 }                       ***
+{P6, P7, P10, P11 }                 ***
+{P9, P10, P11 }                     ***
+{P2, P3 }                           ***
+{P1, P2, P5, P6, P9, P13 }          ***
+{P2, P6, P14, P15, P16, P18 }       x
+{P2, P6, P11, P15, P18 }            x
+{P2, P6, P9, P11, P15, P16 }        x
+{P2, P6, P7, P11, P15, P16 }        x
+{P2, P3, P6, P7, P8, P11, P15 }     x
+{P2, P3, P4, P6, P7, P8, P11, P15 } x
+{P1, P2, P3, P6, P7, P8, P11, P15 } x
+{P2, P6, P10, P14, P15, P18 }       x
+{P2, P6, P9, P14, P15, P16 }        x
+{P2, P6, P7, P14, P15, P16 }        x
+{P2, P6, P9, P15, P17 }             x
+{P2, P6, P7, P15, P16, P17 }        x
+{P2, P6, P7, P10, P15, P17 }        x
+
+P-Invariant equations con supervisores
+M(P1) + M(P2) + M(P5) + M(P6) + M(P9) + M(P13) = 4
+M(P2) + M(P3) = 1
+M(P4) + M(P5) = 1
+M(P6) + M(P7) + M(P8) = 2
+M(P9) + M(P10) + M(P11) = 1
+M(P8) + M(P11) + M(P12) + M(P15) = 3 
+M(P13) + M(P14) + M(P15) = 2 
+M(P2) + M(P6) + M(P9) + M(P11) + M(P15) + M(P16) = 4    x
+M(P2) + M(P6) + M(P9) + M(P15) + M(P17) = 2             x
+M(P2) + M(P6) + M(P11) + M(P15) + M(P18) = 2            x
