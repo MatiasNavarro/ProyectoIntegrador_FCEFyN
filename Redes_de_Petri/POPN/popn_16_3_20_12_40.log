@@ -1,0 +1,393 @@
+Session started: 16/3/20 12:32
+Loaded: /home/matiasnavarro/Facultad/Tesis/ProyectoIntegrador_FCEFyN/Redes_de_Petri/POPN/popn.andl
+ Charlie (v2.0-b212-r8932) - popn.andl
+
+Analyzer has finished: Structural Analyzer
+starts analysis with following options:
+charlie.analyzer.structural.StructuralOptionSet
+
+number of places: 26
+number of transitions: 20
+number of arcs: 73
+
+input places:
+no input places
+output places:
+no output places
+input transitions:
+no input transitions
+output transitions:
+no output transitions
+
+Structural coupled conflict sets: 
+
+1	|0._T_0_	:1
+2	|1._T_1_	:1,
+	|10._T_10_	:1
+3	|2._T_2_	:1,
+	|6._T_6_	:1,
+	|12._T_12_	:1
+4	|3._T_3_	:1,
+	|7._T_7_	:1,
+	|16._T_16_	:1,
+	|18._T_18_	:1
+5	|4._T_4_	:1,
+	|8._T_8_	:1
+6	|5._T_5_	:1,
+	|9._T_9_	:1,
+	|15._T_15_	:1
+7	|11._T_11_	:1
+8	|13._T_13_	:1
+9	|14._T_14_	:1,
+	|17._T_17_	:1
+10	|19._T_19_	:1
+ 
+Structural equal conflict sets: 
+
+1	|0._T_0_	:1
+2	|1._T_1_	:1
+3	|10._T_10_	:1
+4	|2._T_2_	:1
+5	|6._T_6_	:1
+6	|12._T_12_	:1
+7	|3._T_3_	:1
+8	|7._T_7_	:1
+9	|16._T_16_	:1
+10	|18._T_18_	:1
+11	|4._T_4_	:1
+12	|8._T_8_	:1
+13	|5._T_5_	:1
+14	|9._T_9_	:1
+15	|15._T_15_	:1
+16	|11._T_11_	:1
+17	|13._T_13_	:1
+18	|14._T_14_	:1
+19	|17._T_17_	:1
+20	|19._T_19_	:1
+ 
+time:  0 m 0 s
+
+
+Structural Analysis Results:
+  PUR   ORD   HOM   NBM   CSV   SCF   FT0   TF0   FP0   PF0   CON   SC    NC  
+   Y     Y     Y     Y     N     N     Y     Y     Y     Y     Y     Y    nES 
+ RKTH   STP   CPI   CTI  SCTI    SB   k-B   1-B   DCF   DSt   DTr   LIV   REV 
+   -     -     -     -     -     -     -     -     -     -     -     -     -  
+  SSI   RNK  SCCS  SEQS 
+   -     -     10    20 
+
+AppliedResults output:
+
+
+Applying rule:
+SC => CON
+
+  PUR   ORD   HOM   NBM   CSV   SCF   FT0   TF0   FP0   PF0   CON   SC    NC  
+   -     -     -     -     -     -     -     -     -     -     Y     -     -  
+ RKTH   STP   CPI   CTI  SCTI    SB   k-B   1-B   DCF   DSt   DTr   LIV   REV 
+   -     -     -     -     -     -     -     -     -     -     -     -     -  
+  SSI   RNK  SCCS  SEQS 
+   -     -     -     -  
+
+Analyzer has finished: Siphon Analyzer
+Analyzer: Siphon Analyzer
+start time: 16/3/20 12:33
+starts analysis with following options:
+siphon options
+Siphon Analyzer:
+ computing siphons
+
+STP is not valid
+ counter examples:
+    minimal siphon:
+	|2._P_2_	:1,
+	|7._P_7_	:1,
+	|8._P_8_	:1,
+	|9._P_9_	:1,
+	|14._P_14_	:1,
+	|15._P_15_	:1,
+	|21._P_21_	:1,
+	|24._P_24_	:1
+	maximal trap:
+	empty set
+	is not sufficiently marked
+    minimal siphon:
+	|2._P_2_	:1,
+	|7._P_7_	:1,
+	|11._P_11_	:1,
+	|14._P_14_	:1,
+	|19._P_19_	:1,
+	|21._P_21_	:1,
+	|24._P_24_	:1
+	maximal trap:
+	empty set
+	is not sufficiently marked
+    minimal siphon:
+	|2._P_2_	:1,
+	|7._P_7_	:1,
+	|8._P_8_	:1,
+	|12._P_12_	:1,
+	|14._P_14_	:1,
+	|19._P_19_	:1,
+	|21._P_21_	:1,
+	|24._P_24_	:1
+	maximal trap:
+	empty set
+	is not sufficiently marked
+    minimal siphon:
+	|2._P_2_	:1,
+	|7._P_7_	:1,
+	|8._P_8_	:1,
+	|9._P_9_	:1,
+	|13._P_13_	:1,
+	|14._P_14_	:1,
+	|15._P_15_	:1,
+	|16._P_16_	:1,
+	|17._P_17_	:1,
+	|18._P_18_	:1,
+	|22._P_22_	:1,
+	|24._P_24_	:1
+	maximal trap:
+	empty set
+	is not sufficiently marked
+    minimal siphon:
+	|2._P_2_	:1,
+	|7._P_7_	:1,
+	|8._P_8_	:1,
+	|12._P_12_	:1,
+	|13._P_13_	:1,
+	|14._P_14_	:1,
+	|15._P_15_	:1,
+	|16._P_16_	:1,
+	|17._P_17_	:1,
+	|18._P_18_	:1,
+	|19._P_19_	:1,
+	|22._P_22_	:1,
+	|24._P_24_	:1
+	maximal trap:
+	empty set
+	is not sufficiently marked
+    minimal siphon:
+	|3._P_3_	:1,
+	|8._P_8_	:1,
+	|9._P_9_	:1,
+	|13._P_13_	:1,
+	|14._P_14_	:1,
+	|15._P_15_	:1,
+	|16._P_16_	:1,
+	|17._P_17_	:1,
+	|18._P_18_	:1,
+	|22._P_22_	:1,
+	|24._P_24_	:1
+	maximal trap:
+	empty set
+	is not sufficiently marked
+    minimal siphon:
+	|4._P_4_	:1,
+	|8._P_8_	:1,
+	|9._P_9_	:1,
+	|15._P_15_	:1
+	maximal trap:
+	empty set
+	is not sufficiently marked
+    minimal siphon:
+	|3._P_3_	:1,
+	|8._P_8_	:1,
+	|12._P_12_	:1,
+	|14._P_14_	:1,
+	|19._P_19_	:1,
+	|21._P_21_	:1,
+	|24._P_24_	:1
+	maximal trap:
+	empty set
+	is not sufficiently marked
+    minimal siphon:
+	|2._P_2_	:1,
+	|7._P_7_	:1,
+	|11._P_11_	:1,
+	|12._P_12_	:1,
+	|13._P_13_	:1,
+	|14._P_14_	:1,
+	|15._P_15_	:1,
+	|16._P_16_	:1,
+	|17._P_17_	:1,
+	|18._P_18_	:1,
+	|19._P_19_	:1,
+	|22._P_22_	:1,
+	|24._P_24_	:1
+	maximal trap:
+	empty set
+	is not sufficiently marked
+    minimal siphon:
+	|3._P_3_	:1,
+	|8._P_8_	:1,
+	|9._P_9_	:1,
+	|14._P_14_	:1,
+	|15._P_15_	:1,
+	|21._P_21_	:1,
+	|24._P_24_	:1
+	maximal trap:
+	empty set
+	is not sufficiently marked
+    minimal siphon:
+	|3._P_3_	:1,
+	|11._P_11_	:1,
+	|14._P_14_	:1,
+	|19._P_19_	:1,
+	|21._P_21_	:1,
+	|24._P_24_	:1
+	maximal trap:
+	empty set
+	is not sufficiently marked
+    minimal siphon:
+	|3._P_3_	:1,
+	|8._P_8_	:1,
+	|12._P_12_	:1,
+	|13._P_13_	:1,
+	|14._P_14_	:1,
+	|15._P_15_	:1,
+	|16._P_16_	:1,
+	|17._P_17_	:1,
+	|18._P_18_	:1,
+	|19._P_19_	:1,
+	|22._P_22_	:1,
+	|24._P_24_	:1
+	maximal trap:
+	empty set
+	is not sufficiently marked
+ siphons with sufficiently marked traps:
+    minimal siphon:
+	|17._P_17_	:1,
+	|20._P_20_	:1
+	maximal trap:
+	|17._P_17_	:1,
+	|20._P_20_	:1
+	is sufficiently marked
+    minimal siphon:
+	|2._P_2_	:1,
+	|7._P_7_	:1,
+	|10._P_10_	:1
+	maximal trap:
+	|2._P_2_	:1,
+	|7._P_7_	:1,
+	|10._P_10_	:1
+	is sufficiently marked
+    minimal siphon:
+	|5._P_5_	:1,
+	|9._P_9_	:1,
+	|15._P_15_	:1
+	maximal trap:
+	|5._P_5_	:1,
+	|9._P_9_	:1,
+	|15._P_15_	:1
+	is sufficiently marked
+    minimal siphon:
+	|4._P_4_	:1,
+	|8._P_8_	:1,
+	|12._P_12_	:1
+	maximal trap:
+	|4._P_4_	:1,
+	|8._P_8_	:1,
+	|12._P_12_	:1
+	is sufficiently marked
+    minimal siphon:
+	|10._P_10_	:1,
+	|11._P_11_	:1,
+	|12._P_12_	:1,
+	|13._P_13_	:1,
+	|15._P_15_	:1,
+	|16._P_16_	:1,
+	|17._P_17_	:1,
+	|18._P_18_	:1,
+	|19._P_19_	:1
+	maximal trap:
+	|10._P_10_	:1,
+	|11._P_11_	:1,
+	|12._P_12_	:1,
+	|13._P_13_	:1,
+	|15._P_15_	:1,
+	|16._P_16_	:1,
+	|17._P_17_	:1,
+	|18._P_18_	:1,
+	|19._P_19_	:1
+	is sufficiently marked
+    minimal siphon:
+	|19._P_19_	:1,
+	|21._P_21_	:1,
+	|23._P_23_	:1
+	maximal trap:
+	|19._P_19_	:1,
+	|21._P_21_	:1,
+	|23._P_23_	:1
+	is sufficiently marked
+    minimal siphon:
+	|0._P_0_	:1,
+	|1._P_1_	:1,
+	|2._P_2_	:1,
+	|3._P_3_	:1,
+	|4._P_4_	:1,
+	|5._P_5_	:1
+	maximal trap:
+	|0._P_0_	:1,
+	|1._P_1_	:1,
+	|2._P_2_	:1,
+	|3._P_3_	:1,
+	|4._P_4_	:1,
+	|5._P_5_	:1
+	is sufficiently marked
+    minimal siphon:
+	|3._P_3_	:1,
+	|11._P_11_	:1,
+	|12._P_12_	:1,
+	|13._P_13_	:1,
+	|14._P_14_	:1,
+	|15._P_15_	:1,
+	|16._P_16_	:1,
+	|17._P_17_	:1,
+	|18._P_18_	:1,
+	|19._P_19_	:1,
+	|22._P_22_	:1,
+	|24._P_24_	:1
+	maximal trap:
+	|3._P_3_	:1,
+	|11._P_11_	:1,
+	|14._P_14_	:1,
+	|17._P_17_	:1,
+	|18._P_18_	:1,
+	|22._P_22_	:1,
+	|24._P_24_	:1
+	is sufficiently marked
+    minimal siphon:
+	|1._P_1_	:1,
+	|6._P_6_	:1,
+	|13._P_13_	:1
+	maximal trap:
+	|1._P_1_	:1,
+	|6._P_6_	:1,
+	|13._P_13_	:1
+	is sufficiently marked
+    minimal siphon:
+	|22._P_22_	:1,
+	|23._P_23_	:1,
+	|24._P_24_	:1,
+	|25._P_25_	:1
+	maximal trap:
+	|22._P_22_	:1,
+	|23._P_23_	:1,
+	|24._P_24_	:1,
+	|25._P_25_	:1
+	is sufficiently marked
+22 minimal siphons computed 740:00:00:294
+time: 740:00:00:297
+
+
+---------------FINAL RESULTS----------------------
+
+  PUR   ORD   HOM   NBM   CSV   SCF   FT0   TF0   FP0   PF0   CON   SC    NC  
+   Y     Y     Y     Y     N     N     Y     Y     Y     Y     Y     Y    nES 
+ RKTH   STP   CPI   CTI  SCTI    SB   k-B   1-B   DCF   DSt   DTr   LIV   REV 
+   -     N     -     -     -     -     -     -     -     -     -     -     -  
+  SSI   RNK  SCCS  SEQS 
+   Y     -     10    20 
+--------------------------------------------------
+Session finished: 16/3/20 12:40
