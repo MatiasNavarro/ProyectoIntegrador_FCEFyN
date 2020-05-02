@@ -1,0 +1,365 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Masters/Doctoral Thesis 
+% LaTeX Template
+% Version 2.5 (27/8/17)
+%
+% This template was downloaded from:
+% http://www.LaTeXTemplates.com
+%
+% Version 2.x major modifications by:
+% Vel (vel@latextemplates.com)
+%
+% This template is based on a template by:
+% Steve Gunn (http://users.ecs.soton.ac.uk/srg/softwaretools/document/templates/)
+% Sunil Patel (http://www.sunilpatel.co.uk/thesis-template/)
+%
+% Template license:
+% CC BY-NC-SA 3.0 (http://creativecommons.org/licenses/by-nc-sa/3.0/)
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%----------------------------------------------------------------------------------------
+%	PACKAGES AND OTHER DOCUMENT CONFIGURATIONS
+%----------------------------------------------------------------------------------------
+
+\documentclass[
+11pt, % The default document font size, options: 10pt, 11pt, 12pt
+%oneside, % Two side (alternating margins) for binding by default, uncomment to switch to one side
+spanish, % ngerman for German
+singlespacing, % Single line spacing, alternatives: onehalfspacing or doublespacing
+%draft, % Uncomment to enable draft mode (no pictures, no links, overfull hboxes indicated)
+%nolistspacing, % If the document is onehalfspacing or doublespacing, uncomment this to set spacing in lists to single
+%liststotoc, % Uncomment to add the list of figures/tables/etc to the table of contents
+%toctotoc, % Uncomment to add the main table of contents to the table of contents
+%parskip, % Uncomment to add space between paragraphs
+%nohyperref, % Uncomment to not load the hyperref package
+headsepline, % Uncomment to get a line under the header
+% chapterinoneline, % Uncomment to place the chapter title next to the number on one line
+% consistentlayout, % Uncomment to change the layout of the declaration, abstract and acknowledgements pages to \textit{match} the default layout
+]{MastersDoctoralThesis} % The class file specifying the document structure
+
+\usepackage[utf8]{inputenc} % Required for inputting international characters
+\usepackage[T1]{fontenc} % Output font encoding for international characters
+\usepackage{comment}
+\usepackage{mathpazo} % Use the Palatino font by default
+\usepackage{graphicx}
+\usepackage[backend=bibtex,bibencoding=ascii,style=numeric,natbib=true]{biblatex} % Use the bibtex backend with the authoryear citation style (which resembles APA)
+\usepackage{longtable}
+\usepackage[table]{xcolor} 
+
+\addbibresource{example.bib} % The filename of the bibliography
+
+\usepackage[autostyle=true]{csquotes} % Required to generate language-dependent quotes in the bibliography
+\usepackage{float}
+% \usepackage{tabu}
+\usepackage{booktabs}
+% \usepackage[table,xcdraw]{xcolor}
+\renewcommand*{\lstlistingname}{Código}
+%----------------------------------------------------------------------------------------
+%	MARGIN SETTINGS
+%----------------------------------------------------------------------------------------
+
+\geometry{
+	paper=a4paper, % Change to letterpaper for US letter
+	outer=2.5cm, % Inner margin
+	inner=3.8cm, % Outer margin
+	bindingoffset=.5cm, % Binding offset
+	top=1.5cm, % Top margin
+	bottom=1.5cm, % Bottom margin
+	%showframe, % Uncomment to show how the type block is set on the page
+}
+
+%----------------------------------------------------------------------------------------
+%	THESIS INFORMATION
+%----------------------------------------------------------------------------------------
+
+\thesistitle{Redes Neuronales para la determinación automática del control de una Red de Petri} % Your thesis title, this is used in the title and abstract, print it elsewhere with \ttitle
+\supervisor{Dr. Ing \textsc{Micollini}, Orlando} % Your supervisor's name, this is used in the title page, print it elsewhere with \supname
+\examiner{Ing. \textsc{Ventre}, Luis Orlando} % Your examiner's name, this is not currently used anywhere in the template, print it elsewhere with \examname
+% \degree{Doctor of Philosophy} % Your degree name, this is used in the title page and abstract, print it elsewhere with \degreename
+\authorA{\textsc{Izquierdo}, Agustina Nahir}
+\matriculaA{37729473}
+\emailA{agustina.izquierdo@mi.unc.edu.ar}
+
+\authorB{\textsc{Navarro}, Matias Alejandro}
+\matriculaB{38730347}
+\emailB{matias.navarro@mi.unc.edu.ar}
+
+\authorC{\textsc{Salvatierra}, Andrés}
+\matriculaC{39611008}
+\emailC{andressalvatierra@mi.unc.edu.ar}
+% Your name, this is used in the title page and abstract, print it elsewhere with \authorname
+% \addresses{} % Your address, this is not currently used anywhere in the template, print it elsewhere with \addressname
+
+% \subject{Biological Sciences} % Your subject area, this is not currently used anywhere in the template, print it elsewhere with \subjectname
+\keywords{Software Defined Networking (SDN), Administracion, Open Networking Operating System (ONOS)} % Keywords for your thesis, this is not currently used anywhere in the template, print it elsewhere with \keywordnames
+\university{Universidad Nacional de Córdoba} % Your university's name and URL, this is used in the title page and abstract, print it elsewhere with \univname
+% \department{Facultad de Ciencias Exactas Físicas y Naturales} % Your department's name and URL, this is used in the title page and abstract, print it elsewhere with \deptname
+% \group{\href{http://researchgroup.university.com}{Research Group Name}} % Your research group's name and URL, this is used in the title page, print it elsewhere with \groupname
+\faculty{Facultad de Ciencias Exactas Físicas y Naturales} % Your faculty's name and URL, this is used in the title page and abstract, print it elsewhere with \facname
+
+\AtBeginDocument{
+\hypersetup{pdftitle=\ttitle} % Set the PDF's title to your title
+\hypersetup{pdfauthor=\authornameA} % Set the PDF's author to your name
+\hypersetup{pdfkeywords=\keywordnames} % Set the PDF's keywords to your keywords
+}
+
+\begin{document}
+
+\frontmatter % Use roman page numbering style (i, ii, iii, iv...) for the pre-content pages
+
+\pagestyle{plain} % Default to the plain heading style until the thesis style is called for the body content
+
+%----------------------------------------------------------------------------------------
+%	TITLE PAGE
+%----------------------------------------------------------------------------------------
+
+\begin{titlepage}
+	\begin{center}
+				
+		\resizebox{1\textwidth}{!}{\includegraphics{Figures/logo-unc-fcefyn.png}}%
+				
+		\vspace*{.06\textheight}
+		{\scshape\LARGE \univname\par}\vspace{0.5cm} % University name
+		{\scshape\LARGE \facname\par}\vspace{1.5cm}
+		\textsc{\Large Proyecto Integrador}\\[0.5cm] % Thesis type
+		\textsc{\Large Ingeniería en Computación}\\[0.5cm]
+				
+		\HRule \\[0.4cm] % Horizontal line
+		{\huge \bfseries \ttitle\par}\vspace{0.4cm} % Thesis title
+		\HRule \\[1.5cm] % Horizontal line
+				 
+		\begin{minipage}[t]{0.5\textwidth}
+			\begin{flushleft} \large
+				\emph{Autores:}\\
+				\authornameA \\ % Author name - remove the \href bracket to remove the link
+				\matriculanameA \\
+				\hfill \break
+				\authornameB \\
+				\matriculanameB \\
+				\hfill \break
+				\authornameC \\
+				\matriculanameC
+				
+			\end{flushleft}		
+		\end{minipage}
+		\begin{minipage}[t]{0.4\textwidth}
+			\begin{flushright} \large
+				\emph{Director:} \\
+				\supname \\
+				\hfill \break
+				\emph{Co-director:} \\
+				\examname
+			\end{flushright}
+		\end{minipage}\\[2cm]
+				
+		% \large \textit{A thesis submitted in fulfillment of the requirements\\ for the degree of \degreename}\\[0.3cm] % University requirement text
+		% \textit{in the}\\[0.4cm]
+		% \groupname\\\deptname\\[2cm] % Research group name and department name
+				
+		{\large {Septiembre 2020}}\\[4cm] % Date
+		%\includegraphics{Logo} % University/department logo - uncomment to place it
+				 
+		\vfill
+	\end{center}
+\end{titlepage}
+
+%----------------------------------------------------------------------------------------
+%	DEDICATION
+%----------------------------------------------------------------------------------------
+
+\dedicatory{Para nuestras familias\ldots} 
+
+% %----------------------------------------------------------------------------------------
+% %	DECLARATION PAGE
+% %----------------------------------------------------------------------------------------
+
+% \begin{declaration}
+% \addchaptertocentry{\authorshipname} % Add the declaration to the table of contents
+% \noindent I, \authorname, declare that this thesis titled, \enquote{\ttitle} and the work presented in it are my own. I confirm that:
+
+% \begin{itemize} 
+% \item This work was done wholly or mainly while in candidature for a research degree at this University.
+% \item Where any part of this thesis has previously been submitted for a degree or any other qualification at this University or any other institution, this has been clearly stated.
+% \item Where I have consulted the published work of others, this is always clearly attributed.
+% \item Where I have quoted from the work of others, the source is always given. With the exception of such quotations, this thesis is entirely my own work.
+% \item I have acknowledged all main sources of help.
+% \item Where the thesis is based on work done by myself jointly with others, I have made clear exactly what was done by others and what I have contributed myself.\\
+% \end{itemize}
+ 
+% \noindent Signed:\\
+% \rule[0.5em]{25em}{0.5pt} % This prints a line for the signature
+ 
+% \noindent Date:\\
+% \rule[0.5em]{25em}{0.5pt} % This prints a line to write the date
+% \end{declaration}
+
+% \cleardoublepage
+
+%----------------------------------------------------------------------------------------
+%	QUOTATION PAGE
+%----------------------------------------------------------------------------------------
+
+% \vspace*{0.2\textheight}
+
+% \noindent\enquote{\itshape Thanks to my solid academic training, today I can write hundreds of words on virtually any topic without possessing a shred of information, which is how I got a good job in journalism.}\bigbreak
+
+% \hfill Dave Barry
+
+%----------------------------------------------------------------------------------------
+%	ABSTRACT PAGE
+%----------------------------------------------------------------------------------------
+
+\begin{abstract}
+	\addchaptertocentry{\abstractname} % Add the abstract to the table of contents
+	En respuesta al continuo incremento de los requerimientos en las redes de transporte, surgen no sólo avances en las capacidades de los dispositivos ópticos, sino también en los métodos de configuración en los mismos. La flexibilidad y la estandarización de las configuraciones pasan de ser una característica deseable, a ser un requerimiento funcional en los equipos. En las empresas de telecomunicaciones, donde dispositivos de diferentes características y fabricantes interactúan a la hora de brindar servicios, es crucial que  exista un protocolo estándar y un ente centralizado de administración. Históricamente esta comunicación se llevó a cabo a través del protocolo \textit{SNMP}, sin embargo las necesidades de las redes actuales involucran capacidades que exceden a este protocolo. 
+	
+	Este contexto da lugar al protocolo de configuraciones de red, también llamado \textit{NETCONF}, que se establece como un protocolo estandarizado por la \textit{Internet Engineering Task Force} (\textit{IETF}), que provee tanto funciones de control (ej. configuración del plano de datos) como así también funciones de administración (ej. acceso a información de monitoreo). Depende de \textit{Yet Another Next Generation} (\textit{YANG}) para describir las configuraciones de los dispositivos de manera estándar. Tanto \textit{NETCONF} como \textit{YANG}, se volvieron foco de interés de los operadores de red en busca de un estándar de configuración abierto.
+	
+	Al mismo tiempo, surge un nuevo paradigma de arquitectura de redes: Las Redes Definidas por Software (\textit{SDN} por sus siglas en inglés), una propuesta para solucionar la creciente complejidad en la administración de las redes. \textit{SDN} propone la separación del plano de datos y el plano de control, logrando de este modo un plano de control centralizado  facilitando no solo el control sino también la administración de las redes.
+
+	En este proyecto integrador se busca, en primer lugar, adquirir en su totalidad los conocimientos involucrados con \textit{SDN} y administración de la configuración de los dispositivos de red. El objetivo será configurar un dispositivo óptico llamado muxponder, para ello se deberá adaptar el protocolo \textit{NETCONF} al equipo. Además, será necesario implementar un \textit{driver} en la interfaz \textit{southbound} del controlador \textit{SDN}. Así mismo, se genera una interfaz de usuario para la administración sencilla de los dispositivos presentes en la topología. Además, se desarrolla un ambiente para la verificación y validación de las aplicaciones. Finalmente, se brindan distintas ideas para mejorar lo aquí implementado y posibles vías para continuar trabajando en el ámbito de las redes definidas por software.
+
+\end{abstract}
+
+% \textbf{Palabras Clave:} \textit{\keywordnames}
+
+%----------------------------------------------------------------------------------------
+%	ACKNOWLEDGEMENTS
+%----------------------------------------------------------------------------------------
+ 
+\begin{acknowledgements}
+	
+	\addchaptertocentry{\acknowledgementname} % Add the acknowledgements to the table of contents
+
+	% 	{\normalsize padres y hermanos \par}
+	Muchas gracias a mi familia, por el apoyo incondicional a lo largo de todos estos años de estudio.  
+	\bigskip
+			
+	% 	{\normalsize Hugo y Matt \par}
+	Este proyecto no hubiera sido posible sin el soporte, la confianza, la supervisión y el duro empeño de mis directores, Hugo Carrer y Matthew Aguerreberry.
+	\bigskip
+			
+	% 	{\normalsize amigos \par}
+	Un especial agradecimiento a mis amigos y todas las personas que tuve el placer de conocer durante estos años de carrera.
+	\bigskip
+		
+	% 	{\normalsize Fundación y gente que labura en la funda \par}
+	Agradezco a la Fundación Fulgor y a la Fundación Tarpuy, y a todo su personal, por las oportunidades y enseñanzas compartidas.
+	\bigskip
+			
+	% 	{\normalsize universisdad / profes de la facu \par}
+	Finalmente, agradezco a la Facultad de Ciencias Exactas Físicas y Naturales de la Universidad Nacional de Córdoba por la oportunidad de realizar esta carrera de grado.
+
+	\vspace*{\fill}
+		
+\end{acknowledgements}
+
+%----------------------------------------------------------------------------------------
+%	LIST OF CONTENTS/FIGURES/TABLES PAGES
+%----------------------------------------------------------------------------------------
+
+\hypersetup{
+	linkcolor=black,
+	citecolor=black,
+	urlcolor=black
+	}
+
+\tableofcontents % Prints the main table of contents
+
+\listoffigures % Prints the list of figures
+
+\listoftables % Prints the list of tables
+
+%----------------------------------------------------------------------------------------
+%	ABBREVIATIONS
+%----------------------------------------------------------------------------------------
+
+\begin{abbreviations}{ll} % Include a list of abbreviations (a table of two columns)
+		
+	\textbf{API} & \textbf{A}pplication \textbf{P}rogramming \textbf{I}nterface\\
+	\textbf{CLI} & \textbf{C}ommand \textbf{L}ine \textbf{I}nterface\\
+	\textbf{SNMP} & \textbf{S}imple \textbf{N}etwork \textbf{M}anagement \textbf{P}rotocol\\
+	\textbf{FIB} & \textbf{F}orwarding \textbf{I}nformation \textbf{B}ase\\
+	\textbf{GUI} & \textbf{G}raphical \textbf{U}ser \textbf{I}nterface\\
+	%\textbf{IGMP} & \textbf{I}nternet \textbf{G}roup \textbf{M}anagement \textbf{P}rotocol\\
+	%\textbf{NFV} & \textbf{N}etwork \textbf{F}unction \textbf{V}irtualization\\
+	%\textbf{ODL} & \textbf{O}pen\textbf{D}ay\textbf{l}ight\\
+	\textbf{ONF} & \textbf{O}pen \textbf{N}etworking \textbf{F}oundation\\
+	\textbf{IETF} & \textbf{I}nternet \textbf{E}ngineering \textbf{T}ask \textbf{F}orce\\
+	%\textbf{ONOS} & \textbf{O}pen \textbf{N}etworking \textbf{O}perating \textbf{S}ystem\\
+	%\textbf{OVS} & \textbf{O}pen \textbf{V} \textbf{S}witch\\
+	%\textbf{PIM} & \textbf{P}rotocol \textbf{I}ndependent \textbf{M}ulticast\\
+	\textbf{RIB} & \textbf{R}outing \textbf{I}nformation \textbf{B}ase\\
+	%\textbf{REST} & \textbf{RE}presentational \textbf{S}tate \textbf{T}ransfer\\
+	\textbf{SDN} & \textbf{S}oftware \textbf{D}efined \textbf{N}etwork\\
+	%\textbf{SSM} & \textbf{S}ource \textbf{S}pecific \textbf{M}ulticast\\
+	\textbf{UDP} & \textbf{U}ser \textbf{D}atagram \textbf{P}rotocol\\
+	\textbf{TCP} & \textbf{T}ransmission \textbf{C}ontrol \textbf{P}rotocol\\
+	\textbf{MIB} & \textbf{M}anagement \textbf{I}nformation \textbf{B}ase\\
+	\textbf{TLS} & \textbf{T}ransport \textbf{L}ayer \textbf{S}ecurity\\
+	\textbf{SSH} & \textbf{S}ecure \textbf{SH}ell\\
+	\textbf{OTN} & \textbf{O}ptical \textbf{T}ransport \textbf{N}etwork\\
+	\textbf{OTU} & \textbf{O}ptical \textbf{T}ransport \textbf{U}nit\\
+	\textbf{ITU} & \textbf{I}nternational \textbf{T}elecommunication \textbf{U}nion\\
+	\textbf{RFC} & \textbf{R}equest \textbf{F}or \textbf{C}omments\\
+	\textbf{RPC} & \textbf{R}emote \textbf{P}rocedure \textbf{C}all\\
+	\textbf{XML} & E\textbf{X}tensible \textbf{M}arkup \textbf{L}anguage\\
+	\textbf{YANG} & \textbf{Y}et \textbf{A}nother \textbf{N}ext \textbf{G}eneration\\
+	\textbf{NETCONF} & \textbf{NET}work \textbf{CONF}iguration Protocol\\
+	\textbf{IANA} & \textbf{I}nternet \textbf{A}ssigned \textbf{N}umbers \textbf{A}uthority\\
+	\textbf{FEC} & \textbf{F}orward \textbf{E}rror \textbf{C}orrection\\
+	\textbf{FPGA} & \textbf{F}ield \textbf{P}rogrammable \textbf{G}ate \textbf{A}rray\\
+	\textbf{ONOS} & \textbf{O}pen \textbf{N}etwork \textbf{O}perating \textbf{S}ystem\\
+	\textbf{REST} & \textbf{RE}presentational \textbf{S}tate \textbf{T}ransfer\\
+	\textbf{BSD} & \textbf{B}erkeley \textbf{S}oftware \textbf{D}istribution\\
+	\textbf{MIT} & \textbf{M}assachusetts \textbf{I}nstitute \textbf{T}echnology\\
+	\textbf{MB} & \textbf{M}ega \textbf{B}ytes\\
+	\textbf{TB} & \textbf{T}era \textbf{B}ytes\\
+	\textbf{NFV} & \textbf{N}etwork \textbf{F}unction \textbf{V}irtualization\\
+	
+	%\textbf{VNF} & \textbf{V}irtual \textbf{N}etwork \textbf{F}unction\\
+				 
+\end{abbreviations}
+%----------------------------------------------------------------------------------------
+%	THESIS CONTENT - CHAPTERS
+%----------------------------------------------------------------------------------------
+
+\mainmatter % Begin numeric (1,2,3...) page numbering
+
+\pagestyle{thesis} % Return the page headers back to the "thesis" style
+
+% Include the chapters of the thesis as separate files from the Chapters folder
+% Uncomment the lines as you write the chapters
+
+ \include{Chapters/Chapter1}
+ \include{Chapters/Chapter2}
+ \include{Chapters/Chapter3}
+ \include{Chapters/Chapter4}
+ \include{Chapters/Chapter5}
+ \include{Chapters/Chapter6} 
+ \include{Chapters/Chapter7} 
+% \include{Chapters/Chapter7}
+
+%----------------------------------------------------------------------------------------
+%	THESIS CONTENT - APPENDICES
+%----------------------------------------------------------------------------------------
+
+\appendix % Cue to tell LaTeX that the following "chapters" are Appendices
+
+% Include the appendices of the thesis as separate files from the Appendices folder
+% Uncomment the lines as you write the Appendices
+
+\include{Appendices/AppendixA}
+% \include{Appendices/AppendixB}
+%\include{Appendices/AppendixC}
+
+%----------------------------------------------------------------------------------------
+%	BIBLIOGRAPHY
+%----------------------------------------------------------------------------------------
+
+\printbibliography[heading=bibintoc]
+% 
+%----------------------------------------------------------------------------------------
+
+\end{document} 
