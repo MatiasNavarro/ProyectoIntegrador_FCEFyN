@@ -1,0 +1,104 @@
+% Appendix Template
+
+\chapter{Tutorial para desplegar el entorno y las aplicaciones desarrolladas} % Main appendix title
+
+\label{AppendixA} % Change X to a consecutive letter; for referencing this appendix elsewhere, use \ref{AppendixX}
+En este apéndice, se detalla el procedimiento en el cual se configura el entorno sobre el que se llevan a cabo todos los desarrollos del trabajo. Luego se explica el procedimiento que se debe seguir para instalar las aplicaciones e iniciar la interfaz gráfica.
+
+
+\section{Instalación del agente en el dispositivo}
+
+A continuación se listan y explican los pasos que se deben seguir para poder instalar e iniciar el agente \textit{NETCONF} en el dispositivo.
+
+\begin{itemize}   
+    \item \textbf{Compilar el agente Yuma123:} En primer lugar, se deberá compilar el agente para la arquitectura deseada. Para ello, se usarán los \textit{scripts} realizados con \textit{Dockerfile}. Un ejemplo de compilación para la arquitectura \textit{NIOS II} (arquitectura del procesador del \textit{muxponder} de 40GB) se muestra a continuación.
+	
+	\begin{lstlisting}[language=SHELXL]
+		$ cd .../NETCONF-SDN/compile_yuma123/
+		$ make all TARGET=nios2
+    \end{lstlisting}
+
+    \item \textbf{Instalar el agente en el dispositivo:} Una vez compilado exitosamente, se deberá instalar el agente. Para ello se hace uso de un \textit{script} en \textit{bash}, al cual se le especifica un usuario \textit{SSH}, dirección IP y arquitectura deseada. Un ejemplo de uso se puede ver a continuación.
+    
+	\begin{lstlisting}[language=SHELXL]
+		$ cd .../NETCONF-SDN/compile_yuma123/utils_scripts/
+		$ bash ./remote_install_yuma.sh @user @host @arch
+    \end{lstlisting}
+	
+    \item \textbf{Instalar el módulo \textit{YANG} y librería desarrollada:} Luego, se debe instalar tanto el módulo \textit{YANG} como la librería en C desarrollada. Existe otro \textit{script} en \textit{bash} que facilitará esta tarea. Para su uso, se debe especificar un usuario \textit{SSH}, dirección IP, nombre del módulo a instalar y la arquitectura deseada. Dicho script se encarga no solo de pasar a la carpeta requerida tanto el módulo como la librería, sino que también las compila previamente. Un ejemplo de su uso es el que se observa:
+	
+	\begin{lstlisting}[language=SHELXL]
+		$ cd .../NETCONF-SDN/examples_modules/utils_scripts/
+		$ bash ./remote-install-module.sh @user @host @module @arch
+    \end{lstlisting}
+
+    \item \textbf{Inicio del agente en el dispositivo:} Una vez instalado el agente y la librería, se puede iniciar el servidor \textit{netconfd} en el dispositivo. Para ello, indicamos el módulo a iniciar junto con el servidor, el nivel de debug deseado y el \textit{container target} de las operaciones por defecto.
+	\begin{lstlisting}[language=SHELXL]
+		$ cd ~/usrapp/sbin/
+		$ ./netconfd --module=cli-mxp --log-level="debug2" --target=running --superuser=root --with-startup=true
+    \end{lstlisting}
+  
+\end{itemize}
+
+\section{Inicio del controlador \textit{ONOS}}
+
+En esta sección se muestra como iniciar el controlador \textit{ONOS} que se comunicará con los dispositivos.
+
+\begin{itemize}   
+    \item \textbf{Compilación del controlador:} En primer lugar, se deberá compilar el controlador. Para ello, se ejecutará el comando que se muestra a continuación. El controlador cargará de forma automática el \textit{driver} desarrollado. 
+	
+	\begin{lstlisting}[language=SHELXL]
+		$ cd $ONOS_ROOT && tools/build/onos-buck run onos-local -- clean debug
+	\end{lstlisting}
+	
+	\item \textbf{Instalación de la interfaz REST en el controlador:} Luego, se deberá compilar e instalar en el controlador la aplicación que provee una interfaz REST para la interfaz gráfica desarrollada. Los pasos a seguir para este objetivo se muestran a continuación. 
+	
+	\begin{lstlisting}[language=SHELXL]
+		$ cd .../NETCONF-SDN/onos/app-altura/altura/ && mvn clean install && onos-app localhost reinstall! target/altura-1.0-SNAPSHOT.oar
+	\end{lstlisting}
+
+	\item Algunos comandos útiles:
+	\begin{lstlisting}[language=SHELXL]
+		http://localhost:8181/onos/ui/login.html#/topo    //interfaz gráfica de ONOS
+		$ cd $ONOS_ROOT && tools/test/bin/onos karaf@localhost // To attach to the ONOS CLI console
+	\end{lstlisting}
+	
+\end{itemize}
+
+
+\section{Interfaz gráfica}
+
+Por último, se muestra cómo iniciar la interfaz gráfica desarrollada.
+
+\begin{itemize}   
+    \item \textbf{Entorno virtual de Python:} Para no interferir con el binario de Python instalado en el host local, primeramente se deberá instalar un entorno virtual de Python junto con las librerías requeridas por la interfaz gráfica. Para ello se ejecuta: 
+	
+	\begin{lstlisting}[language=SHELXL]
+		$ cd .../NETCONF-SDN/python-app/
+		$ virtualenv2 altura-gui
+		$ ./altura-gui/bin/pip2.7 install -r requirements.txt  #(or in Windows - sometimes python -m pip install -r requirements.txt )
+	\end{lstlisting}
+	
+	\item \textbf{Inicio de la interfaz:} Una vez preparado el entorno virtual, se ejecuta la aplicación WEB de la siguiente forma: 
+	
+	\begin{lstlisting}[language=SHELXL]
+		$ ./altura-gui/bin/python2.7 altura.py
+	\end{lstlisting}
+
+	\item Algunos comandos útiles:
+	\begin{lstlisting}[language=SHELXL]
+		http://127.0.0.1:5000/    //Para acceder a la interfaz gráfica
+	\end{lstlisting}
+	
+\end{itemize}
+
+
+\section{Código fuente de la aplicación}
+El código fuente de las aplicaciones y el controlador, requeridos para las pruebas mencionadas anteriormente, puede obtenerse clonando los repositorios
+\begin{center}
+    $ \emph {git clone https://github.com/ragnar-l/NETCONF-SDN}$
+\end{center}
+
+\begin{center}
+    $ \emph {git clone https://github.com/ragnar-l/onos-fork}$
+\end{center}
