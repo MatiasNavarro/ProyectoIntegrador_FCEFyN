@@ -56,14 +56,6 @@
             <tokens>1</tokens>
             <isStatic>false</isStatic>
         </place>
-        <place>
-            <id>P8</id>
-            <x>-31</x>
-            <y>-137</y>
-            <label>P7</label>
-            <tokens>1</tokens>
-            <isStatic>false</isStatic>
-        </place>
         <transition>
             <id>T1</id>
             <x>-107</x>
@@ -116,18 +108,6 @@
             <guard>none</guard>
             <stochasticProperties distribution="Exponential" labelVar1="Rate (λ)" labelVar2=" " var1="1.0" var2="1.0"/>
         </transition>
-        <arc>
-            <type>regular</type>
-            <sourceId>P8</sourceId>
-            <destinationId>T1</destinationId>
-            <multiplicity>1</multiplicity>
-        </arc>
-        <arc>
-            <type>regular</type>
-            <sourceId>T3</sourceId>
-            <destinationId>P8</destinationId>
-            <multiplicity>1</multiplicity>
-        </arc>
         <arc>
             <type>regular</type>
             <sourceId>T4</sourceId>
