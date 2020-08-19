@@ -434,6 +434,7 @@ else:   #se obtienen los supervisores
                                 contador = contador + 1
                     print("Supervisor ",array_supervisor[m], " Contador ",contador)
                     if(contador==0):
-                        print("La transicion en conflicto ", aux+1," le tiene que devolver un token al supervisor ", array_supervisor[m])
-
+                        prueba= int(array_supervisor[m])+1
+                        print(prueba)
+                        print("La transicion en conflicto ", aux+1," le tiene que devolver un token al supervisor ", prueba)
     exit()
