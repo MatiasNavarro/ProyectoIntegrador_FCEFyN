@@ -384,7 +384,7 @@ def main():
 
     elif(analisis=="3"):   #se obtienen los supervisores (3) o Anular brazos de idle a supervisores (4)
 
-        
+
         file_plazas = open('cantidad_plazas_red_original.txt', 'r')
         cantidad_plazas_red_original=int(file_plazas.read())
         # print(cantidad_plazas_red_original)
@@ -431,7 +431,7 @@ def main():
 
         #print(t_conflict_red_original)
 
-        if(analisis=="3"):
+        #if(analisis=="3"):
             # #Buscamos los T-invariantes en los que esta presenta la transicion en conflictos
             # #lo recorremos sin tener en cuenta la T-idle dado que esta afecta a todos los supervisores
             # #todo aquel supervisor que no afecte el camino del T-invariante la T-conflicto le debe dar token
@@ -450,25 +450,26 @@ def main():
             #                     print("La transicion en conflicto ", aux+1," le tiene que devolver un token al supervisor ", array_supervisor[m]+1)
 
         # else:
-            #Buscamos eliminar los arcos de las transiciones idle cuyo T-invariante al que pertenece no le devuelve token al supervisor. (i.e arcos innecesarios)
-            for i in range(len(trans_idle)): #Cantidad de trans_idle
-                for j in range(len(t_invariant_red_original)): #cantidad de t-invariantes
-                    if(int(t_invariant_red_original[j][trans_idle[i]])==1): #La transicion idle forma parte del t-invariantes
-                        for m in range(len(array_supervisor)):
-                            cont_sup = 0
-                            for l in range(len(t_invariant_red_original[j])):
-                                if(int(t_invariant_red_original[j][l])==1):
-                                    if(int(matriz_pos[array_supervisor[m]][l])==1): #El T-invariante de la transicion idle le devuelve token al supervisor?
-                                        cont_sup = 1 # si devuelve
-                            if(cont_sup==0): #no devuelve
-                                cont=0
-                                for k in range(len(t_conflict_red_original)):
-                                    aux = int(t_conflict_red_original[k][0])
-                                    if(int(t_invariant_red_original[j][aux])==1): #La transicion en conflicto forma parte del T-invariante
-                                        cont = cont + 1
-                                        print("La transicion en conflicto ", aux+1," le tiene que devolver un token al supervisor ", array_supervisor[m]+1)
-                                
-                                if(cont == 0):
+        #Buscamos eliminar los arcos de las transiciones idle cuyo T-invariante al que pertenece no le devuelve token al supervisor. (i.e arcos innecesarios)
+        for i in range(len(trans_idle)): #Cantidad de trans_idle
+            for j in range(len(t_invariant_red_original)): #cantidad de t-invariantes
+                if(int(t_invariant_red_original[j][trans_idle[i]])==1): #La transicion idle forma parte del t-invariantes
+                    for m in range(len(array_supervisor)):
+                        cont_sup = 0
+                        for l in range(len(t_invariant_red_original[j])):
+                            if(int(t_invariant_red_original[j][l])==1):
+                                if(int(matriz_pos[array_supervisor[m]][l])==1): #El T-invariante de la transicion idle le devuelve token al supervisor?
+                                    cont_sup = 1 # si devuelve
+                        if(cont_sup==0): #no devuelve
+                            cont=0
+                            for k in range(len(t_conflict_red_original)):
+                                aux = int(t_conflict_red_original[k][0])
+                                if(int(t_invariant_red_original[j][aux])==1): #La transicion en conflicto forma parte del T-invariante
+                                    cont = cont + 1
+                                    print("La transicion en conflicto ", aux+1," le tiene que devolver un token al supervisor ", array_supervisor[m]+1)
+
+                            if(cont == 0):
+                                if(int(matriz_pre[int(array_supervisor[m])][int(trans_idle[i])])==1):
                                     print("Eliminar arco desde ", array_supervisor[m]+1, "hasta ", trans_idle[i]+1)
 
     else:
