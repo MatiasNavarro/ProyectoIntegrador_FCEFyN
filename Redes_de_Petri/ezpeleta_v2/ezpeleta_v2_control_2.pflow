@@ -168,6 +168,22 @@
             <tokens>1</tokens>
             <isStatic>false</isStatic>
         </place>
+        <place>
+            <id>P24</id>
+            <x>-777</x>
+            <y>-253</y>
+            <label>P21</label>
+            <tokens>2</tokens>
+            <isStatic>false</isStatic>
+        </place>
+        <place>
+            <id>P25</id>
+            <x>-781</x>
+            <y>-4</y>
+            <label>P22</label>
+            <tokens>2</tokens>
+            <isStatic>false</isStatic>
+        </place>
         <transition>
             <id>T1</id>
             <x>-391</x>
@@ -363,6 +379,66 @@
             <guard>none</guard>
             <stochasticProperties distribution="Exponential" labelVar1="Rate (λ)" labelVar2=" " var1="1.0" var2="1.0"/>
         </transition>
+        <arc>
+            <type>regular</type>
+            <sourceId>T16</sourceId>
+            <destinationId>P25</destinationId>
+            <multiplicity>1</multiplicity>
+        </arc>
+        <arc>
+            <type>regular</type>
+            <sourceId>T16</sourceId>
+            <destinationId>P24</destinationId>
+            <multiplicity>1</multiplicity>
+        </arc>
+        <arc>
+            <type>regular</type>
+            <sourceId>T13</sourceId>
+            <destinationId>P25</destinationId>
+            <multiplicity>1</multiplicity>
+        </arc>
+        <arc>
+            <type>regular</type>
+            <sourceId>T7</sourceId>
+            <destinationId>P25</destinationId>
+            <multiplicity>1</multiplicity>
+        </arc>
+        <arc>
+            <type>regular</type>
+            <sourceId>P25</sourceId>
+            <destinationId>T15</destinationId>
+            <multiplicity>1</multiplicity>
+        </arc>
+        <arc>
+            <type>regular</type>
+            <sourceId>P25</sourceId>
+            <destinationId>T1</destinationId>
+            <multiplicity>1</multiplicity>
+        </arc>
+        <arc>
+            <type>regular</type>
+            <sourceId>T12</sourceId>
+            <destinationId>P24</destinationId>
+            <multiplicity>1</multiplicity>
+        </arc>
+        <arc>
+            <type>regular</type>
+            <sourceId>T6</sourceId>
+            <destinationId>P24</destinationId>
+            <multiplicity>1</multiplicity>
+        </arc>
+        <arc>
+            <type>regular</type>
+            <sourceId>P24</sourceId>
+            <destinationId>T15</destinationId>
+            <multiplicity>1</multiplicity>
+        </arc>
+        <arc>
+            <type>regular</type>
+            <sourceId>P24</sourceId>
+            <destinationId>T1</destinationId>
+            <multiplicity>1</multiplicity>
+        </arc>
         <arc>
             <type>regular</type>
             <sourceId>T18</sourceId>
