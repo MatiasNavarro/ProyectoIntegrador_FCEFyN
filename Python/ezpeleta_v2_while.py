@@ -288,8 +288,8 @@ def main():
     print("\nIngrese: ")
     print("1 - Primer analisis de la red")
     print("2 - Segundo analisis analisis de la red")
-    print("3 - Red con supervisores y tratamiento de conflicto")
-    print("4 - Red con supervisores y tratamiento de t_idle")
+    print("3 - Red con supervisores, tratamiento de conflicto y t_idle")
+    #print("4 - Red con supervisores y tratamiento de t_idle")
     analisis= input("\nOpcion: ")
     print("\n")
     #analisis= input("Primer analisis de la red -> 1\nSub red de la red original ->2\n Red con supervisores y tratamiento de conflicto -> 3\nRed con supervisores y tratamiento de t_idles -> 4")
@@ -382,7 +382,7 @@ def main():
         os.remove("filtrado_prueba.txt")
 
 
-    elif(analisis=="3" or analisis=="4"):   #se obtienen los supervisores (3) o Anular brazos de idle a supervisores (4)
+    elif(analisis=="3"):   #se obtienen los supervisores (3) o Anular brazos de idle a supervisores (4)
 
         
         file_plazas = open('cantidad_plazas_red_original.txt', 'r')
@@ -432,40 +432,43 @@ def main():
         #print(t_conflict_red_original)
 
         if(analisis=="3"):
-            #Buscamos los T-invariantes en los que esta presenta la transicion en conflictos
-            #lo recorremos sin tener en cuenta la T-idle dado que esta afecta a todos los supervisores
-            #todo aquel supervisor que no afecte el camino del T-invariante la T-conflicto le debe dar token
-            for i in range(len(t_conflict_red_original)):
-                aux = int(t_conflict_red_original[i][0])
-                for j in range(len(t_invariant_red_original)): #cantidad de t-invariantes
-                    if(int(t_invariant_red_original[j][aux])==1): #La transicion en conflicto forma parte del T-invariantes
-                        for m in range(len(array_supervisor)):
-                            contador=0                           #Para verificar si alguna transicion del T-invariante le devuelve al supervisor
-                            for k in range(len(t_invariant_red_original[j])): #Cantidad de transiciones del t-invariante
-                                if(int(t_invariant_red_original[j][k])==1):
-                                    if(int(matriz_pos[array_supervisor[m]][k])==1): #Le devuelve token al supervisores
-                                        contador = contador + 1
-                            #print("Supervisor ",array_supervisor[m]+1, " Contador ",contador)
-                            if(contador==0):
-                                print("La transicion en conflicto ", aux+1," le tiene que devolver un token al supervisor ", array_supervisor[m]+1)
+            # #Buscamos los T-invariantes en los que esta presenta la transicion en conflictos
+            # #lo recorremos sin tener en cuenta la T-idle dado que esta afecta a todos los supervisores
+            # #todo aquel supervisor que no afecte el camino del T-invariante la T-conflicto le debe dar token
+            # for i in range(len(t_conflict_red_original)):
+            #     aux = int(t_conflict_red_original[i][0])
+            #     for j in range(len(t_invariant_red_original)): #cantidad de t-invariantes
+            #         if(int(t_invariant_red_original[j][aux])==1): #La transicion en conflicto forma parte del T-invariantes
+            #             for m in range(len(array_supervisor)):
+            #                 contador=0                           #Para verificar si alguna transicion del T-invariante le devuelve al supervisor
+            #                 for k in range(len(t_invariant_red_original[j])): #Cantidad de transiciones del t-invariante
+            #                     if(int(t_invariant_red_original[j][k])==1):
+            #                         if(int(matriz_pos[array_supervisor[m]][k])==1): #Le devuelve token al supervisores
+            #                             contador = contador + 1
+            #                 #print("Supervisor ",array_supervisor[m]+1, " Contador ",contador)
+            #                 if(contador==0):
+            #                     print("La transicion en conflicto ", aux+1," le tiene que devolver un token al supervisor ", array_supervisor[m]+1)
 
-        else:
+        # else:
             #Buscamos eliminar los arcos de las transiciones idle cuyo T-invariante al que pertenece no le devuelve token al supervisor. (i.e arcos innecesarios)
             for i in range(len(trans_idle)): #Cantidad de trans_idle
                 for j in range(len(t_invariant_red_original)): #cantidad de t-invariantes
                     if(int(t_invariant_red_original[j][trans_idle[i]])==1): #La transicion idle forma parte del t-invariantes
-                        cont=1
-                        for k in range(len(t_conflict_red_original)):
-                            if(int(t_invariant_red_original[j][int(t_conflict_red_original[k][0])])==1): #La transicion en conflicto forma parte del T-invariante
+                        for m in range(len(array_supervisor)):
+                            cont_sup = 0
+                            for l in range(len(t_invariant_red_original[j])):
+                                if(int(t_invariant_red_original[j][l])==1):
+                                    if(int(matriz_pos[array_supervisor[m]][l])==1): #El T-invariante de la transicion idle le devuelve token al supervisor?
+                                        cont_sup = 1 # si devuelve
+                            if(cont_sup==0): #no devuelve
                                 cont=0
-                        if(cont==1):
-                            for m in range(len(array_supervisor)):
-                                cont_sup = 0
-                                for l in range(len(t_invariant_red_original[j])):
-                                    if(int(t_invariant_red_original[j][l])==1):
-                                        if(int(matriz_pos[array_supervisor[m]][l])==1): #El T-invariante de la transicion idle le devuelve token al supervisor?
-                                            cont_sup = 1 # si devuelve
-                                if(cont_sup==0): #no devuelve
+                                for k in range(len(t_conflict_red_original)):
+                                    aux = int(t_conflict_red_original[k][0])
+                                    if(int(t_invariant_red_original[j][aux])==1): #La transicion en conflicto forma parte del T-invariante
+                                        cont = cont + 1
+                                        print("La transicion en conflicto ", aux+1," le tiene que devolver un token al supervisor ", array_supervisor[m]+1)
+                                
+                                if(cont == 0):
                                     print("Eliminar arco desde ", array_supervisor[m]+1, "hasta ", trans_idle[i]+1)
 
     else:
