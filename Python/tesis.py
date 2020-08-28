@@ -424,9 +424,11 @@ def main():
     else:
         print("Opcion erronea")
         exit()
-
-    id_int=int(input("AGREGA EL ID: "))
-    new_red.main(lista_supervisores[id_int][0],lista_supervisores[id_int][1],lista_supervisores[id_int][2],lista_supervisores[id_int][3],name_pflow)
+    
+    decision=input("/n ¿Agregar supervisor?(S/N) ").upper()
+    if(decision=="S"):
+        id_int=int(input("AGREGA EL ID: "))
+        new_red.main(lista_supervisores[id_int][0],lista_supervisores[id_int][1],lista_supervisores[id_int][2],lista_supervisores[id_int][3],name_pflow)
 
 while(1):
     flag = 0
