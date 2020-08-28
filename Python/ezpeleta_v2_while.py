@@ -474,7 +474,7 @@ def main():
 
     else:
         print("Opcion erronea")
-    #exit()
+        exit()
 
 while(1):
     flag = 0
