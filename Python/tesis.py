@@ -185,7 +185,7 @@ def supervisor(cantidad_transiciones,cantidad_plazas,sifon,matriz_es_tr,matriz_p
         t_invariant
     """
     global id
-    print("id=", id)
+    print("\nid=", id)
     id=id+1
     trans_idle=[] #Transiciones habilitadas en el marcado inicial
     marcado_supervisor=sifon[2]-1 #Es la posicion 2 debido que el sifon esta declarado estado deadlock[0], numero sifon[1], marcado sifon[2]
@@ -425,7 +425,7 @@ def main():
         print("Opcion erronea")
         exit()
     
-    decision=input("/n ¿Agregar supervisor?(S/N) ").upper()
+    decision=input("\n¿Agregar supervisor?(S/N) ").upper()
     if(decision=="S"):
         id_int=int(input("AGREGA EL ID: "))
         new_red.main(lista_supervisores[id_int][0],lista_supervisores[id_int][1],lista_supervisores[id_int][2],lista_supervisores[id_int][3],name_pflow)
