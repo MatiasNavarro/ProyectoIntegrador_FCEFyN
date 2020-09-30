@@ -34,8 +34,8 @@
         </place>
         <place>
             <id>P6</id>
-            <x>-563</x>
-            <y>-79</y>
+            <x>-531</x>
+            <y>-58</y>
             <label>P5</label>
             <tokens>1</tokens>
             <isStatic>false</isStatic>
@@ -50,8 +50,8 @@
         </place>
         <place>
             <id>P3</id>
-            <x>-460</x>
-            <y>-53</y>
+            <x>-461</x>
+            <y>-57</y>
             <label>P3</label>
             <tokens>0</tokens>
             <isStatic>false</isStatic>
