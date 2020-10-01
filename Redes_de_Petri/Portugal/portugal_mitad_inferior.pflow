@@ -106,8 +106,8 @@
         </place>
         <place>
             <id>P25</id>
-            <x>43</x>
-            <y>-39</y>
+            <x>39</x>
+            <y>-9</y>
             <label>P25</label>
             <tokens>2</tokens>
             <isStatic>false</isStatic>
@@ -356,8 +356,8 @@
             <destinationId>P25</destinationId>
             <multiplicity>1</multiplicity>
             <breakPoint>
-                <x>136</x>
-                <y>91</y>
+                <x>113</x>
+                <y>57</y>
             </breakPoint>
         </arc>
         <arc>
@@ -559,6 +559,10 @@
             <sourceId>P25</sourceId>
             <destinationId>T23</destinationId>
             <multiplicity>1</multiplicity>
+            <breakPoint>
+                <x>163</x>
+                <y>14</y>
+            </breakPoint>
         </arc>
     </subnet>
     <roles/>

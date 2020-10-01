@@ -50,7 +50,7 @@
         </place>
         <place>
             <id>P6</id>
-            <x>11</x>
+            <x>5</x>
             <y>-225</y>
             <label>P6</label>
             <tokens>0</tokens>
@@ -58,24 +58,24 @@
         </place>
         <place>
             <id>P25</id>
-            <x>66</x>
-            <y>8</y>
+            <x>6</x>
+            <y>-101</y>
             <label>P7</label>
             <tokens>2</tokens>
             <isStatic>false</isStatic>
         </place>
         <place>
             <id>P26</id>
-            <x>138</x>
-            <y>-304</y>
+            <x>145</x>
+            <y>-306</y>
             <label>P8</label>
             <tokens>1</tokens>
             <isStatic>false</isStatic>
         </place>
         <place>
             <id>P42</id>
-            <x>-154</x>
-            <y>-300</y>
+            <x>-120</x>
+            <y>-308</y>
             <label>P9</label>
             <tokens>2</tokens>
             <isStatic>false</isStatic>
@@ -160,49 +160,111 @@
         </transition>
         <arc>
             <type>regular</type>
-            <sourceId>T6</sourceId>
-            <destinationId>P25</destinationId>
+            <sourceId>T5</sourceId>
+            <destinationId>P42</destinationId>
             <multiplicity>1</multiplicity>
-            <breakPoint>
-                <x>-38</x>
-                <y>-97</y>
-            </breakPoint>
-        </arc>
-        <arc>
-            <type>regular</type>
-            <sourceId>P25</sourceId>
-            <destinationId>T5</destinationId>
-            <multiplicity>1</multiplicity>
-            <breakPoint>
-                <x>127</x>
-                <y>-116</y>
-            </breakPoint>
         </arc>
         <arc>
             <type>regular</type>
             <sourceId>T2</sourceId>
-            <destinationId>P25</destinationId>
+            <destinationId>P42</destinationId>
             <multiplicity>1</multiplicity>
         </arc>
         <arc>
             <type>regular</type>
-            <sourceId>P25</sourceId>
+            <sourceId>P42</sourceId>
+            <destinationId>T4</destinationId>
+            <multiplicity>1</multiplicity>
+        </arc>
+        <arc>
+            <type>regular</type>
+            <sourceId>P42</sourceId>
             <destinationId>T1</destinationId>
             <multiplicity>1</multiplicity>
         </arc>
         <arc>
             <type>regular</type>
-            <sourceId>P4</sourceId>
+            <sourceId>P1</sourceId>
+            <destinationId>T1</destinationId>
+            <multiplicity>1</multiplicity>
+        </arc>
+        <arc>
+            <type>regular</type>
+            <sourceId>T1</sourceId>
+            <destinationId>P2</destinationId>
+            <multiplicity>1</multiplicity>
+        </arc>
+        <arc>
+            <type>regular</type>
+            <sourceId>P2</sourceId>
+            <destinationId>T2</destinationId>
+            <multiplicity>1</multiplicity>
+        </arc>
+        <arc>
+            <type>regular</type>
+            <sourceId>T2</sourceId>
+            <destinationId>P3</destinationId>
+            <multiplicity>1</multiplicity>
+        </arc>
+        <arc>
+            <type>regular</type>
+            <sourceId>P3</sourceId>
+            <destinationId>T3</destinationId>
+            <multiplicity>1</multiplicity>
+        </arc>
+        <arc>
+            <type>regular</type>
+            <sourceId>T6</sourceId>
+            <destinationId>P4</destinationId>
+            <multiplicity>1</multiplicity>
+        </arc>
+        <arc>
+            <type>regular</type>
+            <sourceId>P6</sourceId>
+            <destinationId>T6</destinationId>
+            <multiplicity>1</multiplicity>
+        </arc>
+        <arc>
+            <type>regular</type>
+            <sourceId>P5</sourceId>
+            <destinationId>T5</destinationId>
+            <multiplicity>1</multiplicity>
+        </arc>
+        <arc>
+            <type>regular</type>
+            <sourceId>T5</sourceId>
+            <destinationId>P6</destinationId>
+            <multiplicity>1</multiplicity>
+        </arc>
+        <arc>
+            <type>regular</type>
+            <sourceId>T4</sourceId>
+            <destinationId>P5</destinationId>
+            <multiplicity>1</multiplicity>
+        </arc>
+        <arc>
+            <type>regular</type>
+            <sourceId>P26</sourceId>
+            <destinationId>T2</destinationId>
+            <multiplicity>1</multiplicity>
+        </arc>
+        <arc>
+            <type>regular</type>
+            <sourceId>T3</sourceId>
+            <destinationId>P26</destinationId>
+            <multiplicity>1</multiplicity>
+        </arc>
+        <arc>
+            <type>regular</type>
+            <sourceId>T5</sourceId>
+            <destinationId>P26</destinationId>
+            <multiplicity>1</multiplicity>
+        </arc>
+        <arc>
+            <type>regular</type>
+            <sourceId>P26</sourceId>
             <destinationId>T4</destinationId>
             <multiplicity>1</multiplicity>
-            <breakPoint>
-                <x>-150</x>
-                <y>-162</y>
-            </breakPoint>
-            <breakPoint>
-                <x>232</x>
-                <y>-162</y>
-            </breakPoint>
         </arc>
         <arc>
             <type>regular</type>
@@ -220,111 +282,49 @@
         </arc>
         <arc>
             <type>regular</type>
-            <sourceId>P26</sourceId>
+            <sourceId>P4</sourceId>
             <destinationId>T4</destinationId>
             <multiplicity>1</multiplicity>
+            <breakPoint>
+                <x>-150</x>
+                <y>-162</y>
+            </breakPoint>
+            <breakPoint>
+                <x>232</x>
+                <y>-162</y>
+            </breakPoint>
         </arc>
         <arc>
             <type>regular</type>
-            <sourceId>T5</sourceId>
-            <destinationId>P26</destinationId>
+            <sourceId>P25</sourceId>
+            <destinationId>T1</destinationId>
             <multiplicity>1</multiplicity>
         </arc>
         <arc>
             <type>regular</type>
-            <sourceId>T3</sourceId>
-            <destinationId>P26</destinationId>
+            <sourceId>T2</sourceId>
+            <destinationId>P25</destinationId>
             <multiplicity>1</multiplicity>
         </arc>
         <arc>
             <type>regular</type>
-            <sourceId>P26</sourceId>
-            <destinationId>T2</destinationId>
-            <multiplicity>1</multiplicity>
-        </arc>
-        <arc>
-            <type>regular</type>
-            <sourceId>T4</sourceId>
-            <destinationId>P5</destinationId>
-            <multiplicity>1</multiplicity>
-        </arc>
-        <arc>
-            <type>regular</type>
-            <sourceId>T5</sourceId>
-            <destinationId>P6</destinationId>
-            <multiplicity>1</multiplicity>
-        </arc>
-        <arc>
-            <type>regular</type>
-            <sourceId>P5</sourceId>
+            <sourceId>P25</sourceId>
             <destinationId>T5</destinationId>
             <multiplicity>1</multiplicity>
-        </arc>
-        <arc>
-            <type>regular</type>
-            <sourceId>P6</sourceId>
-            <destinationId>T6</destinationId>
-            <multiplicity>1</multiplicity>
+            <breakPoint>
+                <x>70</x>
+                <y>-101</y>
+            </breakPoint>
         </arc>
         <arc>
             <type>regular</type>
             <sourceId>T6</sourceId>
-            <destinationId>P4</destinationId>
+            <destinationId>P25</destinationId>
             <multiplicity>1</multiplicity>
-        </arc>
-        <arc>
-            <type>regular</type>
-            <sourceId>P3</sourceId>
-            <destinationId>T3</destinationId>
-            <multiplicity>1</multiplicity>
-        </arc>
-        <arc>
-            <type>regular</type>
-            <sourceId>T2</sourceId>
-            <destinationId>P3</destinationId>
-            <multiplicity>1</multiplicity>
-        </arc>
-        <arc>
-            <type>regular</type>
-            <sourceId>P2</sourceId>
-            <destinationId>T2</destinationId>
-            <multiplicity>1</multiplicity>
-        </arc>
-        <arc>
-            <type>regular</type>
-            <sourceId>T1</sourceId>
-            <destinationId>P2</destinationId>
-            <multiplicity>1</multiplicity>
-        </arc>
-        <arc>
-            <type>regular</type>
-            <sourceId>P1</sourceId>
-            <destinationId>T1</destinationId>
-            <multiplicity>1</multiplicity>
-        </arc>
-        <arc>
-            <type>regular</type>
-            <sourceId>P42</sourceId>
-            <destinationId>T1</destinationId>
-            <multiplicity>1</multiplicity>
-        </arc>
-        <arc>
-            <type>regular</type>
-            <sourceId>P42</sourceId>
-            <destinationId>T4</destinationId>
-            <multiplicity>1</multiplicity>
-        </arc>
-        <arc>
-            <type>regular</type>
-            <sourceId>T2</sourceId>
-            <destinationId>P42</destinationId>
-            <multiplicity>1</multiplicity>
-        </arc>
-        <arc>
-            <type>regular</type>
-            <sourceId>T5</sourceId>
-            <destinationId>P42</destinationId>
-            <multiplicity>1</multiplicity>
+            <breakPoint>
+                <x>-62</x>
+                <y>-100</y>
+            </breakPoint>
         </arc>
     </subnet>
     <roles/>
