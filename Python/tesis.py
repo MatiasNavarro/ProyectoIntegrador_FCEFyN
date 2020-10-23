@@ -301,7 +301,7 @@ def main():
 
     print("\nIngrese: ")
     print("1 - Primer analisis de la red")
-    print("2 - Segundo analisis de la red")
+    print("2 - Análisis de red con supervisores")
     print("3 - Red con supervisores, tratamiento de conflicto y t_idle")
 
     analisis= input("\nOpcion: ")
@@ -338,9 +338,9 @@ def main():
         idle=0 #Sifones en estado deadlock
         for i in range (0, len(state_deadlock)):
             fun_sifones_deadlock(state_deadlock[i],matriz_sifones,matriz_es_pl,idle,cantidad_plazas,cantidad_sifones,sifon_idle,sifon_deadlock)
-        print("Estados con deadlock",state_deadlock)
-        print("Cantidad de estados con deadlock", len(state_deadlock))
-        print("Estado deadlock, sifon asociado al deadlock y su marcado",sifon_deadlock)
+        #print("Estados con deadlock",state_deadlock)
+        print("Cantidad de estados con deadlock:", len(state_deadlock))
+        #print("Estado deadlock, sifon asociado al deadlock y su marcado",sifon_deadlock)
         print("Cantidad de sifones vacios:", len(sifon_deadlock))
 
         lista_supervisores=[]
