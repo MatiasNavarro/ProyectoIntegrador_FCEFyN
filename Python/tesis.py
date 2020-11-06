@@ -6,6 +6,7 @@ import sys
 import html_txt_all as hta
 import filter_data as filterdata
 import new_red
+import arcs as arcosrdp 
 
 #Variable globales
 id=0
@@ -324,6 +325,7 @@ def main():
 
         global name_pflow
         name_pflow = input("Ingrese el nombre de la red(.pflow): ")
+        print("\n")
 
 
     if(analisis=="2" or analisis=="1"):
@@ -332,7 +334,7 @@ def main():
 
         idle=1 #Sifones vacios estado inicial
         fun_sifones_deadlock(0,matriz_sifones,matriz_es_pl,idle,cantidad_plazas,cantidad_sifones,sifon_idle,sifon_deadlock)
-        print("Sifones vacios en idle",sifon_idle)
+        #print("Sifones vacios en idle",sifon_idle)
 
         #Llamada recursiva a fun_deadlock en busqueda de caminos que dirigen al deadlock
         idle=0 #Sifones en estado deadlock
@@ -399,6 +401,8 @@ def main():
 
         t_conflict_red_original= aux_conflic
 
+        msjadd = []
+        msjdel = []
         #Buscamos eliminar los arcos de las transiciones idle cuyo T-invariante al que pertenece no le devuelve token al supervisor. (i.e arcos innecesarios)
         for i in range(len(trans_idle)): #Cantidad de trans_idle
             for j in range(len(t_invariant_red_original)): #cantidad de t-invariantes
@@ -416,15 +420,33 @@ def main():
                                 if(int(t_invariant_red_original[j][aux])==1): #La transicion en conflicto forma parte del T-invariante
                                     cont = cont + 1
                                     print("La transicion en conflicto ", aux+1," le tiene que devolver un token al supervisor ", array_supervisor[m]+1)
+                                    msjadd.append('Se agrego un arco desde '+ str(f'T{aux+1}') + ' hasta ' + str(f'P{array_supervisor[m]+1}'))
+                                    #addarc.append([aux+1,array_supervisor[m]+1])
+                                    
+                                    arcosrdp.agregararco(name_pflow,aux+1,array_supervisor[m]+1)
 
                             if(cont == 0):
                                 if(int(matriz_pre[int(array_supervisor[m])][int(trans_idle[i])])==1):
                                     print("Eliminar arco desde ", array_supervisor[m]+1, "hasta ", trans_idle[i]+1)
+                                    msjdel.append('Se elimino el arco desde '+ str(f'P{array_supervisor[m]+1}') + ' hasta ' + str(f'T{trans_idle[i]+1}'))
+                                    #delarc.append([array_supervisor[m]+1, trans_idle[i]+1])
+
+                                    arcosrdp.eliminararco(name_pflow, array_supervisor[m]+1, trans_idle[i]+1)
+
+        print("\n")
+        for i in range (len(msjadd)):
+            print(msjadd[i])
+
+        for i in range (len(msjdel)):
+            print(msjdel[i]) 
+        
+        
+
 
     else:
         print("Opcion erronea")
         exit()
-    
+
     decision = ""
     if(analisis!="3"):
         decision=input("\n¿Agregar supervisor?(S/N) ").upper()
