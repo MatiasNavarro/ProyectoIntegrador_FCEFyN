@@ -17,10 +17,44 @@ def siphones_traps(cantidad_plazas):
     Parametros:\n
         cantidad_plazas
     """
-    #Apertura de archivos resultantes de la conversion de archivos .html to .txt
+    # #Apertura de archivos resultantes de la conversion de archivos .html to .txt
+    # # obtenidos del SW Petrinator, para su siguiente manipulacion y filtrado.
+    # pasi = open("./siphons_traps.txt","r")
+    # i = 0
+    # aux_s = 0
+    # aux_t = 0
+
+    # for line in pasi:
+    #     i=i+1
+    #     if(i>1):
+    #         aux_s = aux_s + 1
+    #         aux_t = aux_t + 1
+    #         if(line.find("Minimal traps")==1):
+    #             cantidad_sifones = aux_s - 1
+    #             aux_t = 0
+    #         if(line.find("Analysis")==1):
+    #             cantidad_traps = aux_t -1
+
+    # pasi.seek(0)
+
+    # siphons = np.loadtxt(pasi,delimiter=' '' ',skiprows=1,max_rows=cantidad_sifones, dtype=bytes).astype(str)
+    # traps = np.loadtxt(pasi,delimiter=' '' ',skiprows=1,max_rows=cantidad_traps, dtype=bytes).astype(str)
+
+    # aux_si = []
+    # aux_tr = []
+    # for i in range(len(siphons)):
+    #     aux_si.append(siphons[i].split(" "))
+
+    # for i in range(len(traps)):
+    #     aux_tr.append(traps[i].split(" "))
+
+    # siphons = aux_si
+    # traps = aux_tr
+
+    #Apertura de archivos resultantes de la conversion de archivos .html to .txt 
     # obtenidos del SW Petrinator, para su siguiente manipulacion y filtrado.
     pasi = open("./siphons_traps.txt","r")
-    i = 0
+    i = 0 
     aux_s = 0
     aux_t = 0
 
@@ -28,7 +62,7 @@ def siphones_traps(cantidad_plazas):
         i=i+1
         if(i>1):
             aux_s = aux_s + 1
-            aux_t = aux_t + 1
+            aux_t = aux_t + 1 
             if(line.find("Minimal traps")==1):
                 cantidad_sifones = aux_s - 1
                 aux_t = 0
@@ -36,20 +70,39 @@ def siphones_traps(cantidad_plazas):
                 cantidad_traps = aux_t -1
 
     pasi.seek(0)
+    aux_s = cantidad_sifones
+    aux_t = cantidad_traps
 
-    siphons = np.loadtxt(pasi,delimiter=' '' ',skiprows=1,max_rows=cantidad_sifones, dtype=bytes).astype(str)
-    traps = np.loadtxt(pasi,delimiter=' '' ',skiprows=1,max_rows=cantidad_traps, dtype=bytes).astype(str)
+    s_flag = 0
+    t_flag = 0
 
-    aux_si = []
-    aux_tr = []
-    for i in range(len(siphons)):
-        aux_si.append(siphons[i].split(" "))
+    siphons_aux = []
+    traps_aux = []
 
-    for i in range(len(traps)):
-        aux_tr.append(traps[i].split(" "))
+    for line in pasi:
+        if(s_flag == 1 and aux_s != 0):
+            siphons_aux.append(line)
+            aux_s = aux_s - 1 
+        
+        if(t_flag == 1 and aux_t != 0):
+            traps_aux.append(line)
+            aux_t = aux_t -1 
+        
+        if(line.find("Minimal siphons")==1):
+            s_flag = 1 
+            #print("Sifones")
+        
+        if(line.find("Minimal traps")==1):
+            t_flag = 1 
+            #print("Trampas")
 
-    siphons = aux_si
-    traps = aux_tr
+    siphons = []
+    traps = [] 
+    for i in range (len(siphons_aux)):
+        siphons.append(str(siphons_aux[i]).split())
+
+    for i in range (len(traps_aux)):
+        traps.append(str(traps_aux[i]).split())
 
     #Creamos la matriz que representa por fila la cantidad de sifones o traps y por columna plazas
     #hay un 1 en las plazas que conforman esos sifones o traps
@@ -375,31 +428,64 @@ def main():
             if(matriz_es_tr[0][ii]!=-1):
                 trans_idle.append(ii)
 
+        # #Guardamos los T-invariantes de la red original
+        # file_t_invariant_red_original = open("./invariante_red_original.txt","r")
+        # t_invariant_red_original = np.loadtxt(file_t_invariant_red_original,delimiter=' '' ',skiprows=0,max_rows=cantidad_transiciones, dtype=bytes).astype(str)
+
+        # aux_t_inv = []
+
+        # for i in range(len(t_invariant_red_original)):
+        #         aux_t_inv.append(t_invariant_red_original[i].split(" "))
+
+        # aux_t_inv = np.delete(aux_t_inv,cantidad_transiciones,1)
+
+        # t_invariant_red_original = aux_t_inv
+
+        # #Guardamos los conflictos de la red original
+        # file_t_conflict_red_original = open("./t_conflict_red_original.txt","r")
+        # t_conflict_red_original = np.loadtxt(file_t_conflict_red_original,delimiter=' ',skiprows=0,max_rows=1, dtype=bytes).astype(str)
+
+
+        # aux_conflic = []
+
+        # for i in range(len(t_conflict_red_original)):
+        #     if(t_conflict_red_original[i]!=""):
+        #         aux_conflic.append(t_conflict_red_original[i].split(" "))
+
+        # t_conflict_red_original= aux_conflic
+
         #Guardamos los T-invariantes de la red original
         file_t_invariant_red_original = open("./invariante_red_original.txt","r")
-        t_invariant_red_original = np.loadtxt(file_t_invariant_red_original,delimiter=' '' ',skiprows=0,max_rows=cantidad_transiciones, dtype=bytes).astype(str)
 
-        aux_t_inv = []
+        t_invariant_red_original = []
+        aux_t_inv = [] 
 
-        for i in range(len(t_invariant_red_original)):
-                aux_t_inv.append(t_invariant_red_original[i].split(" "))
+        for line in file_t_invariant_red_original:
+            aux_t_inv.append(line)
 
-        aux_t_inv = np.delete(aux_t_inv,cantidad_transiciones,1)
+        for i in range(len(aux_t_inv)):
+            t_invariant_red_original.append(str(aux_t_inv[i]).split())
 
-        t_invariant_red_original = aux_t_inv
+        # print("T-Invariante Red Original")    
+        # for i in range(len(t_invariant_red_original)):
+        #     print(t_invariant_red_original[i])
+
 
         #Guardamos los conflictos de la red original
         file_t_conflict_red_original = open("./t_conflict_red_original.txt","r")
-        t_conflict_red_original = np.loadtxt(file_t_conflict_red_original,delimiter=' ',skiprows=0,max_rows=1, dtype=bytes).astype(str)
 
+        t_conflict_red_original = []
+        aux_conflic = [] 
 
-        aux_conflic = []
+        for line in file_t_conflict_red_original:
+            aux_conflic.append(line)
 
-        for i in range(len(t_conflict_red_original)):
-            if(t_conflict_red_original[i]!=""):
-                aux_conflic.append(t_conflict_red_original[i].split(" "))
+        for i in range(len(aux_conflic)):
+            t_conflict_red_original.append(str(aux_conflic[i]).split())
 
-        t_conflict_red_original= aux_conflic
+        # print("\nTransiciones en conflicto")    
+        # for i in range(len(t_conflict_red_original)):
+        #     print(t_conflict_red_original[i])
 
         msjadd = []
         msjdel = []
