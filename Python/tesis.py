@@ -215,7 +215,7 @@ def path_conflict(t_idle,t_analizar,flag_idle,plazas_sifon_complemento,matriz_pr
                 if(matriz_pre[p_idle[ii]][mm]==1):
                     t_conflict.append(mm)             #Transiciones en conflicto sensibilizadas por esa plaza
             if(len(t_conflict)>1): #La plaza sensibiliza a mas de una transicion? Hay conflicto
-                file_t_conflict_orig = open('t_conflict_red_original.txt', 'r')
+                file_t_conflict_orig = open('t_conflict_red_original.txt', 'w')
                 for ij in range (0, len(t_conflict)):
                     file_t_conflict_orig.write(str(t_conflict[ij]) + ' ')
                 file_t_conflict_orig.close()
