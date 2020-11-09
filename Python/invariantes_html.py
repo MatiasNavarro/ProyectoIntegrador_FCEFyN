@@ -107,7 +107,7 @@ def clean_file(text):
 def main():
     # Abre un archivo html a partir del path indicado por consola, y lo carga en un archivo
     # BeatifulSoup para extraer los datos html de dicho archivo.
-    archivo = input("Path del archivo de invariantes (html): ")
+    archivo = input("Path del archivo de Invariantes (html): ")
     html = open(archivo,'r')
     soup = BeautifulSoup(html,'lxml')
 
