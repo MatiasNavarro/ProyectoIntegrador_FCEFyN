@@ -330,7 +330,12 @@ def fun_sifones_deadlock(estado,matriz_sifones,matriz_es_pl,idle,cantidad_plazas
                     if(sifon_idle[jj]==i): #El sifon vacio en deadlock esta vacio en idle?
                         flag_sifon_idle=1
                 if(flag_sifon_idle==0): #El sifon no estaba vacio en idle
-                    sifon_deadlock.append([estado,i,marcado]) #Devuelve el sifon y su marcado inicial, para ese estado deadlock
+                    sifon_agregado = 1 
+                    for index in range(0, len(sifon_deadlock)): #Verifica si el sifon ya se incluyó en la lista, de no ser así lo agrega
+                        if(sifon_deadlock[index][1]==i):
+                            sifon_agregado = 0
+                    if(sifon_agregado):
+                        sifon_deadlock.append([estado,i,marcado]) #Devuelve el sifon y su marcado inicial, para ese estado deadlock
             else:
                 sifon_idle.append[i]
 
@@ -395,6 +400,7 @@ def main():
         for i in range (0, len(state_deadlock)):
             fun_sifones_deadlock(state_deadlock[i],matriz_sifones,matriz_es_pl,idle,cantidad_plazas,cantidad_sifones,sifon_idle,sifon_deadlock)
         #print("Estados con deadlock",state_deadlock)
+        print("HOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOLA")
         print("Cantidad de estados con deadlock:", len(state_deadlock))
         #print("Estado deadlock, sifon asociado al deadlock y su marcado",sifon_deadlock)
         print("Cantidad de sifones vacios:", len(sifon_deadlock))
