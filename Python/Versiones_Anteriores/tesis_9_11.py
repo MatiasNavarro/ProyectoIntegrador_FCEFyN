@@ -6,7 +6,6 @@ import sys
 import html_txt_all as hta
 import filter_data as filterdata
 import new_red
-import arcs as arcosrdp 
 
 #Variable globales
 id=0
@@ -17,44 +16,10 @@ def siphones_traps(cantidad_plazas):
     Parametros:\n
         cantidad_plazas
     """
-    # #Apertura de archivos resultantes de la conversion de archivos .html to .txt
-    # # obtenidos del SW Petrinator, para su siguiente manipulacion y filtrado.
-    # pasi = open("./siphons_traps.txt","r")
-    # i = 0
-    # aux_s = 0
-    # aux_t = 0
-
-    # for line in pasi:
-    #     i=i+1
-    #     if(i>1):
-    #         aux_s = aux_s + 1
-    #         aux_t = aux_t + 1
-    #         if(line.find("Minimal traps")==1):
-    #             cantidad_sifones = aux_s - 1
-    #             aux_t = 0
-    #         if(line.find("Analysis")==1):
-    #             cantidad_traps = aux_t -1
-
-    # pasi.seek(0)
-
-    # siphons = np.loadtxt(pasi,delimiter=' '' ',skiprows=1,max_rows=cantidad_sifones, dtype=bytes).astype(str)
-    # traps = np.loadtxt(pasi,delimiter=' '' ',skiprows=1,max_rows=cantidad_traps, dtype=bytes).astype(str)
-
-    # aux_si = []
-    # aux_tr = []
-    # for i in range(len(siphons)):
-    #     aux_si.append(siphons[i].split(" "))
-
-    # for i in range(len(traps)):
-    #     aux_tr.append(traps[i].split(" "))
-
-    # siphons = aux_si
-    # traps = aux_tr
-
-    #Apertura de archivos resultantes de la conversion de archivos .html to .txt 
+    #Apertura de archivos resultantes de la conversion de archivos .html to .txt
     # obtenidos del SW Petrinator, para su siguiente manipulacion y filtrado.
     pasi = open("./siphons_traps.txt","r")
-    i = 0 
+    i = 0
     aux_s = 0
     aux_t = 0
 
@@ -62,7 +27,7 @@ def siphones_traps(cantidad_plazas):
         i=i+1
         if(i>1):
             aux_s = aux_s + 1
-            aux_t = aux_t + 1 
+            aux_t = aux_t + 1
             if(line.find("Minimal traps")==1):
                 cantidad_sifones = aux_s - 1
                 aux_t = 0
@@ -70,39 +35,20 @@ def siphones_traps(cantidad_plazas):
                 cantidad_traps = aux_t -1
 
     pasi.seek(0)
-    aux_s = cantidad_sifones
-    aux_t = cantidad_traps
 
-    s_flag = 0
-    t_flag = 0
+    siphons = np.loadtxt(pasi,delimiter=' '' ',skiprows=1,max_rows=cantidad_sifones, dtype=bytes).astype(str)
+    traps = np.loadtxt(pasi,delimiter=' '' ',skiprows=1,max_rows=cantidad_traps, dtype=bytes).astype(str)
 
-    siphons_aux = []
-    traps_aux = []
+    aux_si = []
+    aux_tr = []
+    for i in range(len(siphons)):
+        aux_si.append(siphons[i].split(" "))
 
-    for line in pasi:
-        if(s_flag == 1 and aux_s != 0):
-            siphons_aux.append(line)
-            aux_s = aux_s - 1 
-        
-        if(t_flag == 1 and aux_t != 0):
-            traps_aux.append(line)
-            aux_t = aux_t -1 
-        
-        if(line.find("Minimal siphons")==1):
-            s_flag = 1 
-            #print("Sifones")
-        
-        if(line.find("Minimal traps")==1):
-            t_flag = 1 
-            #print("Trampas")
+    for i in range(len(traps)):
+        aux_tr.append(traps[i].split(" "))
 
-    siphons = []
-    traps = [] 
-    for i in range (len(siphons_aux)):
-        siphons.append(str(siphons_aux[i]).split())
-
-    for i in range (len(traps_aux)):
-        traps.append(str(traps_aux[i]).split())
+    siphons = aux_si
+    traps = aux_tr
 
     #Creamos la matriz que representa por fila la cantidad de sifones o traps y por columna plazas
     #hay un 1 en las plazas que conforman esos sifones o traps
@@ -215,7 +161,8 @@ def path_conflict(t_idle,t_analizar,flag_idle,plazas_sifon_complemento,matriz_pr
                 if(matriz_pre[p_idle[ii]][mm]==1):
                     t_conflict.append(mm)             #Transiciones en conflicto sensibilizadas por esa plaza
             if(len(t_conflict)>1): #La plaza sensibiliza a mas de una transicion? Hay conflicto
-                file_t_conflict_orig = open('t_conflict_red_original.txt', 'r')
+
+                file_t_conflict_orig = open('t_conflict_red_original.txt', 'w')
                 for ij in range (0, len(t_conflict)):
                     file_t_conflict_orig.write(str(t_conflict[ij]) + ' ')
                 file_t_conflict_orig.close()
@@ -338,8 +285,6 @@ def main():
     print("--------------------------------------------------------------------------")
     print("Algoritmo para la solucion de deadlock para redes de petri tipo S3PR")
     print("--------------------------------------------------------------------------")
-    file_t_conflict_orig = open('t_conflict_red_original.txt', 'w')
-    file_t_conflict_orig.close()
     #Conversion de archivos html a txt
     hta.main()
 
@@ -379,7 +324,6 @@ def main():
 
         global name_pflow
         name_pflow = input("Ingrese el nombre de la red(.pflow): ")
-        print("\n")
 
 
     if(analisis=="2" or analisis=="1"):
@@ -388,7 +332,7 @@ def main():
 
         idle=1 #Sifones vacios estado inicial
         fun_sifones_deadlock(0,matriz_sifones,matriz_es_pl,idle,cantidad_plazas,cantidad_sifones,sifon_idle,sifon_deadlock)
-        #print("Sifones vacios en idle",sifon_idle)
+        print("Sifones vacios en idle",sifon_idle)
 
         #Llamada recursiva a fun_deadlock en busqueda de caminos que dirigen al deadlock
         idle=0 #Sifones en estado deadlock
@@ -429,67 +373,32 @@ def main():
             if(matriz_es_tr[0][ii]!=-1):
                 trans_idle.append(ii)
 
-        # #Guardamos los T-invariantes de la red original
-        # file_t_invariant_red_original = open("./invariante_red_original.txt","r")
-        # t_invariant_red_original = np.loadtxt(file_t_invariant_red_original,delimiter=' '' ',skiprows=0,max_rows=cantidad_transiciones, dtype=bytes).astype(str)
-
-        # aux_t_inv = []
-
-        # for i in range(len(t_invariant_red_original)):
-        #         aux_t_inv.append(t_invariant_red_original[i].split(" "))
-
-        # aux_t_inv = np.delete(aux_t_inv,cantidad_transiciones,1)
-
-        # t_invariant_red_original = aux_t_inv
-
-        # #Guardamos los conflictos de la red original
-        # file_t_conflict_red_original = open("./t_conflict_red_original.txt","r")
-        # t_conflict_red_original = np.loadtxt(file_t_conflict_red_original,delimiter=' ',skiprows=0,max_rows=1, dtype=bytes).astype(str)
-
-
-        # aux_conflic = []
-
-        # for i in range(len(t_conflict_red_original)):
-        #     if(t_conflict_red_original[i]!=""):
-        #         aux_conflic.append(t_conflict_red_original[i].split(" "))
-
-        # t_conflict_red_original= aux_conflic
-
         #Guardamos los T-invariantes de la red original
         file_t_invariant_red_original = open("./invariante_red_original.txt","r")
+        t_invariant_red_original = np.loadtxt(file_t_invariant_red_original,delimiter=' '' ',skiprows=0,max_rows=cantidad_transiciones, dtype=bytes).astype(str)
 
-        t_invariant_red_original = []
-        aux_t_inv = [] 
+        aux_t_inv = []
 
-        for line in file_t_invariant_red_original:
-            aux_t_inv.append(line)
+        for i in range(len(t_invariant_red_original)):
+                aux_t_inv.append(t_invariant_red_original[i].split(" "))
 
-        for i in range(len(aux_t_inv)):
-            t_invariant_red_original.append(str(aux_t_inv[i]).split())
+        aux_t_inv = np.delete(aux_t_inv,cantidad_transiciones,1)
 
-        # print("T-Invariante Red Original")    
-        # for i in range(len(t_invariant_red_original)):
-        #     print(t_invariant_red_original[i])
-
+        t_invariant_red_original = aux_t_inv
 
         #Guardamos los conflictos de la red original
         file_t_conflict_red_original = open("./t_conflict_red_original.txt","r")
+        t_conflict_red_original = np.loadtxt(file_t_conflict_red_original,delimiter=' ',skiprows=0,max_rows=1, dtype=bytes).astype(str)
 
-        t_conflict_red_original = []
-        aux_conflic = [] 
 
-        for line in file_t_conflict_red_original:
-            aux_conflic.append(line)
+        aux_conflic = []
 
-        for i in range(len(aux_conflic)):
-            t_conflict_red_original.append(str(aux_conflic[i]).split())
+        for i in range(len(t_conflict_red_original)):
+            if(t_conflict_red_original[i]!=""):
+                aux_conflic.append(t_conflict_red_original[i].split(" "))
 
-        # print("\nTransiciones en conflicto")    
-        # for i in range(len(t_conflict_red_original)):
-        #     print(t_conflict_red_original[i])
+        t_conflict_red_original= aux_conflic
 
-        msjadd = []
-        msjdel = []
         #Buscamos eliminar los arcos de las transiciones idle cuyo T-invariante al que pertenece no le devuelve token al supervisor. (i.e arcos innecesarios)
         for i in range(len(trans_idle)): #Cantidad de trans_idle
             for j in range(len(t_invariant_red_original)): #cantidad de t-invariantes
@@ -507,33 +416,15 @@ def main():
                                 if(int(t_invariant_red_original[j][aux])==1): #La transicion en conflicto forma parte del T-invariante
                                     cont = cont + 1
                                     print("La transicion en conflicto ", aux+1," le tiene que devolver un token al supervisor ", array_supervisor[m]+1)
-                                    msjadd.append('Se agrego un arco desde '+ str(f'T{aux+1}') + ' hasta ' + str(f'P{array_supervisor[m]+1}'))
-                                    #addarc.append([aux+1,array_supervisor[m]+1])
-                                    
-                                    arcosrdp.agregararco(name_pflow,aux+1,array_supervisor[m]+1)
 
                             if(cont == 0):
                                 if(int(matriz_pre[int(array_supervisor[m])][int(trans_idle[i])])==1):
                                     print("Eliminar arco desde ", array_supervisor[m]+1, "hasta ", trans_idle[i]+1)
-                                    msjdel.append('Se elimino el arco desde '+ str(f'P{array_supervisor[m]+1}') + ' hasta ' + str(f'T{trans_idle[i]+1}'))
-                                    #delarc.append([array_supervisor[m]+1, trans_idle[i]+1])
-
-                                    arcosrdp.eliminararco(name_pflow, array_supervisor[m]+1, trans_idle[i]+1)
-
-        print("\n")
-        for i in range (len(msjadd)):
-            print(msjadd[i])
-
-        for i in range (len(msjdel)):
-            print(msjdel[i]) 
-        
-        
-
 
     else:
         print("Opcion erronea")
         exit()
-
+    
     decision = ""
     if(analisis!="3"):
         decision=input("\n¿Agregar supervisor?(S/N) ").upper()
