@@ -1,15 +1,25 @@
+"""
+Convierte el archivo de INVARIANTES extraido del Petrinator (.html) a un archivo '.txt' que luego será utilizado en el algoritmo
+
+Autores: 
+- Izquierdo, Agustina Nahir
+- Navarro, Matias Alejandro 
+- Salvatierra, Andres
+"""
+
 import os
 import numpy as np
 from bs4 import BeautifulSoup
 
-"""Elimina los salto de linea, espacios y palabras sobrantes en el archivo para luego ser procesado 
-correctamente en otro script de python. \n
-Crea un archivo temporal para trabajar y al final lo elimina.
 
-Parámetros: \n
-    text -- Archivo html que fue convertido a txt.
-"""
 def clean_file(text):
+    """Elimina los salto de linea, espacios y palabras sobrantes en el archivo para luego ser procesado 
+    correctamente en otro script de python. \n
+    Crea un archivo temporal para trabajar y al final lo elimina.
+
+    Parámetros: \n
+        text -- Archivo html que fue convertido a txt.
+    """
     # En las siguiente lineas de código se abren y se cierran dos archivos, los cuales 
     # son leídos y escritos para dejar el archivo "limpio" para el próximo script. 
     f = open ("invariante.txt", "w")

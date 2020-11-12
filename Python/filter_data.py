@@ -1,5 +1,23 @@
+"""
+Obtiene informacion relevante de la RdP. Luego de haber convertido los archivos extraidos del Petrinator 
+se analizan en este script para obtener: 
+    - Cantidad estados
+    - Cantidad plazas
+    - Cantidad transiciones
+    - Matriz [estados x transiciones]
+    - Matriz [estados x plazas]
+    - Estados en deadlock
+
+
+Autores: 
+- Izquierdo, Agustina Nahir
+- Navarro, Matias Alejandro 
+- Salvatierra, Andres
+"""
+
 import numpy as np
 import os
+
 def main():
     cantidad_estados=0
     cantidad_transiciones=0
@@ -46,7 +64,7 @@ def main():
     plaza_tmp_file.close()
 
     #Matriz de estados-transiciones
-    matriz_es_tr =np.zeros((cantidad_estados,cantidad_transiciones)) - 1
+    matriz_es_tr = np.zeros((cantidad_estados,cantidad_transiciones)) - 1
 
     #Matriz de estados-plazas (Marcado)
     plaza_file = open('plaza.txt', 'r')
@@ -56,19 +74,21 @@ def main():
     #Elimina archivo temporal
     os.remove("plaza.txt")
 
-    #Inicializacion de matriz a partir de la información filtrada de la RdP.
-    #Cargando en la misma, para cada Estado(fila) en su respectiva interseccion con Transicion(columna)
-    #el estado siguiente al que se llega a partir del disparo de dicha transicion.
-    #Con: 
-    ##   un -1 si la transicion no esta sensibilizada para dicho estado,
-    #   el estado_siguiente(nro!=-1) al que se llega a partir del disparo
-    #
-    # Ademas se detectan aquellos estados que poseen Deadlock
+    """
+    Inicializacion de matriz a partir de la información filtrada de la RdP.
+    Cargando en la misma, para cada Estado(fila) en su respectiva interseccion con Transicion(columna)
+    el estado siguiente al que se llega a partir del disparo de dicha transicion.
+    Con: 
+        un -1 si la transicion no esta sensibilizada para dicho estado,
+        el estado_siguiente(nro!=-1) al que se llega a partir del disparo
+    
+    Ademas se detectan aquellos estados que poseen Deadlock
 
-    #Apertura de archivo ya filtrado segun nuestro interes de detectar caminos que lleven al Deadlock
-    #luego el archivo se cierra para evitar inconvenientes.
+    Apertura de archivo ya filtrado segun nuestro interes de detectar caminos que lleven al Deadlock
+    luego el archivo se cierra para evitar inconvenientes.
+    """
+    
     archivo = open("./filtrado_prueba.txt","r")
-
     cont_estados=0
     maq_estado = 0
     flag_deadlock = 1

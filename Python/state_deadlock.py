@@ -1,3 +1,12 @@
+"""
+Convierte el archivo de GRAFO DE ALCANZABILIDAD extraido del Petrinator (.html) a un archivo '.txt' que luego será utilizado en el algoritmo
+
+Autores: 
+- Izquierdo, Agustina Nahir
+- Navarro, Matias Alejandro 
+- Salvatierra, Andres
+"""
+
 import os
 from bs4 import BeautifulSoup
 
