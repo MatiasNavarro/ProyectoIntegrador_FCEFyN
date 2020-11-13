@@ -14,10 +14,12 @@ Autores:
 def eliminararco(name_pflow, aS, aD):
     """
     Elimina un arco de la red. Desde una plaza supervisor hasta una transición. \n
-    Parámetros: \n
-    name_pflow  -- Nombre del la red  a modificar (.pflow) creada con el software Petrinator. \n
-    aS          -- Fuente del arco a eliminar. \n
-    aD          -- Destino del arco a eliminar. \n
+    
+    Parameters \n
+    ----------
+        name_pflow  -- Nombre del la red  a modificar (.pflow) creada con el software Petrinator. \n
+        aS          -- Fuente del arco a eliminar. \n
+        aD          -- Destino del arco a eliminar. \n
     """
     aS = str(f'P{aS}')  #Al arco fuente se le agrega una 'P' (plaza) para conformar la nomenclatura. Ej: P5 
     aD = str(f'T{aD}')  #Al arco destino se le agrega una 'T' (transicion) para conformar la nomenclatura. Ej: T9
@@ -56,10 +58,12 @@ def eliminararco(name_pflow, aS, aD):
 def agregararco(name_pflow, aS, aD): 
     """
     Agrega un arco de la red. Desde una transición hasta una plaza supervisor. \n
-    Parámetros: \n
-    name_pflow  -- Nombre del la red a modificar (.pflow) creada con el software Petrinator. \n
-    aS          -- Fuente del arco a agregar \n
-    aD          -- Destino del arco a agregar \n
+    
+    Parameters \n
+    ----------
+        name_pflow  -- Nombre del la red a modificar (.pflow) creada con el software Petrinator. \n
+        aS          -- Fuente del arco a agregar \n
+        aD          -- Destino del arco a agregar \n
     """
     aS = str(f'T{aS}') #Al arco fuente se le agrega una 'T' (transicion) para conformar la nomenclatura. Ej: T9
     aD = str(f'P{aD}') #Al arco destino se le agrega una 'P' (plaza) para conformar la nomenclatura. Ej: P5 

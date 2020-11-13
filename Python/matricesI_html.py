@@ -15,7 +15,8 @@ def clean_file(text):
     correctamente en otro script de python. \n
     Crea un archivo temporal para trabajar y al final lo elimina.
 
-    Parámetros: \n
+    Parameters \n
+    ----------
         text -- Archivo html que fue convertido a txt.
     """
 

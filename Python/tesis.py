@@ -12,10 +12,21 @@ import arcs as arcosrdp
 id=0
 name_pflow= ""
 
+
 def siphones_traps(cantidad_plazas):
-    """ Devuelve una matriz de [sifones x plazas] y otra de [trampas x plazas]. Tambien devuelve cantidad de sifones y de trampas
-    Parametros:\n
-        cantidad_plazas
+    """ 
+    Devuelve una matriz de [sifones x plazas] y otra de [trampas x plazas]. Tambien devuelve cantidad de sifones y de trampas. \n
+    
+    Parameters \n
+    ----------
+        cantidad_plazas     -- Cantidad de plazas de la RdP
+
+    Returns \n
+    -------
+        matriz_sifones      -- Matriz de sifones
+        matriz_traps        -- Matriz de trampas
+        cantidad_sifones    -- Cantidad de sifones
+        cantidad_traps      -- Cantidad de trampas
     """
     #Apertura de archivos resultantes de la conversion de archivos .html to .txt 
     # obtenidos del SW Petrinator, para su siguiente manipulacion y filtrado.
@@ -86,10 +97,19 @@ def siphones_traps(cantidad_plazas):
     pasi.close()
     return matriz_sifones,matriz_traps,cantidad_sifones,cantidad_traps
 
+
+
 def invariantes(cantidad_transiciones):
-    """ Devuelve la matriz de invariantes de transicion, mediante la apertura de un archivo txt previamente convertido.
-    Parametros:\n
-        cantidad_transiciones
+    """ 
+    Devuelve la matriz de invariantes de transicion, mediante la apertura de un archivo txt previamente convertido. \n
+    
+    Parameters \n
+    ----------
+        cantidad_transiciones   -- Cantidad de transiciones de la RdP
+
+    Returns \n
+    -------
+        M_TI                    -- Matriz de T-invariante
     """
     file = open('invariante.txt', 'r')
     cont = 0
@@ -118,11 +138,21 @@ def invariantes(cantidad_transiciones):
     file.close()
     return M_TI.astype(int)
 
+
+
 def matriz_pre_pos(cantidad_plazas,cantidad_transiciones):
-    """ Devuelve la matriz pre y post a partir de un archivo txt previamente convertido
-    Parametros: \n
-        cantidad_plazas
-        cantidad_transiciones
+    """ 
+    Devuelve la matriz pre y post a partir de un archivo txt previamente convertido. \n
+    
+    Parameters \n
+    ----------
+        cantidad_plazas         -- Cantidad de plazas de la RdP
+        cantidad_transiciones   -- Cantidad de transiciones de la RdP
+    
+    Returns \n
+    ------- 
+        matriz_I_pos            -- Matriz Post (I+)
+        matriz_I_neg            -- Matriz Pre  (I-)
     """
     #Apertura de archivos resultantes de la conversion de archivos .html to .txt
     # obtenidos del SW Petrinator, para su siguiente manipulacion y filtrado.
@@ -150,7 +180,20 @@ def matriz_pre_pos(cantidad_plazas,cantidad_transiciones):
 
     return matriz_I_pos,matriz_I_neg
 
+
+
 def conflict_t_invariante(t_conflict,t_invariant,matriz_pos,plazas_sifon_complemento,t_in):
+    """ 
+    Obtiene las transiciones en conflicto que le tienen que devolver algun token al supervisor. \n
+    
+    Parameters \n
+    ----------
+        t_conflict                  -- Transiciones en conflicto
+        t_invariant                 -- T-Invariante
+        matriz_pos                  -- Matriz Post (I+)
+        plazas_sifon_complemento    -- Plazas complemento del sifon a controlar
+        t_in                        -- Transiciones de entrada al supervisor
+    """
     for ii in range(0,len(t_conflict)):
         flag_sifon=0
         for jj in range(0,len(t_invariant)):
@@ -167,7 +210,26 @@ def conflict_t_invariante(t_conflict,t_invariant,matriz_pos,plazas_sifon_complem
             print("Transicion input:",int(t_conflict[ii])+1)
             t_in.append("T"+str(int(t_conflict[ii])+1))
 
+
+
 def path_conflict(t_idle,t_analizar,flag_idle,plazas_sifon_complemento,matriz_pre,matriz_pos,cantidad_plazas,cantidad_transiciones,t_invariant,t_in):
+    """ 
+    Obtiene el camino de los conflictos. \n
+    
+    Parameters \n
+    ----------
+        t_idle                      -- Transiciones idle
+        t_analizar                  -- Transicion a analizar 
+        flag_idle                   -- Indica que es una t-idle
+        plazas_sifon_complemento    -- Plazas complementos del sifon a controlar
+        matriz_pre                  -- Matriz Post (I+)
+        matriz_pos                  -- Matriz Pre  (I-)
+        cantidad_plazas             -- Cantidad de plazas de la RdP
+        cantidad_transiciones       -- Cantidad de tranciones de la RdP 
+        t_invariant                 -- T-Invariante
+        t_in                        -- Transiciones input al supervisor
+    """
+
     if(t_idle!=t_analizar or flag_idle==1):
         flag_idle=0
         p_idle=[] #Plaza a las que le pone tokens la transicion
@@ -191,17 +253,22 @@ def path_conflict(t_idle,t_analizar,flag_idle,plazas_sifon_complemento,matriz_pr
             else: #no hay conflicto
                 path_conflict(t_idle,t_conflict[0],flag_idle,plazas_sifon_complemento,matriz_pre,matriz_pos,cantidad_plazas,cantidad_transiciones,t_invariant,t_in)
 
+
+
 def supervisor(cantidad_transiciones,cantidad_plazas,sifon,matriz_es_tr,matriz_pos,matriz_pre,matriz_sifones,t_invariant,lista_supervisores):
-    """ Define el supervisor que va a controlar el bad-siphon. Esta funcion define el marcado de la plaza supervisor y las transiciones de entrada y salida del mismo
-    Parametros: \n
-        cantidad_transiciones
-        cantidad_plazas
-        sifon -- bad siphon a controlar. Compuesto por 3 elementos: estado deadlock[0], numero sifon[1], marcado sifon[2]
-        matriz_es_tr -- [estado x transiciones]
-        matriz_pos
-        matriz_pre
-        matriz_sifones
-        t_invariant
+    """ 
+    Define el supervisor que va a controlar el bad-siphon. Esta funcion define el marcado de la plaza supervisor y las transiciones de entrada y salida del mismo. \n
+    
+    Parameters \n
+    ----------
+        cantidad_transiciones   -- Cantidad de transiciones de la RdP
+        cantidad_plazas         -- Cantidad de plazas de la RdP
+        sifon                   -- bad siphon a controlar. Compuesto por 3 elementos: estado deadlock[0], numero sifon[1], marcado sifon[2]
+        matriz_es_tr            -- Matriz [estado x transiciones]
+        matriz_pos              -- Matriz Pos (I+)
+        matriz_pre              -- Matriz Pre (I-)
+        matriz_sifones          -- Matriz de sifones 
+        t_invariant             -- T-invariantes
     """
     global id
     print("\nid=", id)
@@ -262,18 +329,21 @@ def supervisor(cantidad_transiciones,cantidad_plazas,sifon,matriz_es_tr,matriz_p
     lista_supervisores.append(["P"+str(cantidad_plazas+1),str(marcado_supervisor),t_in,t_out])
    
 
+
 def fun_sifones_deadlock(estado,matriz_sifones,matriz_es_pl,idle,cantidad_plazas,cantidad_sifones,sifon_idle,sifon_deadlock):
-    """ Devuelve los sifones que se vacian en ese estado de deadlock
-        Apartir de matriz de Estados x Plazas = [Marcado]
-        se recorre la fila de la matriz donde se encuentra el estado deadlock,
-        colocando un "1" en aquellas plazas donde el marcado sea >=1.
-        Se realiza un and entre esa fila de la matriz y el sifon, si la and = 0 implica que ese sifon
-        se encuentra vacio para ese estado de deadlock.
-    Parametros: \n
-        estado -- Estado que posee Deadlock.
-        matriz_sifones -- [Marcado de plazas que componen el sifon]
-        matriz_es_pl -- EstadosxPlazas = [Marcado para ese estado].
-        idle -- Indica si se agrega a la lista de sifon_idle o sifon_deadlock"""
+    """ 
+    Devuelve los sifones que se vacian en ese estado de deadlock. \n
+    Apartir de matriz de Estados x Plazas = [Marcado] se recorre la fila de la matriz donde se encuentra el estado deadlock,
+    colocando un "1" en aquellas plazas donde el marcado sea >=1. \n
+    Se realiza un and entre esa fila de la matriz y el sifon, si la and = 0 implica que ese sifon se encuentra vacio para ese estado de deadlock. 
+    
+    Parameters \n
+    ----------
+        estado          -- Estado que posee Deadlock.
+        matriz_sifones  -- [Marcado de plazas que componen el sifon]
+        matriz_es_pl    -- EstadosxPlazas = [Marcado para ese estado].
+        idle            -- Indica si se agrega a la lista de sifon_idle o sifon_deadlock
+    """
 
     aux=np.zeros(cantidad_plazas)
     flag_sifon_idle=0
@@ -304,6 +374,8 @@ def fun_sifones_deadlock(estado,matriz_sifones,matriz_es_pl,idle,cantidad_plazas
                         sifon_deadlock.append([estado,i,marcado]) #Devuelve el sifon y su marcado inicial, para ese estado deadlock
             else:
                 sifon_idle.append[i]
+
+
 
 def main():
     print("--------------------------------------------------------------------------")

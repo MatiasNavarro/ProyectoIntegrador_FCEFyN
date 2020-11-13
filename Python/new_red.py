@@ -17,12 +17,13 @@ def main(p_vs, token_vs, t_in, t_out, file_name):
     """
     Funcion encargada de agregar el supervisor (Vs) con sus correspondiente marcados y los arcos de entrada y salidas.  \n
 
-    Parámetros: \n 
-    p_vs        -- Id de la nueva plaza (Vs) a agregar. Ej: P5.  \n
-    token_vs    -- Marcado del supervisor. \n
-    t_in        -- Arcos de entrada al supervisor. \n
-    t_out       -- Arcos de salida del supervisor. \n
-    file_name   -- Nombre del archivo de la Rdp (.pflow). \n
+    Parameters \n 
+    ----------
+        p_vs        -- Id de la nueva plaza (Vs) a agregar. Ej: P5.  \n
+        token_vs    -- Marcado del supervisor. \n
+        t_in        -- Arcos de entrada al supervisor. \n
+        t_out       -- Arcos de salida del supervisor. \n
+        file_name   -- Nombre del archivo de la Rdp (.pflow). \n
     """
 
     f = open(file_name,"r")

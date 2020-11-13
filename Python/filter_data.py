@@ -19,6 +19,18 @@ import numpy as np
 import os
 
 def main():
+    """
+    Obtiene informacion relevante de la RdP. \n 
+
+    Returns \n
+    -------
+        Cantidad estados
+        Cantidad plazas
+        Cantidad transiciones
+        Matriz [estados x transiciones]
+        Matriz [estados x plazas]
+        Estados en deadlock
+    """
     cantidad_estados=0
     cantidad_transiciones=0
     cantidad_plazas=0

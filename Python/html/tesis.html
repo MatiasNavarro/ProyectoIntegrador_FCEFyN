@@ -1,0 +1,1305 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+<meta name="generator" content="pdoc 0.9.1" />
+<title>tesis API documentation</title>
+<meta name="description" content="" />
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/sanitize.min.css" integrity="sha256-PK9q560IAAa6WVRRh76LtCaI8pjTJ2z11v0miyNNjrs=" crossorigin>
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/typography.min.css" integrity="sha256-7l/o7C8jubJiy74VsKTidCy1yBkRtiUGbVkYBylBqUg=" crossorigin>
+<link rel="stylesheet preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/github.min.css" crossorigin>
+<style>:root{--highlight-color:#fe9}.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js" integrity="sha256-Uv3H6lx7dJmRfRvH8TH6kJD1TSK1aFcwgx+mdg3epi8=" crossorigin></script>
+<script>window.addEventListener('DOMContentLoaded', () => hljs.initHighlighting())</script>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>tesis</code></h1>
+</header>
+<section id="section-intro">
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">import os
+import numpy as np
+import time
+import re
+import sys
+import html_txt_all as hta
+import filter_data as filterdata
+import new_red
+import arcs as arcosrdp 
+
+#Variable globales
+id=0
+name_pflow= &#34;&#34;
+
+
+def siphones_traps(cantidad_plazas):
+    &#34;&#34;&#34; 
+    Devuelve una matriz de [sifones x plazas] y otra de [trampas x plazas]. Tambien devuelve cantidad de sifones y de trampas. \n
+    
+    Parameters \n
+    ----------
+        cantidad_plazas     -- Cantidad de plazas de la RdP
+
+    Returns \n
+    -------
+        matriz_sifones      -- Matriz de sifones
+        matriz_traps        -- Matriz de trampas
+        cantidad_sifones    -- Cantidad de sifones
+        cantidad_traps      -- Cantidad de trampas
+    &#34;&#34;&#34;
+    #Apertura de archivos resultantes de la conversion de archivos .html to .txt 
+    # obtenidos del SW Petrinator, para su siguiente manipulacion y filtrado.
+    pasi = open(&#34;./siphons_traps.txt&#34;,&#34;r&#34;)
+    i = 0 
+    aux_s = 0
+    aux_t = 0
+
+    for line in pasi: #Obtiene la cantidad de trampa y sifones que contiene la RdP 
+        i=i+1
+        if(i&gt;1):
+            aux_s = aux_s + 1
+            aux_t = aux_t + 1 
+            if(line.find(&#34;Minimal traps&#34;)==1):
+                cantidad_sifones = aux_s - 1
+                aux_t = 0
+            if(line.find(&#34;Analysis&#34;)==1):
+                cantidad_traps = aux_t -1
+
+    pasi.seek(0) #Vuelve el cabezal al principio del archivo 
+    aux_s = cantidad_sifones
+    aux_t = cantidad_traps
+
+    s_flag = 0
+    t_flag = 0
+
+    siphons_aux = []
+    traps_aux = []
+
+    for line in pasi:
+        if(s_flag == 1 and aux_s != 0): #Obtiene los sifones de la RdP
+            siphons_aux.append(line)
+            aux_s = aux_s - 1 
+        
+        if(t_flag == 1 and aux_t != 0): #Obtiene las trampas de la RdP
+            traps_aux.append(line)
+            aux_t = aux_t -1 
+        
+        if(line.find(&#34;Minimal siphons&#34;)==1):
+            s_flag = 1 
+            #print(&#34;Sifones&#34;)
+        
+        if(line.find(&#34;Minimal traps&#34;)==1):
+            t_flag = 1 
+            #print(&#34;Trampas&#34;)
+
+    siphons = []
+    traps = [] 
+    for i in range (len(siphons_aux)): #Elimina los espacios del string y agrega cada sifon
+        siphons.append(str(siphons_aux[i]).split())
+
+    for i in range (len(traps_aux)): #Elimina los espacios del string y agrega cada trampa
+        traps.append(str(traps_aux[i]).split())
+
+    #Creamos la matriz que representa por fila la cantidad de sifones o traps y por columna plazas
+    #hay un 1 en las plazas que conforman esos sifones o traps
+    matriz_sifones =np.zeros((cantidad_sifones,cantidad_plazas))
+    matriz_traps =np.zeros((cantidad_traps,cantidad_plazas))
+
+    for i in range(0,len(siphons)):
+        for j in range(0,len(siphons[i])):
+            matriz_sifones[i][int(siphons[i][j])-1]=1
+
+    for i in range(0,len(traps)):
+        for j in range(0,len(traps[i])):
+            matriz_traps[i][int(traps[i][j])-1]=1
+
+    pasi.close()
+    return matriz_sifones,matriz_traps,cantidad_sifones,cantidad_traps
+
+
+
+def invariantes(cantidad_transiciones):
+    &#34;&#34;&#34; 
+    Devuelve la matriz de invariantes de transicion, mediante la apertura de un archivo txt previamente convertido. \n
+    
+    Parameters \n
+    ----------
+        cantidad_transiciones   -- Cantidad de transiciones de la RdP
+
+    Returns \n
+    -------
+        M_TI                    -- Matriz de T-invariante
+    &#34;&#34;&#34;
+    file = open(&#39;invariante.txt&#39;, &#39;r&#39;)
+    cont = 0
+    TInvariantes = []
+    PInvariantes = []
+    for line in file:
+        if(cont==0):
+            TInvariantes = line
+            cont = cont + 1
+        elif(cont==1):
+            PInvariantes = line
+            cont = cont + 1
+
+    aux_I = TInvariantes.split(&#39; &#39;)
+    TInvariantes = []
+    for i in range (cantidad_transiciones, len(aux_I)-2):
+        TInvariantes.append(aux_I[i])
+
+    M_TI = np.zeros((int(len(TInvariantes)/cantidad_transiciones), cantidad_transiciones))
+    m = 0
+    for i in range ((int(len(TInvariantes)/cantidad_transiciones))):
+        for j in range (cantidad_transiciones):
+            M_TI[i][j] = TInvariantes[m]
+            m = m + 1
+
+    file.close()
+    return M_TI.astype(int)
+
+
+
+def matriz_pre_pos(cantidad_plazas,cantidad_transiciones):
+    &#34;&#34;&#34; 
+    Devuelve la matriz pre y post a partir de un archivo txt previamente convertido. \n
+    
+    Parameters \n
+    ----------
+        cantidad_plazas         -- Cantidad de plazas de la RdP
+        cantidad_transiciones   -- Cantidad de transiciones de la RdP
+    
+    Returns \n
+    ------- 
+        matriz_I_pos            -- Matriz Post (I+)
+        matriz_I_neg            -- Matriz Pre  (I-)
+    &#34;&#34;&#34;
+    #Apertura de archivos resultantes de la conversion de archivos .html to .txt
+    # obtenidos del SW Petrinator, para su siguiente manipulacion y filtrado.
+    matriz_I = open(&#34;./matricesI.txt&#34;,&#34;r&#34;)
+    matriz_I_pos = np.loadtxt(matriz_I,delimiter=&#39; &#39;&#39; &#39;,skiprows=3,max_rows=cantidad_plazas, dtype=bytes).astype(str)
+    matriz_I_neg = np.loadtxt(matriz_I,delimiter=&#39; &#39;&#39; &#39;,skiprows=2,max_rows=cantidad_plazas+1, dtype=bytes).astype(str)
+
+    aux_pos = []
+    aux_neg = []
+    for i in range(cantidad_plazas):
+        aux_pos.append(matriz_I_pos[i].split(&#34; &#34;))
+
+    for i in range(cantidad_plazas):
+        aux_neg.append(matriz_I_neg[i].split(&#34; &#34;))
+
+    aux_pos = np.delete(aux_pos,0,1)
+    aux_neg = np.delete(aux_neg,0,1)
+    aux_pos = np.delete(aux_pos,cantidad_transiciones,1)
+    aux_neg = np.delete(aux_neg,cantidad_transiciones,1)
+
+    matriz_I_pos = aux_pos.astype(int)
+    matriz_I_neg = aux_neg.astype(int)
+
+    matriz_I.close()
+
+    return matriz_I_pos,matriz_I_neg
+
+
+
+def conflict_t_invariante(t_conflict,t_invariant,matriz_pos,plazas_sifon_complemento,t_in):
+    &#34;&#34;&#34; 
+    Obtiene las transiciones en conflicto que le tienen que devolver algun token al supervisor. \n
+    
+    Parameters \n
+    ----------
+        t_conflict                  -- Transiciones en conflicto
+        t_invariant                 -- T-Invariante
+        matriz_pos                  -- Matriz Post (I+)
+        plazas_sifon_complemento    -- Plazas complemento del sifon a controlar
+        t_in                        -- Transiciones de entrada al supervisor
+    &#34;&#34;&#34;
+    for ii in range(0,len(t_conflict)):
+        flag_sifon=0
+        for jj in range(0,len(t_invariant)):
+            if(int(t_invariant[jj][t_conflict[ii]])==1): #La T en conflicto forma parte del T invariante?
+                aux_t=np.copy(t_invariant[jj])  #Guardamos el T invariante
+                for aa in range(0,len(aux_t)):
+                    if(int(aux_t[aa])==1): #Buscamos la T que forma parte del T-invariante
+                        for bb in range(0,len(matriz_pos)):
+                            if(int(matriz_pos[bb][aa])==1):
+                                if(int(plazas_sifon_complemento[bb])==1): #La T alimenta a alguna plaza del sifon&#39;
+                                    flag_sifon=1
+
+        if(flag_sifon==0):
+            print(&#34;Transicion input:&#34;,int(t_conflict[ii])+1)
+            t_in.append(&#34;T&#34;+str(int(t_conflict[ii])+1))
+
+
+
+def path_conflict(t_idle,t_analizar,flag_idle,plazas_sifon_complemento,matriz_pre,matriz_pos,cantidad_plazas,cantidad_transiciones,t_invariant,t_in):
+    &#34;&#34;&#34; 
+    Obtiene el camino de los conflictos. \n
+    
+    Parameters \n
+    ----------
+        t_idle                      -- Transiciones idle
+        t_analizar                  -- Transicion a analizar 
+        flag_idle                   -- Indica que es una t-idle
+        plazas_sifon_complemento    -- Plazas complementos del sifon a controlar
+        matriz_pre                  -- Matriz Post (I+)
+        matriz_pos                  -- Matriz Pre  (I-)
+        cantidad_plazas             -- Cantidad de plazas de la RdP
+        cantidad_transiciones       -- Cantidad de tranciones de la RdP 
+        t_invariant                 -- T-Invariante
+        t_in                        -- Transiciones input al supervisor
+    &#34;&#34;&#34;
+
+    if(t_idle!=t_analizar or flag_idle==1):
+        flag_idle=0
+        p_idle=[] #Plaza a las que le pone tokens la transicion
+        for jj in range (0,cantidad_plazas):
+            if(int(matriz_pos[jj][t_analizar])!=0): #A que plazas esta alimentando esa transicion(t_analizar)
+                p_idle.append(int(jj))
+        #print(p_idle)
+        for ii in range (0,len(p_idle)):
+            t_conflict=[] #Plaza que alimenta a las transiciones en conflicto
+            for mm in range (0,cantidad_transiciones):
+                if(matriz_pre[p_idle[ii]][mm]==1):
+                    t_conflict.append(mm)             #Transiciones en conflicto sensibilizadas por esa plaza
+            if(len(t_conflict)&gt;1): #La plaza sensibiliza a mas de una transicion? Hay conflicto
+                file_t_conflict_orig = open(&#39;t_conflict_red_original.txt&#39;, &#39;w&#39;)
+                for ij in range (0, len(t_conflict)):
+                    file_t_conflict_orig.write(str(t_conflict[ij]) + &#39; &#39;)
+                file_t_conflict_orig.close()
+
+                conflict_t_invariante(t_conflict,t_invariant,matriz_pos,plazas_sifon_complemento,t_in)
+
+            else: #no hay conflicto
+                path_conflict(t_idle,t_conflict[0],flag_idle,plazas_sifon_complemento,matriz_pre,matriz_pos,cantidad_plazas,cantidad_transiciones,t_invariant,t_in)
+
+
+
+def supervisor(cantidad_transiciones,cantidad_plazas,sifon,matriz_es_tr,matriz_pos,matriz_pre,matriz_sifones,t_invariant,lista_supervisores):
+    &#34;&#34;&#34; 
+    Define el supervisor que va a controlar el bad-siphon. Esta funcion define el marcado de la plaza supervisor y las transiciones de entrada y salida del mismo. \n
+    
+    Parameters \n
+    ----------
+        cantidad_transiciones   -- Cantidad de transiciones de la RdP
+        cantidad_plazas         -- Cantidad de plazas de la RdP
+        sifon                   -- bad siphon a controlar. Compuesto por 3 elementos: estado deadlock[0], numero sifon[1], marcado sifon[2]
+        matriz_es_tr            -- Matriz [estado x transiciones]
+        matriz_pos              -- Matriz Pos (I+)
+        matriz_pre              -- Matriz Pre (I-)
+        matriz_sifones          -- Matriz de sifones 
+        t_invariant             -- T-invariantes
+    &#34;&#34;&#34;
+    global id
+    print(&#34;\nid=&#34;, id)
+    id=id+1
+    trans_idle=[] #Transiciones habilitadas en el marcado inicial
+    marcado_supervisor=sifon[2]-1 #Es la posicion 2 debido que el sifon esta declarado estado deadlock[0], numero sifon[1], marcado sifon[2]
+    #Marcado del supervisor
+    print(&#34;Sifon a controlar: &#34;,sifon[1]+1)
+    print(&#34;Marcado del supervisor&#34;,marcado_supervisor) 
+
+    #Transiciones que salen del estado idle, le quitan tokens a los supervisores
+    #estas se encuentran sensibilizadas en el estado inicial (0) y son las transiciones
+    #que son distintan de -1 en la matriz matriz_es_tr (estado-transicion) --&gt; Transiciones 1 de Ezpeleta
+    t_out=[]
+    for ii in range(cantidad_transiciones):
+        if(matriz_es_tr[0][ii]!=-1):
+            trans_idle.append(ii)
+            t_out.append(&#34;T&#34;+str(ii+1))
+            print(&#34;Transicion output: &#34;,ii+1) #+1 Por problemas de indice en petrinator empieza en 1
+
+
+    tran_sifon=np.zeros(cantidad_transiciones) #Vector que indica que transiciones sacan/ponen tokens en el sifon
+
+    plazas_sifon=np.copy(matriz_sifones[sifon[1]]) #Vectors de todas las plazas del sistema, en 1 se encuentran las plazas que componen nuestro sifon
+    #print(plazas_sifon)
+    #Localizamos transiciones que colocan tokens al supervisor--&gt;Transiciones 2 de Ezpeleta
+    for i in range(0,cantidad_plazas):
+        if(plazas_sifon[i]==1): #Es una plaza del sifon
+            for j in range(0,cantidad_transiciones):
+                if(int(matriz_pre[i][j])==1):
+                    tran_sifon[j]=tran_sifon[j]-1 #Le quita tokens al sifon
+                if(int(matriz_pos[i][j])==1):
+                    tran_sifon[j]=tran_sifon[j]+1 #Le agrega tokens al sifon
+    t_in=[]
+    for i in range(0,cantidad_transiciones):
+        if(tran_sifon[i]&gt;0): #Si es mayor a 0 significa que esta transicion coloca mas tokens a los sifones de los que le quitan
+            print(&#34;Transicion input:&#34;, i+1) #Petrinator empieza en 1 y no en cero por eso el +1
+            t_in.append(&#34;T&#34;+str(i+1))
+    plazas_sifon_complemento=np.copy(plazas_sifon) #Usado para calcular la 3er transicion de Ezpeleta
+
+    #Obtenemos los complementos
+    for i in range(0,len(tran_sifon)):
+        if(tran_sifon[i]&gt;0):
+            for j in range(0,cantidad_plazas):
+                if(int(matriz_pre[j][i])==1):#son las plazas que habilitan transiciones que agregan mas
+                                             #tokens de los que sacan del sifon.
+                    plazas_sifon_complemento[j]=1
+
+    for tt in range (0,len(trans_idle)):
+        cont_t_invariante=0 #indica en cuantos T-invariantes aparece la Transiciones habilitadas en estado idle
+                        #de ser =&gt;2 implica que esta en conflicto
+        for yy in range (0,len(t_invariant)):
+            if(t_invariant[yy][trans_idle[tt]]==1):
+                cont_t_invariante=cont_t_invariante+1
+        if(cont_t_invariante&gt;=2):
+            path_conflict(trans_idle[tt],trans_idle[tt],1,plazas_sifon_complemento,matriz_pre,matriz_pos,cantidad_plazas,cantidad_transiciones,t_invariant,t_in) #El 1 indica que es flag_idle
+
+    lista_supervisores.append([&#34;P&#34;+str(cantidad_plazas+1),str(marcado_supervisor),t_in,t_out])
+   
+
+
+def fun_sifones_deadlock(estado,matriz_sifones,matriz_es_pl,idle,cantidad_plazas,cantidad_sifones,sifon_idle,sifon_deadlock):
+    &#34;&#34;&#34; 
+    Devuelve los sifones que se vacian en ese estado de deadlock. \n
+    Apartir de matriz de Estados x Plazas = [Marcado] se recorre la fila de la matriz donde se encuentra el estado deadlock,
+    colocando un &#34;1&#34; en aquellas plazas donde el marcado sea &gt;=1. \n
+    Se realiza un and entre esa fila de la matriz y el sifon, si la and = 0 implica que ese sifon se encuentra vacio para ese estado de deadlock. 
+    
+    Parameters \n
+    ----------
+        estado          -- Estado que posee Deadlock.
+        matriz_sifones  -- [Marcado de plazas que componen el sifon]
+        matriz_es_pl    -- EstadosxPlazas = [Marcado para ese estado].
+        idle            -- Indica si se agrega a la lista de sifon_idle o sifon_deadlock
+    &#34;&#34;&#34;
+
+    aux=np.zeros(cantidad_plazas)
+    flag_sifon_idle=0
+    for j in range(0,cantidad_plazas):
+        if(matriz_es_pl[estado][j]&gt;=1): #Obtenemos las plazas(marcadas) del estado deadlock
+            aux[j]=1
+
+    for i in range(0,cantidad_sifones):
+        cont=0
+        for j in range(0,cantidad_plazas):
+            if(int(matriz_sifones[i][j] and aux[j])==1):
+                cont=cont+1             #Si el contador es distinto de cero, el sifon no esta vacio
+        if(cont==0):
+            marcado=0
+            for j in range(0,cantidad_plazas):
+                if(matriz_sifones[i][j]==1):
+                    marcado=marcado+matriz_es_pl[0][j] #Es 0 en fila, porque es el estado inicial en el que se encontraban las plazas de los sifones
+            if(idle==0):
+                for jj in range(0,len(sifon_idle)):
+                    if(sifon_idle[jj]==i): #El sifon vacio en deadlock esta vacio en idle?
+                        flag_sifon_idle=1
+                if(flag_sifon_idle==0): #El sifon no estaba vacio en idle
+                    sifon_agregado = 1 
+                    for index in range(0, len(sifon_deadlock)): #Verifica si el sifon ya se incluyó en la lista, de no ser así lo agrega
+                        if(sifon_deadlock[index][1]==i):
+                            sifon_agregado = 0
+                    if(sifon_agregado):
+                        sifon_deadlock.append([estado,i,marcado]) #Devuelve el sifon y su marcado inicial, para ese estado deadlock
+            else:
+                sifon_idle.append[i]
+
+
+
+def main():
+    print(&#34;--------------------------------------------------------------------------&#34;)
+    print(&#34;Algoritmo para la solucion de deadlock para redes de petri tipo S3PR&#34;)
+    print(&#34;--------------------------------------------------------------------------&#34;)
+    file_t_conflict_orig = open(&#39;t_conflict_red_original.txt&#39;, &#39;w&#39;)
+    file_t_conflict_orig.close()
+    #Conversion de archivos html a txt
+    hta.main()
+
+    #Filtrado de archivos provenientes del Petrinator
+    (cantidad_estados, cantidad_plazas , cantidad_transiciones, matriz_es_tr, matriz_es_pl, state_deadlock) = filterdata.main()
+
+    #Matrices
+    (matriz_sifones,matriz_traps,cantidad_sifones,cantidad_traps)=siphones_traps(cantidad_plazas)
+
+    (matriz_pos,matriz_pre)=matriz_pre_pos(cantidad_plazas,cantidad_transiciones)
+
+    #T-invariantes
+    t_invariant=invariantes(cantidad_transiciones)
+
+    print(&#34;\nIngrese: &#34;)
+    print(&#34;1 - Primer analisis de la red&#34;)
+    print(&#34;2 - Análisis de red con supervisores&#34;)
+    print(&#34;3 - Red con supervisores, tratamiento de conflicto y t_idle&#34;)
+
+    analisis= input(&#34;\nOpcion: &#34;)
+    print(&#34;\n&#34;)
+
+    if(analisis==&#34;1&#34;):
+        #Obtenemos la cantidad de plazas de la red original
+        file_plazas = open(&#39;cantidad_plazas_red_original.txt&#39;, &#39;w&#39;)
+        file_plazas.write(str(len(matriz_es_pl[0])))
+        file_plazas.close()
+
+        #Guardamos los T-invariantes de la red original
+        file_t_inv_orig = open(&#39;invariante_red_original.txt&#39;, &#39;w&#39;)
+        for i in range (0, len(t_invariant)):
+            for j in range(0, len(t_invariant[0])):
+                file_t_inv_orig.write(str(t_invariant[i][j]) + &#39; &#39;)
+            file_t_inv_orig.write(&#34;\n&#34;)
+        file_t_inv_orig.close()
+
+        global name_pflow
+        name_pflow = input(&#34;Ingrese el nombre de la red(.pflow): &#34;)
+        print(&#34;\n&#34;)
+
+
+    if(analisis==&#34;2&#34; or analisis==&#34;1&#34;):
+        sifon_idle=[] #Estado_idle sifon
+        sifon_deadlock=[] #Estado_deadlock-sifon-marcado
+
+        idle=1 #Sifones vacios estado inicial
+        fun_sifones_deadlock(0,matriz_sifones,matriz_es_pl,idle,cantidad_plazas,cantidad_sifones,sifon_idle,sifon_deadlock)
+        #print(&#34;Sifones vacios en idle&#34;,sifon_idle)
+
+        #Llamada recursiva a fun_deadlock en busqueda de caminos que dirigen al deadlock
+        idle=0 #Sifones en estado deadlock
+        for i in range (0, len(state_deadlock)):
+            fun_sifones_deadlock(state_deadlock[i],matriz_sifones,matriz_es_pl,idle,cantidad_plazas,cantidad_sifones,sifon_idle,sifon_deadlock)
+        print(&#34;Cantidad de estados con deadlock:&#34;, len(state_deadlock))
+        print(&#34;Cantidad de sifones vacios:&#34;, len(sifon_deadlock))
+
+        lista_supervisores=[]
+ 
+        for i in range(0, len(sifon_deadlock)):
+            #Nos quedamos con un solo sifon
+            sifon=np.copy(sifon_deadlock[i])
+            
+            #Agregamos el supervisor del bad-sifon
+            supervisor(cantidad_transiciones,cantidad_plazas,sifon,matriz_es_tr,matriz_pos,matriz_pre,matriz_sifones,t_invariant,lista_supervisores)
+
+
+
+        #Elimina archivo temporal
+        os.remove(&#34;filtrado_prueba.txt&#34;)
+
+
+    elif(analisis==&#34;3&#34;):   #se obtienen los supervisores (3) o Anular brazos de idle a supervisores (4)
+
+        file_plazas = open(&#39;cantidad_plazas_red_original.txt&#39;, &#39;r&#39;)
+        cantidad_plazas_red_original=int(file_plazas.read())
+        array_supervisor =[]
+        for i in range (cantidad_plazas_red_original,len(matriz_es_pl[0])):
+            array_supervisor.append(i)
+
+        trans_idle=[] #Transiciones habilitadas en el marcado inicial
+        #Transiciones que salen del estado idle
+        for ii in range(cantidad_transiciones):
+            if(matriz_es_tr[0][ii]!=-1):
+                trans_idle.append(ii)
+
+        #Guardamos los T-invariantes de la red original
+        file_t_invariant_red_original = open(&#34;./invariante_red_original.txt&#34;,&#34;r&#34;)
+
+        t_invariant_red_original = []
+        aux_t_inv = [] 
+
+        for line in file_t_invariant_red_original:
+            aux_t_inv.append(line)
+
+        for i in range(len(aux_t_inv)):
+            t_invariant_red_original.append(str(aux_t_inv[i]).split())
+
+        #Guardamos los conflictos de la red original
+        file_t_conflict_red_original = open(&#34;./t_conflict_red_original.txt&#34;,&#34;r&#34;)
+
+        t_conflict_red_original = []
+        aux_conflic = [] 
+
+        for line in file_t_conflict_red_original:
+            aux_conflic.append(line)
+
+        for i in range(len(aux_conflic)):
+            t_conflict_red_original.append(str(aux_conflic[i]).split())
+
+        msjadd = []
+        msjdel = []
+        #Buscamos eliminar los arcos de las transiciones idle cuyo T-invariante al que pertenece no le devuelve token al supervisor. (i.e arcos innecesarios)
+        for i in range(len(trans_idle)): #Cantidad de trans_idle
+            for j in range(len(t_invariant_red_original)): #cantidad de t-invariantes
+                if(int(t_invariant_red_original[j][trans_idle[i]])==1): #La transicion idle forma parte del t-invariantes
+                    for m in range(len(array_supervisor)):
+                        cont_sup = 0
+                        for l in range(len(t_invariant_red_original[j])):
+                            if(int(t_invariant_red_original[j][l])==1):
+                                if(int(matriz_pos[array_supervisor[m]][l])==1): #El T-invariante de la transicion idle le devuelve token al supervisor?
+                                    cont_sup = 1 # si devuelve
+                        if(cont_sup==0): #no devuelve
+                            cont=0
+                            for k in range(len(t_conflict_red_original)):
+                                aux = int(t_conflict_red_original[k][0])
+                                if(int(t_invariant_red_original[j][aux])==1): #La transicion en conflicto forma parte del T-invariante por lo tanto debe devolver el token 
+                                    cont = cont + 1
+                                    print(&#34;La transicion en conflicto &#34;, aux+1,&#34; le tiene que devolver un token al supervisor &#34;, array_supervisor[m]+1)
+                                    msjadd.append(&#39;Se agrego un arco desde &#39;+ str(f&#39;T{aux+1}&#39;) + &#39; hasta &#39; + str(f&#39;P{array_supervisor[m]+1}&#39;))
+                                    
+                                    #Se agrega el arco
+                                    arcosrdp.agregararco(name_pflow,aux+1,array_supervisor[m]+1)
+
+                            if(cont == 0):
+                                if(int(matriz_pre[int(array_supervisor[m])][int(trans_idle[i])])==1):
+                                    print(&#34;Eliminar arco desde &#34;, array_supervisor[m]+1, &#34;hasta &#34;, trans_idle[i]+1)
+                                    msjdel.append(&#39;Se elimino el arco desde &#39;+ str(f&#39;P{array_supervisor[m]+1}&#39;) + &#39; hasta &#39; + str(f&#39;T{trans_idle[i]+1}&#39;))
+
+                                    #Se elimina el arco
+                                    arcosrdp.eliminararco(name_pflow, array_supervisor[m]+1, trans_idle[i]+1)
+
+        print(&#34;\n&#34;)
+        for i in range (len(msjadd)):
+            print(msjadd[i])
+
+        for i in range (len(msjdel)):
+            print(msjdel[i])     
+
+    else:
+        print(&#34;Opcion erronea&#34;)
+        exit()
+
+    decision = &#34;&#34;
+    if(analisis!=&#34;3&#34;):
+        decision=input(&#34;\n¿Agregar supervisor?(S/N) &#34;).upper()
+
+    if(decision==&#34;S&#34;):
+        id_int=int(input(&#34;AGREGA EL ID: &#34;))
+        new_red.main(lista_supervisores[id_int][0],lista_supervisores[id_int][1],lista_supervisores[id_int][2],lista_supervisores[id_int][3],name_pflow)
+
+# while(1): #El algoritmo se ejecuta iterativamente hasta que se controla la red. De no ser así se dice que el algoritmo no converge
+#     flag = 0
+#     id=0
+#     main()
+    
+#     print(&#34;\n-------------------------------------------------------------&#34;)
+#     print(&#34;Ingrese:&#34;)
+#     print(&#34;1 - Deadlock = true  - Volver a ejecutar el Algoritmo&#34;)
+#     print(&#34;0 - Deadlock = false - Finalizar ejecucion&#34;)
+#     flag = input(&#34;Opcion: &#34;)
+#     print(&#34;-------------------------------------------------------------&#34;)
+
+#     if(flag==&#34;0&#34;):
+#         exit()</code></pre>
+</details>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-functions">Functions</h2>
+<dl>
+<dt id="tesis.conflict_t_invariante"><code class="name flex">
+<span>def <span class="ident">conflict_t_invariante</span></span>(<span>t_conflict, t_invariant, matriz_pos, plazas_sifon_complemento, t_in)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Obtiene las transiciones en conflicto que le tienen que devolver algun token al supervisor. </p>
+<p>Parameters </p>
+<hr>
+<pre><code>t_conflict                  -- Transiciones en conflicto
+t_invariant                 -- T-Invariante
+matriz_pos                  -- Matriz Post (I+)
+plazas_sifon_complemento    -- Plazas complemento del sifon a controlar
+t_in                        -- Transiciones de entrada al supervisor
+</code></pre></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def conflict_t_invariante(t_conflict,t_invariant,matriz_pos,plazas_sifon_complemento,t_in):
+    &#34;&#34;&#34; 
+    Obtiene las transiciones en conflicto que le tienen que devolver algun token al supervisor. \n
+    
+    Parameters \n
+    ----------
+        t_conflict                  -- Transiciones en conflicto
+        t_invariant                 -- T-Invariante
+        matriz_pos                  -- Matriz Post (I+)
+        plazas_sifon_complemento    -- Plazas complemento del sifon a controlar
+        t_in                        -- Transiciones de entrada al supervisor
+    &#34;&#34;&#34;
+    for ii in range(0,len(t_conflict)):
+        flag_sifon=0
+        for jj in range(0,len(t_invariant)):
+            if(int(t_invariant[jj][t_conflict[ii]])==1): #La T en conflicto forma parte del T invariante?
+                aux_t=np.copy(t_invariant[jj])  #Guardamos el T invariante
+                for aa in range(0,len(aux_t)):
+                    if(int(aux_t[aa])==1): #Buscamos la T que forma parte del T-invariante
+                        for bb in range(0,len(matriz_pos)):
+                            if(int(matriz_pos[bb][aa])==1):
+                                if(int(plazas_sifon_complemento[bb])==1): #La T alimenta a alguna plaza del sifon&#39;
+                                    flag_sifon=1
+
+        if(flag_sifon==0):
+            print(&#34;Transicion input:&#34;,int(t_conflict[ii])+1)
+            t_in.append(&#34;T&#34;+str(int(t_conflict[ii])+1))</code></pre>
+</details>
+</dd>
+<dt id="tesis.fun_sifones_deadlock"><code class="name flex">
+<span>def <span class="ident">fun_sifones_deadlock</span></span>(<span>estado, matriz_sifones, matriz_es_pl, idle, cantidad_plazas, cantidad_sifones, sifon_idle, sifon_deadlock)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Devuelve los sifones que se vacian en ese estado de deadlock. </p>
+<p>Apartir de matriz de Estados x Plazas = [Marcado] se recorre la fila de la matriz donde se encuentra el estado deadlock,
+colocando un "1" en aquellas plazas donde el marcado sea &gt;=1. </p>
+<p>Se realiza un and entre esa fila de la matriz y el sifon, si la and = 0 implica que ese sifon se encuentra vacio para ese estado de deadlock. </p>
+<p>Parameters </p>
+<hr>
+<pre><code>estado          -- Estado que posee Deadlock.
+matriz_sifones  -- [Marcado de plazas que componen el sifon]
+matriz_es_pl    -- EstadosxPlazas = [Marcado para ese estado].
+idle            -- Indica si se agrega a la lista de sifon_idle o sifon_deadlock
+</code></pre></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def fun_sifones_deadlock(estado,matriz_sifones,matriz_es_pl,idle,cantidad_plazas,cantidad_sifones,sifon_idle,sifon_deadlock):
+    &#34;&#34;&#34; 
+    Devuelve los sifones que se vacian en ese estado de deadlock. \n
+    Apartir de matriz de Estados x Plazas = [Marcado] se recorre la fila de la matriz donde se encuentra el estado deadlock,
+    colocando un &#34;1&#34; en aquellas plazas donde el marcado sea &gt;=1. \n
+    Se realiza un and entre esa fila de la matriz y el sifon, si la and = 0 implica que ese sifon se encuentra vacio para ese estado de deadlock. 
+    
+    Parameters \n
+    ----------
+        estado          -- Estado que posee Deadlock.
+        matriz_sifones  -- [Marcado de plazas que componen el sifon]
+        matriz_es_pl    -- EstadosxPlazas = [Marcado para ese estado].
+        idle            -- Indica si se agrega a la lista de sifon_idle o sifon_deadlock
+    &#34;&#34;&#34;
+
+    aux=np.zeros(cantidad_plazas)
+    flag_sifon_idle=0
+    for j in range(0,cantidad_plazas):
+        if(matriz_es_pl[estado][j]&gt;=1): #Obtenemos las plazas(marcadas) del estado deadlock
+            aux[j]=1
+
+    for i in range(0,cantidad_sifones):
+        cont=0
+        for j in range(0,cantidad_plazas):
+            if(int(matriz_sifones[i][j] and aux[j])==1):
+                cont=cont+1             #Si el contador es distinto de cero, el sifon no esta vacio
+        if(cont==0):
+            marcado=0
+            for j in range(0,cantidad_plazas):
+                if(matriz_sifones[i][j]==1):
+                    marcado=marcado+matriz_es_pl[0][j] #Es 0 en fila, porque es el estado inicial en el que se encontraban las plazas de los sifones
+            if(idle==0):
+                for jj in range(0,len(sifon_idle)):
+                    if(sifon_idle[jj]==i): #El sifon vacio en deadlock esta vacio en idle?
+                        flag_sifon_idle=1
+                if(flag_sifon_idle==0): #El sifon no estaba vacio en idle
+                    sifon_agregado = 1 
+                    for index in range(0, len(sifon_deadlock)): #Verifica si el sifon ya se incluyó en la lista, de no ser así lo agrega
+                        if(sifon_deadlock[index][1]==i):
+                            sifon_agregado = 0
+                    if(sifon_agregado):
+                        sifon_deadlock.append([estado,i,marcado]) #Devuelve el sifon y su marcado inicial, para ese estado deadlock
+            else:
+                sifon_idle.append[i]</code></pre>
+</details>
+</dd>
+<dt id="tesis.invariantes"><code class="name flex">
+<span>def <span class="ident">invariantes</span></span>(<span>cantidad_transiciones)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Devuelve la matriz de invariantes de transicion, mediante la apertura de un archivo txt previamente convertido. </p>
+<p>Parameters </p>
+<hr>
+<pre><code>cantidad_transiciones   -- Cantidad de transiciones de la RdP
+</code></pre>
+<p>Returns </p>
+<hr>
+<pre><code>M_TI                    -- Matriz de T-invariante
+</code></pre></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def invariantes(cantidad_transiciones):
+    &#34;&#34;&#34; 
+    Devuelve la matriz de invariantes de transicion, mediante la apertura de un archivo txt previamente convertido. \n
+    
+    Parameters \n
+    ----------
+        cantidad_transiciones   -- Cantidad de transiciones de la RdP
+
+    Returns \n
+    -------
+        M_TI                    -- Matriz de T-invariante
+    &#34;&#34;&#34;
+    file = open(&#39;invariante.txt&#39;, &#39;r&#39;)
+    cont = 0
+    TInvariantes = []
+    PInvariantes = []
+    for line in file:
+        if(cont==0):
+            TInvariantes = line
+            cont = cont + 1
+        elif(cont==1):
+            PInvariantes = line
+            cont = cont + 1
+
+    aux_I = TInvariantes.split(&#39; &#39;)
+    TInvariantes = []
+    for i in range (cantidad_transiciones, len(aux_I)-2):
+        TInvariantes.append(aux_I[i])
+
+    M_TI = np.zeros((int(len(TInvariantes)/cantidad_transiciones), cantidad_transiciones))
+    m = 0
+    for i in range ((int(len(TInvariantes)/cantidad_transiciones))):
+        for j in range (cantidad_transiciones):
+            M_TI[i][j] = TInvariantes[m]
+            m = m + 1
+
+    file.close()
+    return M_TI.astype(int)</code></pre>
+</details>
+</dd>
+<dt id="tesis.main"><code class="name flex">
+<span>def <span class="ident">main</span></span>(<span>)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def main():
+    print(&#34;--------------------------------------------------------------------------&#34;)
+    print(&#34;Algoritmo para la solucion de deadlock para redes de petri tipo S3PR&#34;)
+    print(&#34;--------------------------------------------------------------------------&#34;)
+    file_t_conflict_orig = open(&#39;t_conflict_red_original.txt&#39;, &#39;w&#39;)
+    file_t_conflict_orig.close()
+    #Conversion de archivos html a txt
+    hta.main()
+
+    #Filtrado de archivos provenientes del Petrinator
+    (cantidad_estados, cantidad_plazas , cantidad_transiciones, matriz_es_tr, matriz_es_pl, state_deadlock) = filterdata.main()
+
+    #Matrices
+    (matriz_sifones,matriz_traps,cantidad_sifones,cantidad_traps)=siphones_traps(cantidad_plazas)
+
+    (matriz_pos,matriz_pre)=matriz_pre_pos(cantidad_plazas,cantidad_transiciones)
+
+    #T-invariantes
+    t_invariant=invariantes(cantidad_transiciones)
+
+    print(&#34;\nIngrese: &#34;)
+    print(&#34;1 - Primer analisis de la red&#34;)
+    print(&#34;2 - Análisis de red con supervisores&#34;)
+    print(&#34;3 - Red con supervisores, tratamiento de conflicto y t_idle&#34;)
+
+    analisis= input(&#34;\nOpcion: &#34;)
+    print(&#34;\n&#34;)
+
+    if(analisis==&#34;1&#34;):
+        #Obtenemos la cantidad de plazas de la red original
+        file_plazas = open(&#39;cantidad_plazas_red_original.txt&#39;, &#39;w&#39;)
+        file_plazas.write(str(len(matriz_es_pl[0])))
+        file_plazas.close()
+
+        #Guardamos los T-invariantes de la red original
+        file_t_inv_orig = open(&#39;invariante_red_original.txt&#39;, &#39;w&#39;)
+        for i in range (0, len(t_invariant)):
+            for j in range(0, len(t_invariant[0])):
+                file_t_inv_orig.write(str(t_invariant[i][j]) + &#39; &#39;)
+            file_t_inv_orig.write(&#34;\n&#34;)
+        file_t_inv_orig.close()
+
+        global name_pflow
+        name_pflow = input(&#34;Ingrese el nombre de la red(.pflow): &#34;)
+        print(&#34;\n&#34;)
+
+
+    if(analisis==&#34;2&#34; or analisis==&#34;1&#34;):
+        sifon_idle=[] #Estado_idle sifon
+        sifon_deadlock=[] #Estado_deadlock-sifon-marcado
+
+        idle=1 #Sifones vacios estado inicial
+        fun_sifones_deadlock(0,matriz_sifones,matriz_es_pl,idle,cantidad_plazas,cantidad_sifones,sifon_idle,sifon_deadlock)
+        #print(&#34;Sifones vacios en idle&#34;,sifon_idle)
+
+        #Llamada recursiva a fun_deadlock en busqueda de caminos que dirigen al deadlock
+        idle=0 #Sifones en estado deadlock
+        for i in range (0, len(state_deadlock)):
+            fun_sifones_deadlock(state_deadlock[i],matriz_sifones,matriz_es_pl,idle,cantidad_plazas,cantidad_sifones,sifon_idle,sifon_deadlock)
+        print(&#34;Cantidad de estados con deadlock:&#34;, len(state_deadlock))
+        print(&#34;Cantidad de sifones vacios:&#34;, len(sifon_deadlock))
+
+        lista_supervisores=[]
+ 
+        for i in range(0, len(sifon_deadlock)):
+            #Nos quedamos con un solo sifon
+            sifon=np.copy(sifon_deadlock[i])
+            
+            #Agregamos el supervisor del bad-sifon
+            supervisor(cantidad_transiciones,cantidad_plazas,sifon,matriz_es_tr,matriz_pos,matriz_pre,matriz_sifones,t_invariant,lista_supervisores)
+
+
+
+        #Elimina archivo temporal
+        os.remove(&#34;filtrado_prueba.txt&#34;)
+
+
+    elif(analisis==&#34;3&#34;):   #se obtienen los supervisores (3) o Anular brazos de idle a supervisores (4)
+
+        file_plazas = open(&#39;cantidad_plazas_red_original.txt&#39;, &#39;r&#39;)
+        cantidad_plazas_red_original=int(file_plazas.read())
+        array_supervisor =[]
+        for i in range (cantidad_plazas_red_original,len(matriz_es_pl[0])):
+            array_supervisor.append(i)
+
+        trans_idle=[] #Transiciones habilitadas en el marcado inicial
+        #Transiciones que salen del estado idle
+        for ii in range(cantidad_transiciones):
+            if(matriz_es_tr[0][ii]!=-1):
+                trans_idle.append(ii)
+
+        #Guardamos los T-invariantes de la red original
+        file_t_invariant_red_original = open(&#34;./invariante_red_original.txt&#34;,&#34;r&#34;)
+
+        t_invariant_red_original = []
+        aux_t_inv = [] 
+
+        for line in file_t_invariant_red_original:
+            aux_t_inv.append(line)
+
+        for i in range(len(aux_t_inv)):
+            t_invariant_red_original.append(str(aux_t_inv[i]).split())
+
+        #Guardamos los conflictos de la red original
+        file_t_conflict_red_original = open(&#34;./t_conflict_red_original.txt&#34;,&#34;r&#34;)
+
+        t_conflict_red_original = []
+        aux_conflic = [] 
+
+        for line in file_t_conflict_red_original:
+            aux_conflic.append(line)
+
+        for i in range(len(aux_conflic)):
+            t_conflict_red_original.append(str(aux_conflic[i]).split())
+
+        msjadd = []
+        msjdel = []
+        #Buscamos eliminar los arcos de las transiciones idle cuyo T-invariante al que pertenece no le devuelve token al supervisor. (i.e arcos innecesarios)
+        for i in range(len(trans_idle)): #Cantidad de trans_idle
+            for j in range(len(t_invariant_red_original)): #cantidad de t-invariantes
+                if(int(t_invariant_red_original[j][trans_idle[i]])==1): #La transicion idle forma parte del t-invariantes
+                    for m in range(len(array_supervisor)):
+                        cont_sup = 0
+                        for l in range(len(t_invariant_red_original[j])):
+                            if(int(t_invariant_red_original[j][l])==1):
+                                if(int(matriz_pos[array_supervisor[m]][l])==1): #El T-invariante de la transicion idle le devuelve token al supervisor?
+                                    cont_sup = 1 # si devuelve
+                        if(cont_sup==0): #no devuelve
+                            cont=0
+                            for k in range(len(t_conflict_red_original)):
+                                aux = int(t_conflict_red_original[k][0])
+                                if(int(t_invariant_red_original[j][aux])==1): #La transicion en conflicto forma parte del T-invariante por lo tanto debe devolver el token 
+                                    cont = cont + 1
+                                    print(&#34;La transicion en conflicto &#34;, aux+1,&#34; le tiene que devolver un token al supervisor &#34;, array_supervisor[m]+1)
+                                    msjadd.append(&#39;Se agrego un arco desde &#39;+ str(f&#39;T{aux+1}&#39;) + &#39; hasta &#39; + str(f&#39;P{array_supervisor[m]+1}&#39;))
+                                    
+                                    #Se agrega el arco
+                                    arcosrdp.agregararco(name_pflow,aux+1,array_supervisor[m]+1)
+
+                            if(cont == 0):
+                                if(int(matriz_pre[int(array_supervisor[m])][int(trans_idle[i])])==1):
+                                    print(&#34;Eliminar arco desde &#34;, array_supervisor[m]+1, &#34;hasta &#34;, trans_idle[i]+1)
+                                    msjdel.append(&#39;Se elimino el arco desde &#39;+ str(f&#39;P{array_supervisor[m]+1}&#39;) + &#39; hasta &#39; + str(f&#39;T{trans_idle[i]+1}&#39;))
+
+                                    #Se elimina el arco
+                                    arcosrdp.eliminararco(name_pflow, array_supervisor[m]+1, trans_idle[i]+1)
+
+        print(&#34;\n&#34;)
+        for i in range (len(msjadd)):
+            print(msjadd[i])
+
+        for i in range (len(msjdel)):
+            print(msjdel[i])     
+
+    else:
+        print(&#34;Opcion erronea&#34;)
+        exit()
+
+    decision = &#34;&#34;
+    if(analisis!=&#34;3&#34;):
+        decision=input(&#34;\n¿Agregar supervisor?(S/N) &#34;).upper()
+
+    if(decision==&#34;S&#34;):
+        id_int=int(input(&#34;AGREGA EL ID: &#34;))
+        new_red.main(lista_supervisores[id_int][0],lista_supervisores[id_int][1],lista_supervisores[id_int][2],lista_supervisores[id_int][3],name_pflow)</code></pre>
+</details>
+</dd>
+<dt id="tesis.matriz_pre_pos"><code class="name flex">
+<span>def <span class="ident">matriz_pre_pos</span></span>(<span>cantidad_plazas, cantidad_transiciones)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Devuelve la matriz pre y post a partir de un archivo txt previamente convertido. </p>
+<p>Parameters </p>
+<hr>
+<pre><code>cantidad_plazas         -- Cantidad de plazas de la RdP
+cantidad_transiciones   -- Cantidad de transiciones de la RdP
+</code></pre>
+<p>Returns </p>
+<hr>
+<pre><code>matriz_I_pos            -- Matriz Post (I+)
+matriz_I_neg            -- Matriz Pre  (I-)
+</code></pre></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def matriz_pre_pos(cantidad_plazas,cantidad_transiciones):
+    &#34;&#34;&#34; 
+    Devuelve la matriz pre y post a partir de un archivo txt previamente convertido. \n
+    
+    Parameters \n
+    ----------
+        cantidad_plazas         -- Cantidad de plazas de la RdP
+        cantidad_transiciones   -- Cantidad de transiciones de la RdP
+    
+    Returns \n
+    ------- 
+        matriz_I_pos            -- Matriz Post (I+)
+        matriz_I_neg            -- Matriz Pre  (I-)
+    &#34;&#34;&#34;
+    #Apertura de archivos resultantes de la conversion de archivos .html to .txt
+    # obtenidos del SW Petrinator, para su siguiente manipulacion y filtrado.
+    matriz_I = open(&#34;./matricesI.txt&#34;,&#34;r&#34;)
+    matriz_I_pos = np.loadtxt(matriz_I,delimiter=&#39; &#39;&#39; &#39;,skiprows=3,max_rows=cantidad_plazas, dtype=bytes).astype(str)
+    matriz_I_neg = np.loadtxt(matriz_I,delimiter=&#39; &#39;&#39; &#39;,skiprows=2,max_rows=cantidad_plazas+1, dtype=bytes).astype(str)
+
+    aux_pos = []
+    aux_neg = []
+    for i in range(cantidad_plazas):
+        aux_pos.append(matriz_I_pos[i].split(&#34; &#34;))
+
+    for i in range(cantidad_plazas):
+        aux_neg.append(matriz_I_neg[i].split(&#34; &#34;))
+
+    aux_pos = np.delete(aux_pos,0,1)
+    aux_neg = np.delete(aux_neg,0,1)
+    aux_pos = np.delete(aux_pos,cantidad_transiciones,1)
+    aux_neg = np.delete(aux_neg,cantidad_transiciones,1)
+
+    matriz_I_pos = aux_pos.astype(int)
+    matriz_I_neg = aux_neg.astype(int)
+
+    matriz_I.close()
+
+    return matriz_I_pos,matriz_I_neg</code></pre>
+</details>
+</dd>
+<dt id="tesis.path_conflict"><code class="name flex">
+<span>def <span class="ident">path_conflict</span></span>(<span>t_idle, t_analizar, flag_idle, plazas_sifon_complemento, matriz_pre, matriz_pos, cantidad_plazas, cantidad_transiciones, t_invariant, t_in)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Obtiene el camino de los conflictos. </p>
+<p>Parameters </p>
+<hr>
+<pre><code>t_idle                      -- Transiciones idle
+t_analizar                  -- Transicion a analizar 
+flag_idle                   -- Indica que es una t-idle
+plazas_sifon_complemento    -- Plazas complementos del sifon a controlar
+matriz_pre                  -- Matriz Post (I+)
+matriz_pos                  -- Matriz Pre  (I-)
+cantidad_plazas             -- Cantidad de plazas de la RdP
+cantidad_transiciones       -- Cantidad de tranciones de la RdP 
+t_invariant                 -- T-Invariante
+t_in                        -- Transiciones input al supervisor
+</code></pre></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def path_conflict(t_idle,t_analizar,flag_idle,plazas_sifon_complemento,matriz_pre,matriz_pos,cantidad_plazas,cantidad_transiciones,t_invariant,t_in):
+    &#34;&#34;&#34; 
+    Obtiene el camino de los conflictos. \n
+    
+    Parameters \n
+    ----------
+        t_idle                      -- Transiciones idle
+        t_analizar                  -- Transicion a analizar 
+        flag_idle                   -- Indica que es una t-idle
+        plazas_sifon_complemento    -- Plazas complementos del sifon a controlar
+        matriz_pre                  -- Matriz Post (I+)
+        matriz_pos                  -- Matriz Pre  (I-)
+        cantidad_plazas             -- Cantidad de plazas de la RdP
+        cantidad_transiciones       -- Cantidad de tranciones de la RdP 
+        t_invariant                 -- T-Invariante
+        t_in                        -- Transiciones input al supervisor
+    &#34;&#34;&#34;
+
+    if(t_idle!=t_analizar or flag_idle==1):
+        flag_idle=0
+        p_idle=[] #Plaza a las que le pone tokens la transicion
+        for jj in range (0,cantidad_plazas):
+            if(int(matriz_pos[jj][t_analizar])!=0): #A que plazas esta alimentando esa transicion(t_analizar)
+                p_idle.append(int(jj))
+        #print(p_idle)
+        for ii in range (0,len(p_idle)):
+            t_conflict=[] #Plaza que alimenta a las transiciones en conflicto
+            for mm in range (0,cantidad_transiciones):
+                if(matriz_pre[p_idle[ii]][mm]==1):
+                    t_conflict.append(mm)             #Transiciones en conflicto sensibilizadas por esa plaza
+            if(len(t_conflict)&gt;1): #La plaza sensibiliza a mas de una transicion? Hay conflicto
+                file_t_conflict_orig = open(&#39;t_conflict_red_original.txt&#39;, &#39;w&#39;)
+                for ij in range (0, len(t_conflict)):
+                    file_t_conflict_orig.write(str(t_conflict[ij]) + &#39; &#39;)
+                file_t_conflict_orig.close()
+
+                conflict_t_invariante(t_conflict,t_invariant,matriz_pos,plazas_sifon_complemento,t_in)
+
+            else: #no hay conflicto
+                path_conflict(t_idle,t_conflict[0],flag_idle,plazas_sifon_complemento,matriz_pre,matriz_pos,cantidad_plazas,cantidad_transiciones,t_invariant,t_in)</code></pre>
+</details>
+</dd>
+<dt id="tesis.siphones_traps"><code class="name flex">
+<span>def <span class="ident">siphones_traps</span></span>(<span>cantidad_plazas)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Devuelve una matriz de [sifones x plazas] y otra de [trampas x plazas]. Tambien devuelve cantidad de sifones y de trampas. </p>
+<p>Parameters </p>
+<hr>
+<pre><code>cantidad_plazas     -- Cantidad de plazas de la RdP
+</code></pre>
+<p>Returns </p>
+<hr>
+<pre><code>matriz_sifones      -- Matriz de sifones
+matriz_traps        -- Matriz de trampas
+cantidad_sifones    -- Cantidad de sifones
+cantidad_traps      -- Cantidad de trampas
+</code></pre></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def siphones_traps(cantidad_plazas):
+    &#34;&#34;&#34; 
+    Devuelve una matriz de [sifones x plazas] y otra de [trampas x plazas]. Tambien devuelve cantidad de sifones y de trampas. \n
+    
+    Parameters \n
+    ----------
+        cantidad_plazas     -- Cantidad de plazas de la RdP
+
+    Returns \n
+    -------
+        matriz_sifones      -- Matriz de sifones
+        matriz_traps        -- Matriz de trampas
+        cantidad_sifones    -- Cantidad de sifones
+        cantidad_traps      -- Cantidad de trampas
+    &#34;&#34;&#34;
+    #Apertura de archivos resultantes de la conversion de archivos .html to .txt 
+    # obtenidos del SW Petrinator, para su siguiente manipulacion y filtrado.
+    pasi = open(&#34;./siphons_traps.txt&#34;,&#34;r&#34;)
+    i = 0 
+    aux_s = 0
+    aux_t = 0
+
+    for line in pasi: #Obtiene la cantidad de trampa y sifones que contiene la RdP 
+        i=i+1
+        if(i&gt;1):
+            aux_s = aux_s + 1
+            aux_t = aux_t + 1 
+            if(line.find(&#34;Minimal traps&#34;)==1):
+                cantidad_sifones = aux_s - 1
+                aux_t = 0
+            if(line.find(&#34;Analysis&#34;)==1):
+                cantidad_traps = aux_t -1
+
+    pasi.seek(0) #Vuelve el cabezal al principio del archivo 
+    aux_s = cantidad_sifones
+    aux_t = cantidad_traps
+
+    s_flag = 0
+    t_flag = 0
+
+    siphons_aux = []
+    traps_aux = []
+
+    for line in pasi:
+        if(s_flag == 1 and aux_s != 0): #Obtiene los sifones de la RdP
+            siphons_aux.append(line)
+            aux_s = aux_s - 1 
+        
+        if(t_flag == 1 and aux_t != 0): #Obtiene las trampas de la RdP
+            traps_aux.append(line)
+            aux_t = aux_t -1 
+        
+        if(line.find(&#34;Minimal siphons&#34;)==1):
+            s_flag = 1 
+            #print(&#34;Sifones&#34;)
+        
+        if(line.find(&#34;Minimal traps&#34;)==1):
+            t_flag = 1 
+            #print(&#34;Trampas&#34;)
+
+    siphons = []
+    traps = [] 
+    for i in range (len(siphons_aux)): #Elimina los espacios del string y agrega cada sifon
+        siphons.append(str(siphons_aux[i]).split())
+
+    for i in range (len(traps_aux)): #Elimina los espacios del string y agrega cada trampa
+        traps.append(str(traps_aux[i]).split())
+
+    #Creamos la matriz que representa por fila la cantidad de sifones o traps y por columna plazas
+    #hay un 1 en las plazas que conforman esos sifones o traps
+    matriz_sifones =np.zeros((cantidad_sifones,cantidad_plazas))
+    matriz_traps =np.zeros((cantidad_traps,cantidad_plazas))
+
+    for i in range(0,len(siphons)):
+        for j in range(0,len(siphons[i])):
+            matriz_sifones[i][int(siphons[i][j])-1]=1
+
+    for i in range(0,len(traps)):
+        for j in range(0,len(traps[i])):
+            matriz_traps[i][int(traps[i][j])-1]=1
+
+    pasi.close()
+    return matriz_sifones,matriz_traps,cantidad_sifones,cantidad_traps</code></pre>
+</details>
+</dd>
+<dt id="tesis.supervisor"><code class="name flex">
+<span>def <span class="ident">supervisor</span></span>(<span>cantidad_transiciones, cantidad_plazas, sifon, matriz_es_tr, matriz_pos, matriz_pre, matriz_sifones, t_invariant, lista_supervisores)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Define el supervisor que va a controlar el bad-siphon. Esta funcion define el marcado de la plaza supervisor y las transiciones de entrada y salida del mismo. </p>
+<p>Parameters </p>
+<hr>
+<pre><code>cantidad_transiciones   -- Cantidad de transiciones de la RdP
+cantidad_plazas         -- Cantidad de plazas de la RdP
+sifon                   -- bad siphon a controlar. Compuesto por 3 elementos: estado deadlock[0], numero sifon[1], marcado sifon[2]
+matriz_es_tr            -- Matriz [estado x transiciones]
+matriz_pos              -- Matriz Pos (I+)
+matriz_pre              -- Matriz Pre (I-)
+matriz_sifones          -- Matriz de sifones 
+t_invariant             -- T-invariantes
+</code></pre></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def supervisor(cantidad_transiciones,cantidad_plazas,sifon,matriz_es_tr,matriz_pos,matriz_pre,matriz_sifones,t_invariant,lista_supervisores):
+    &#34;&#34;&#34; 
+    Define el supervisor que va a controlar el bad-siphon. Esta funcion define el marcado de la plaza supervisor y las transiciones de entrada y salida del mismo. \n
+    
+    Parameters \n
+    ----------
+        cantidad_transiciones   -- Cantidad de transiciones de la RdP
+        cantidad_plazas         -- Cantidad de plazas de la RdP
+        sifon                   -- bad siphon a controlar. Compuesto por 3 elementos: estado deadlock[0], numero sifon[1], marcado sifon[2]
+        matriz_es_tr            -- Matriz [estado x transiciones]
+        matriz_pos              -- Matriz Pos (I+)
+        matriz_pre              -- Matriz Pre (I-)
+        matriz_sifones          -- Matriz de sifones 
+        t_invariant             -- T-invariantes
+    &#34;&#34;&#34;
+    global id
+    print(&#34;\nid=&#34;, id)
+    id=id+1
+    trans_idle=[] #Transiciones habilitadas en el marcado inicial
+    marcado_supervisor=sifon[2]-1 #Es la posicion 2 debido que el sifon esta declarado estado deadlock[0], numero sifon[1], marcado sifon[2]
+    #Marcado del supervisor
+    print(&#34;Sifon a controlar: &#34;,sifon[1]+1)
+    print(&#34;Marcado del supervisor&#34;,marcado_supervisor) 
+
+    #Transiciones que salen del estado idle, le quitan tokens a los supervisores
+    #estas se encuentran sensibilizadas en el estado inicial (0) y son las transiciones
+    #que son distintan de -1 en la matriz matriz_es_tr (estado-transicion) --&gt; Transiciones 1 de Ezpeleta
+    t_out=[]
+    for ii in range(cantidad_transiciones):
+        if(matriz_es_tr[0][ii]!=-1):
+            trans_idle.append(ii)
+            t_out.append(&#34;T&#34;+str(ii+1))
+            print(&#34;Transicion output: &#34;,ii+1) #+1 Por problemas de indice en petrinator empieza en 1
+
+
+    tran_sifon=np.zeros(cantidad_transiciones) #Vector que indica que transiciones sacan/ponen tokens en el sifon
+
+    plazas_sifon=np.copy(matriz_sifones[sifon[1]]) #Vectors de todas las plazas del sistema, en 1 se encuentran las plazas que componen nuestro sifon
+    #print(plazas_sifon)
+    #Localizamos transiciones que colocan tokens al supervisor--&gt;Transiciones 2 de Ezpeleta
+    for i in range(0,cantidad_plazas):
+        if(plazas_sifon[i]==1): #Es una plaza del sifon
+            for j in range(0,cantidad_transiciones):
+                if(int(matriz_pre[i][j])==1):
+                    tran_sifon[j]=tran_sifon[j]-1 #Le quita tokens al sifon
+                if(int(matriz_pos[i][j])==1):
+                    tran_sifon[j]=tran_sifon[j]+1 #Le agrega tokens al sifon
+    t_in=[]
+    for i in range(0,cantidad_transiciones):
+        if(tran_sifon[i]&gt;0): #Si es mayor a 0 significa que esta transicion coloca mas tokens a los sifones de los que le quitan
+            print(&#34;Transicion input:&#34;, i+1) #Petrinator empieza en 1 y no en cero por eso el +1
+            t_in.append(&#34;T&#34;+str(i+1))
+    plazas_sifon_complemento=np.copy(plazas_sifon) #Usado para calcular la 3er transicion de Ezpeleta
+
+    #Obtenemos los complementos
+    for i in range(0,len(tran_sifon)):
+        if(tran_sifon[i]&gt;0):
+            for j in range(0,cantidad_plazas):
+                if(int(matriz_pre[j][i])==1):#son las plazas que habilitan transiciones que agregan mas
+                                             #tokens de los que sacan del sifon.
+                    plazas_sifon_complemento[j]=1
+
+    for tt in range (0,len(trans_idle)):
+        cont_t_invariante=0 #indica en cuantos T-invariantes aparece la Transiciones habilitadas en estado idle
+                        #de ser =&gt;2 implica que esta en conflicto
+        for yy in range (0,len(t_invariant)):
+            if(t_invariant[yy][trans_idle[tt]]==1):
+                cont_t_invariante=cont_t_invariante+1
+        if(cont_t_invariante&gt;=2):
+            path_conflict(trans_idle[tt],trans_idle[tt],1,plazas_sifon_complemento,matriz_pre,matriz_pos,cantidad_plazas,cantidad_transiciones,t_invariant,t_in) #El 1 indica que es flag_idle
+
+    lista_supervisores.append([&#34;P&#34;+str(cantidad_plazas+1),str(marcado_supervisor),t_in,t_out])</code></pre>
+</details>
+</dd>
+</dl>
+</section>
+<section>
+</section>
+</article>
+<nav id="sidebar">
+<h1>Index</h1>
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3><a href="#header-functions">Functions</a></h3>
+<ul class="">
+<li><code><a title="tesis.conflict_t_invariante" href="#tesis.conflict_t_invariante">conflict_t_invariante</a></code></li>
+<li><code><a title="tesis.fun_sifones_deadlock" href="#tesis.fun_sifones_deadlock">fun_sifones_deadlock</a></code></li>
+<li><code><a title="tesis.invariantes" href="#tesis.invariantes">invariantes</a></code></li>
+<li><code><a title="tesis.main" href="#tesis.main">main</a></code></li>
+<li><code><a title="tesis.matriz_pre_pos" href="#tesis.matriz_pre_pos">matriz_pre_pos</a></code></li>
+<li><code><a title="tesis.path_conflict" href="#tesis.path_conflict">path_conflict</a></code></li>
+<li><code><a title="tesis.siphones_traps" href="#tesis.siphones_traps">siphones_traps</a></code></li>
+<li><code><a title="tesis.supervisor" href="#tesis.supervisor">supervisor</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-functions">Imports</a></h3>
+    <ul class="">
+    <li><code><a title="arcs" href="./includes/arcs.html">arcs</a></code></li>
+    <li><code><a title="filter_data" href="./includes/filter_data.html">filter_data</a></code></li>
+    <li><code><a title="invariantes_html" href="./includes/invariantes_html.html">invariantes_html</a></code></li>
+    <li><code><a title="matricesI_html" href="./includes/matricesI_html.html">matricesI_html</a></code></li>
+    <li><code><a title="new_red" href="./includes/new_red.html">new_red</a></code></li>
+    <li><code><a title="siphons_traps" href="./includes/siphons_traps.html">siphons_traps</a></code></li>
+    <li><code><a title="state_deadlock" href="./includes/state_deadlock.html">state_deadlock</a></code></li>
+    </ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc"><cite>pdoc</cite> 0.9.1</a>.</p>
+</footer>
+</body>
+</html>
