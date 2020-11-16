@@ -277,6 +277,12 @@ def supervisor(cantidad_transiciones,cantidad_plazas,sifon,matriz_es_tr,matriz_p
     marcado_supervisor=sifon[2]-1 #Es la posicion 2 debido que el sifon esta declarado estado deadlock[0], numero sifon[1], marcado sifon[2]
     #Marcado del supervisor
     print("Sifon a controlar: ",sifon[1]+1)
+    plazas_sifon_aux=np.copy(matriz_sifones[sifon[1]])
+    sif_aux = []
+    for i in range (len(plazas_sifon_aux)): 
+        if(plazas_sifon_aux[i] != 0):
+            sif_aux.append(f"P{i+1}")
+    print("Plazas del Sifon: ",sif_aux)
     print("Marcado del supervisor",marcado_supervisor) 
 
     #Transiciones que salen del estado idle, le quitan tokens a los supervisores
@@ -510,7 +516,7 @@ def main():
                                 aux = int(t_conflict_red_original[k][0])
                                 if(int(t_invariant_red_original[j][aux])==1): #La transicion en conflicto forma parte del T-invariante por lo tanto debe devolver el token 
                                     cont = cont + 1
-                                    print("La transicion en conflicto ", aux+1," le tiene que devolver un token al supervisor ", array_supervisor[m]+1)
+                                    print(f"La transicion en conflicto T{aux+1} le tiene que devolver un token al supervisor  P{array_supervisor[m]+1}")
                                     msjadd.append('Se agrego un arco desde '+ str(f'T{aux+1}') + ' hasta ' + str(f'P{array_supervisor[m]+1}'))
                                     
                                     #Se agrega el arco
@@ -518,7 +524,7 @@ def main():
 
                             if(cont == 0):
                                 if(int(matriz_pre[int(array_supervisor[m])][int(trans_idle[i])])==1):
-                                    print("Eliminar arco desde ", array_supervisor[m]+1, "hasta ", trans_idle[i]+1)
+                                    print(f"Eliminar arco desde  P{array_supervisor[m]+1} hasta  T{trans_idle[i]+1}")
                                     msjdel.append('Se elimino el arco desde '+ str(f'P{array_supervisor[m]+1}') + ' hasta ' + str(f'T{trans_idle[i]+1}'))
 
                                     #Se elimina el arco

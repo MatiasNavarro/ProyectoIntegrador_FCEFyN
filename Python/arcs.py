@@ -24,6 +24,7 @@ def eliminararco(name_pflow, aS, aD):
     aS = str(f'P{aS}')  #Al arco fuente se le agrega una 'P' (plaza) para conformar la nomenclatura. Ej: P5 
     aD = str(f'T{aD}')  #Al arco destino se le agrega una 'T' (transicion) para conformar la nomenclatura. Ej: T9
     
+    arc = 0 
     pos = 0
     arco_eliminado = [] 
 
@@ -37,8 +38,9 @@ def eliminararco(name_pflow, aS, aD):
     for i in range (len(arco_eliminado)): #Busca el arco a eliminar y guarda la posición para eliminarlo
         if(arco_eliminado[i] == ('<sourceId>'+aS+'</sourceId>') and arco_eliminado[i+1] == ('<destinationId>'+aD+'</destinationId>')):
             pos = i-2
+            arc = 1 
 
-    arc = 1 
+    
     while(arc): #Si se encuentra el arco a el arco a eliminar modifica el archivo, de no ser así, no se realiza ninguna acción 
         if(arco_eliminado[pos] != '</arc>'):
             arco_eliminado.pop(pos)
