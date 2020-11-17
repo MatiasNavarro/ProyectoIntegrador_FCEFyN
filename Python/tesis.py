@@ -387,8 +387,7 @@ def main():
     print("--------------------------------------------------------------------------")
     print("Algoritmo para la solucion de deadlock para redes de petri tipo S3PR")
     print("--------------------------------------------------------------------------")
-    file_t_conflict_orig = open('t_conflict_red_original.txt', 'w')
-    file_t_conflict_orig.close()
+    
     #Conversion de archivos html a txt
     hta.main()
 
@@ -429,6 +428,9 @@ def main():
         name_pflow = input("Ingrese el nombre de la red(.pflow): ")
         print("\n")
 
+        file_t_conflict_orig = open('t_conflict_red_original.txt', 'w')
+        file_t_conflict_orig.close()
+
 
     if(analisis=="2" or analisis=="1"):
         sifon_idle=[] #Estado_idle sifon
@@ -453,8 +455,6 @@ def main():
             
             #Agregamos el supervisor del bad-sifon
             supervisor(cantidad_transiciones,cantidad_plazas,sifon,matriz_es_tr,matriz_pos,matriz_pre,matriz_sifones,t_invariant,lista_supervisores)
-
-
 
         #Elimina archivo temporal
         os.remove("filtrado_prueba.txt")
