@@ -1,6 +1,16 @@
+"""
+Determinacion automática del control de una red de Petri 
+\n
+Analiza las RdP y determina los supervisores para el control de los deadlock presentes en dicha red.
+\n
+Autores: \n
+- Izquierdo, Agustina Nahir \n
+- Navarro, Matias Alejandro \n
+- Salvatierra, Andres \n
+"""
+
 import os
 import numpy as np
-import time
 import re
 import sys
 import html_txt_all as hta
@@ -214,7 +224,7 @@ def conflict_t_invariante(t_conflict,t_invariant,matriz_pos,plazas_sifon_complem
 
 def path_conflict(t_idle,t_analizar,flag_idle,plazas_sifon_complemento,matriz_pre,matriz_pos,cantidad_plazas,cantidad_transiciones,t_invariant,t_in):
     """ 
-    Obtiene el camino de los conflictos. \n
+    Se obtienen las transiciones que forman parte del conflicto. \n
     
     Parameters \n
     ----------
@@ -512,8 +522,8 @@ def main():
                                     cont_sup = 1 # si devuelve
                         if(cont_sup==0): #no devuelve
                             cont=0
-                            for k in range(len(t_conflict_red_original)):
-                                aux = int(t_conflict_red_original[k][0])
+                            for k in range(len(t_conflict_red_original[0])):
+                                aux = int(t_conflict_red_original[0][k])
                                 if(int(t_invariant_red_original[j][aux])==1): #La transicion en conflicto forma parte del T-invariante por lo tanto debe devolver el token 
                                     cont = cont + 1
                                     print(f"La transicion en conflicto T{aux+1} le tiene que devolver un token al supervisor  P{array_supervisor[m]+1}")
