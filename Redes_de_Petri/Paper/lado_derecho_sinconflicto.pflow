@@ -112,25 +112,6 @@
             <tokens>0</tokens>
             <isStatic>false</isStatic>
         </place>
-<<<<<<< HEAD
-        <place>
-            <id>P16</id>
-            <x>9</x>
-            <y>-317</y>
-            <label>P14</label>
-            <tokens>2</tokens>
-            <isStatic>false</isStatic>
-        </place>
-        <place>
-            <id>P17</id>
-            <x>266</x>
-            <y>-110</y>
-            <label>P15</label>
-            <tokens>2</tokens>
-            <isStatic>false</isStatic>
-        </place>
-=======
->>>>>>> 1ab2c1e95a11fbd84b046427b145d3019290598f
         <transition>
             <id>T1</id>
             <x>-211</x>
@@ -250,57 +231,6 @@
         </transition>
         <arc>
             <type>regular</type>
-<<<<<<< HEAD
-            <sourceId>T9</sourceId>
-            <destinationId>P17</destinationId>
-            <multiplicity>1</multiplicity>
-        </arc>
-        <arc>
-            <type>regular</type>
-            <sourceId>T4</sourceId>
-            <destinationId>P17</destinationId>
-            <multiplicity>1</multiplicity>
-        </arc>
-        <arc>
-            <type>regular</type>
-            <sourceId>P17</sourceId>
-            <destinationId>T7</destinationId>
-            <multiplicity>1</multiplicity>
-        </arc>
-        <arc>
-            <type>regular</type>
-            <sourceId>P17</sourceId>
-            <destinationId>T1</destinationId>
-            <multiplicity>1</multiplicity>
-        </arc>
-        <arc>
-            <type>regular</type>
-            <sourceId>T8</sourceId>
-            <destinationId>P16</destinationId>
-            <multiplicity>1</multiplicity>
-        </arc>
-        <arc>
-            <type>regular</type>
-            <sourceId>T5</sourceId>
-            <destinationId>P16</destinationId>
-            <multiplicity>1</multiplicity>
-        </arc>
-        <arc>
-            <type>regular</type>
-            <sourceId>P16</sourceId>
-            <destinationId>T7</destinationId>
-            <multiplicity>1</multiplicity>
-        </arc>
-        <arc>
-            <type>regular</type>
-            <sourceId>P16</sourceId>
-            <destinationId>T1</destinationId>
-            <multiplicity>1</multiplicity>
-        </arc>
-        <arc>
-            <type>regular</type>
-=======
->>>>>>> 1ab2c1e95a11fbd84b046427b145d3019290598f
             <sourceId>P1</sourceId>
             <destinationId>T1</destinationId>
             <multiplicity>1</multiplicity>
