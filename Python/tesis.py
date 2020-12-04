@@ -500,13 +500,17 @@ def main():
         file_t_conflict_red_original = open("./t_conflict_red_original.txt","r")
 
         t_conflict_red_original = []
+        t_conflict_red_original_aux = []
         aux_conflic = [] 
 
         for line in file_t_conflict_red_original:
             aux_conflic.append(line)
 
         for i in range(len(aux_conflic)):
-            t_conflict_red_original.append(str(aux_conflic[i]).split())
+            t_conflict_red_original_aux.append(str(aux_conflic[i]).split())
+
+        if(len(t_conflict_red_original_aux)!=0):
+            t_conflict_red_original = t_conflict_red_original_aux[0]
 
         msjadd = []
         msjdel = []
@@ -522,8 +526,8 @@ def main():
                                     cont_sup = 1 # si devuelve
                         if(cont_sup==0): #no devuelve
                             cont=0
-                            for k in range(len(t_conflict_red_original[0])):
-                                aux = int(t_conflict_red_original[0][k])
+                            for k in range(len(t_conflict_red_original)):
+                                aux = int(t_conflict_red_original[k])
                                 if(int(t_invariant_red_original[j][aux])==1): #La transicion en conflicto forma parte del T-invariante por lo tanto debe devolver el token 
                                     cont = cont + 1
                                     print(f"La transicion en conflicto T{aux+1} le tiene que devolver un token al supervisor  P{array_supervisor[m]+1}")
