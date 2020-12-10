@@ -1,0 +1,822 @@
+% Chapter Template
+% cSpell:words parencite 
+\chapter{Marco teórico} % Main chapter title 
+
+\label{Chapter2} % Change X to a consecutive number; for referencing this chapter elsewhere, use \ref{ChapterX}
+
+%----------------------------------------------------------------------------------------
+%	SECTION 1
+%----------------------------------------------------------------------------------------
+\section{Redes de Petri} \label{sec:rdp}
+
+Una red de Petri es un modelo gráfico, formal y abstracto para la representación de sistemas distribuidos y el análisis del flujo de información. Este modelo facilita la comprensión sobre la estructura y el comportamiento dinámico y estático del sistema modelado. Las redes de Petri son de utilidad principalmente en el diseño de sistemas de \textit{hardware} y \textit{software} para especificación, simulación y diseño de diversos problemas de ingeniería, especialmente útiles para representar procesos concurrentes, así como procesos donde puedan existir restricciones en cuanto a la simultaneidad, la precedencia o la frecuencia de eventos concurrentes. \cite{brams}
+
+Las redes de Petri están fuertemente asociadas a la teoría de grafos, ya que las mismas pueden representarse como un grafo dirigido bipartito compuesto por cuatro elementos \cite{libropopn}:
+\begin{itemize}
+    \item \textit{Plazas}: Representan los estados del sistema. Las plazas son variables de estado que pueden tomar valores enteros.
+    \item \textit{Tokens}: Los tokens figuran como puntos negros dentro de las plazas. Éstos representan el valor específico de una condición o estado y generalmente se traducen a la presencia o ausencia de algún recurso del sistema.
+    \item \textit{Transiciones}: Las transiciones representan el conjunto de sucesos cuya ocurrencia produce la modificación de los estados (y en consecuencia del estado global) del sistema.
+    \item \textit{Arcos}: Los arcos indican las interconexiones entre las plazas y las transiciones, estableciendo el flujo de tokens que sigue el sentido de la flecha.
+\end{itemize}
+
+Una vez definidos sus componentes, se puede decir que una red de Petri es un grafo dirigido con dos tipos de nodos: plazas y transiciones. Estos nodos están vinculados por arcos, los cuales sólo pueden conectar una plaza con una transición o viceversa. Por otro lado, una red de Petri puede ser descrita mediante dos componentes:
+
+\begin{enumerate}
+    \item Una estructura de red
+    \item Un marcado inicial
+\end{enumerate}
+
+La estructura de red hace referencia a la red en sí, mientras que el marcado inicial sólo representa el estado inicial del sistema (denominado estado \textbf{idle}), es decir, sin que ninguna transición haya sido disparada. Un ejemplo simple de una red de Petri marcada se muestra en la figura \ref{fig:rdp2.1_tradicional}. Éste será utilizado en las secciones siguientes para ilustrar operaciones y/o propiedades de las redes de Petri. 
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=1.0]{Figures/marco teorico/imag1.png}
+	\caption{Red de Petri marcada.}
+	\label{fig:rdp2.1_tradicional}
+  \end{figure}
+
+
+\subsection{Estructura de una red de Petri ordinaria} %Referencia aqui 
+La estructura de una red de Petri puede definirse como una tupla de 5 elementos (5-tupla)\cite{falko} de la siguiente manera:
+
+\begin{equation}
+    N = (P, T, I^- , I^+ , M_0) 
+\end{equation}
+
+\noindent Donde:
+\begin{itemize}
+    \item $ P = \{P_1 , P_2,..., P_n \}$ es un conjunto finito y no vacío que contiene todas las plazas de la red.
+    \item $T = \{T_1 , T_2, ... ,T_m \}$ es un conjunto finito y no vacío que contiene todas las transiciones.
+    \item $I^{-}$ y $I^+$ son las matrices \textit{pre} y \textit{post} respectivamente, cuya composición se abordará en la próxima sección.
+    \item $M_0$ es el marcado inicial de la red. Definido como un vector con un elemento para cada plaza, donde $M_0[i]$ contendrá la cantidad de \textit{tokens} en la plaza \textit{i} para el estado inicial.
+\end{itemize}
+
+Siguiendo con el ejemplo propuesto en la sección anterior (figura \ref{fig:rdp2.1_tradicional}), se puede representar la red como $N = \{P, T, I^- , I^+ , M_0 \}$ donde:
+
+\begin{itemize}
+    \item $P = \{P_1 , P_2, P_3 , P_4 \}$ 
+    \item $T =  \{T_1, T_2, T_3, T_4\}$
+    \item $M_0 = [1,1,2,0]$
+\end{itemize}
+
+\noindent A continuación se explicará la manera de obtener las matrices $I^-$ e $I^+$.
+
+
+\subsection{Matriz de incidencia}
+Las matrices  $I^-$ e $I^+$ son las funciones de incidencia de entrada y salida de las plazas. Para el caso de la matriz $I^+$ , denominada post, se tiene que cada elemento $post(P_i , T_j)$ contiene el peso asociado al arco que va desde $T_j$ hasta $P_i$ . Este peso indica la cantidad de \textit{tokens} que se generan en la plaza $P_i$ cuando la transición $T_j$ es disparada. \\
+Por otro lado, en la matriz $I^-$ , denominada $pre$, cada elemento $pre(P_i , T_j)$ contiene el peso asociado al arco que va desde $P_i$ hasta $T_j$ e indica la cantidad de $tokens$ que se retiran de la plaza $P_i$ cuando se dispara la transición $T_j$.\\
+
+\hfill \break 
+Siguiendo con el ejemplo de la figura \ref{fig:rdp2.1_tradicional} , las matrices $I^-$ e $I^+$ asociadas son:
+
+\begin{equation}
+    I^+ = 
+    \begin{pmatrix}
+        0 & 0 & 0 & 1 \\
+        1 & 0 & 0 & 0 \\
+        1 & 0 & 0 & 0 \\
+        0 & 1 & 1 & 0 \\
+    \end{pmatrix}
+\end{equation}
+\begin{equation}
+    I^- = 
+    \begin{pmatrix}
+        1 & 0 & 0 & 0 \\
+        0 & 1 & 0 & 0 \\
+        0 & 0 & 1 & 0 \\
+        0 & 0 & 0 & 1 \\
+    \end{pmatrix}
+\end{equation}
+
+Las filas de las matrices representan las plazas mientras que las columnas representan las transiciones, lo cual quiere decir que las matrices tendrán tantas filas como plazas tenga la red de Petri, y tantas columnas como transiciones. \\ \par
+
+De esta forma se puede observar como el elemento $I^-[0][0]$ indica la relación de salida entre $P_1$ y $T_1$ . Más precisamente indica que cuando $T_1$ se dispara, solo un $token$ es retirado de $P_1$ (ya que el peso del arco entre $P_1$ y $T_1$ es 1). De igual manera, el elemento $I^+[0][0] = 0$ indica que cuando la misma transición se dispara, no se genera ningún token en $P_1$ (ya que no existe ningún arco que parta de $T_1$ hacia $P_1$). \\ \par
+
+A partir de estas definiciones, se puede obtener la matriz de incidencia de la red. La misma está definida a continuación:
+
+\begin{equation}
+    I = I^+ - I^-
+\end{equation}
+
+Cabe aclarar que una red de Petri puede reconstruirse completamente a partir de sus matrices $I^+$ e $I^-$ , pero no así si se tiene sólo la matriz de incidencia $I$. Esto quiere decir que puede haber varias redes de Petri distintas con la misma matriz de incidencia, pero solamente una para las matrices $I^+$ e $I^-$ . Sin embargo, cuando una red de Petri no tiene autobucles (presente cuando se tienen dos arcos (con sentidos contrarios) entre una misma plaza y transición), su matriz de incidencia determina completamente su estructura. \\ \par
+
+\textsc{Ejemplo} La matriz de incidencia asociada a la red de Petri de la figura \ref{fig:rdp2.1_tradicional} será entonces:
+
+\begin{equation}
+    I = 
+    \begin{pmatrix}
+        0 & 0 & 0 & 1 \\
+        1 & 0 & 0 & 0 \\
+        1 & 0 & 0 & 0 \\
+        0 & 1 & 1 & 0 \\
+    \end{pmatrix}
+    -
+    \begin{pmatrix}
+        1 & 0 & 0 & 0 \\
+        0 & 1 & 0 & 0 \\
+        0 & 0 & 1 & 0 \\
+        0 & 0 & 0 & 1 \\
+    \end{pmatrix}
+    = 
+    \begin{pmatrix}
+        -1 & 0 & 0 & 1 \\
+        1 & -1 & 0 & 0 \\
+        1 & 0 & -1 & 0 \\
+        0 & 1 & 1 & -1 \\
+    \end{pmatrix}
+\end{equation}
+
+
+%----------------------------------------------------------------------------------------
+%	SECTION 2
+%----------------------------------------------------------------------------------------
+\section[Dinámica de una red de Petri]{Dinámica de una red de Petri} \label{sec:drdp}
+
+Se dice que una transición está sensibilizada cuando el marcado de todas las plazas entrantes a la transición es mayor o igual al peso de los arcos que las unen con dicha transición.\cite{papermico}  \\
+Antes de expresar la condición de sensibilizado de manera general, es necesario definir los siguientes conjuntos y funciones:
+
+\begin{itemize}
+    \item $\bullet T_j$ es el conjunto compuesto por las plazas entrantes a $T_j$.
+    \item $T_j \bullet$  es el conjunto compuesto por las plazas salientes de $T_j$.
+    \item $\bullet \bullet P_i$ es el conjunto compuesto por las transiciones entrantes a las plazas que sensibilizan a las transiciones que le \textit{agregan} tokens a $P_i$.
+    \item $P_i \bullet \bullet$  es el conjunto compuesto por las transiciones entrantes a las plazas que sensibilizan a las transiciones que le \textit{quitan} tokens a $P_i$.
+    \item $m_k(P_i)$ es el marcado de la plaza Pi antes de disparar la transición $T_j$ .
+    \item $m_{k+1}(P_i)$ es el marcado de la plaza $P_i$ después de disparar la transición $T_j$.
+    \item $w_{ij}$ es el peso del arco $P_i \rightarrow T_j$.
+    \item $w_{ji}$ es el peso del arco $T_j \rightarrow P_i$.
+\end{itemize}
+
+\noindent Entonces, el sensibilizado de una transición $T_j$ está dado por:
+
+\begin{equation}
+    T_j \ est\acute{a} \ sensibilizada \ sii \ \forall \ P_i \ \in \ \bullet T_j \Rightarrow m_k (P_i) > w_{ij}
+\end{equation}
+
+Esta definición de sensibilizado es solo válida cuando los arcos que conectan las plazas con $T_j$ son arcos comunes. \\
+En la figura \ref{fig:rdp2.2_marcada} se resaltan las transiciones sensibilizadas del ejemplo anterior.
+
+\begin{itemize}
+    \item $T_1$, $T_2$, $T_3$ están sensibilizadas, mientras $T_4$ no está sensibilizada (ya que el marcado de $P_4$ es menor al peso del arco $P_4$ \rightarrow $T_4$ ).
+\end{itemize}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=1.00]{Figures/marco teorico/imag2.png}
+	\caption{Transiciones sensibilizadas de la red de Petri.}
+	\label{fig:rdp2.2_marcada}
+  \end{figure}
+
+
+\subsection{Disparo de una transición}
+Si una transición está sensibilizada, la misma puede dispararse. El disparo de una transición resulta en un nuevo marcado de la red. Más precisamente, al ejecutarse una transición $T_j$ con un marcado $m_k$, los marcados de las plazas pertenecientes a la red se alteran cumpliendo con las siguientes declaraciones:
+
+\begin{equation}
+    \sigma (m_k, T_j) = 
+    \begin{array}{cc}
+         \forall \ P_i \ \in \ \bullet T_j \ \Rightarrow \ m_{k+1}(P_i) = m_k(P_i) - w_{ij}  \\
+         \forall \ P_i \ \in \ T_j \bullet \ \Rightarrow \ m_{k+1}(P_i) = m_k(P_i) + w_{ji}  \\
+         \forall \ P_i \ \notin \ \bullet T_j \cup T_j \bullet \ \Rightarrow m_{k+1}(P_i) = \ m_k(P_i)
+    \end{array}
+\end{equation}
+
+\noindent Es decir:
+\begin{itemize}
+    \item Para todas las plazas entrantes a $T_j$, el nuevo marcado de cada plaza se habrá \textbf{decrementado} tantos $tokens$ como peso tenga el arco $P_i \rightarrow T_j$. 
+    \item Para todas las plazas salientes de $T_j$, el nuevo marcado de cada plaza se habrá \textbf{incrementado} tantos $tokens$ como peso tenga el arco $T_j \rightarrow P_i$.
+    \item Para el resto de las plazas, el nuevo marcado será exactamente igual al que tenían antes del disparo de $T_j$ .
+\end{itemize}
+
+Continuando con el ejemplo anterior, se puede observar en la figura \ref{fig:rdp2.3_disparada} el nuevo marcado de la red luego del disparo de la transición $T_3$:
+
+\begin{itemize}
+    \item La única plaza entrante a $T_3(P_3 )$, ha \textbf{decrementado} su marcado en 1 $token$ (ya que el peso del arco $P_3 \rightarrow T_3$ es 1).
+    \item La plaza saliente de $T_j(P_4)$ ha \textbf{incrementado} su marcado de acuerdo a los pesos de los arcos correspondientes, en este caso en 1.
+    \item Las plazas que no es entrante ni saliente de $T_3(P_3)$ ha mantenido su marcado original.
+\end{itemize}
+
+Cabe destacar que como consecuencia del disparo de $T_3$, se ha producido la sensibilización de $T_4$.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=1.00]{Figures/marco teorico/imag3.png}
+	\caption{Nuevo marcado de la red de Petri.}
+	\label{fig:rdp2.3_disparada}
+  \end{figure}
+
+
+\subsection{Función de transferencia y ecuación de estado}
+Una vez explicada la dinámica del disparo de una transición y la forma de obtener la matriz de incidencia, se detalla una expresión matemática necesaria para obtener el nuevo marcado luego del disparo de una transición. 
+La misma se denomina \textbf{función de transferencia} y está definida como el producto de la matriz de incidencia $I$ con un vector $\vec{\delta}$ cuyos componentes son todos ceros, exceptuando el componente asociado a la transición que se quiere disparar, cuyo valor será uno. Entonces, se tendrá:
+
+\begin{equation}
+    I \ . \ \vec{\delta }    
+\end{equation}
+
+\noindent donde, para el disparo de una transición $T_j$ , se tiene:
+\begin{itemize}
+    \item $\delta[j] = 1$
+    \item $\delta[i] = 0 \ \forall \ i/i \neq j$
+\end{itemize}
+
+Por otro lado, es necesario introducir la \textbf{ecuación de estado} de las redes de Petri. Con esta ecuación es posible obtener el siguiente estado del sistema luego del disparo de una transición. Esta es una manera más simple que la metodología gráfica para analizar la evolución de los sistemas. La ecuación de estado en un tiempo $i$, para calcular el nuevo marcado de la red en un tiempo $i+1$ se define como:
+
+\begin{equation}
+    M_{i+1} = M_i + I \ . \ \vec{\delta}
+    \label{ec:estado}
+\end{equation}
+
+\noindent donde $M_{i+1}$ es el marcado luego del disparo de la transición, $M_i$ es el marcado antes del disparo y el segundo término de la ecuación es la función de transferencia.
+
+Siguiendo con el ejemplo hasta ahora analizado se verá cómo calcular el marcado de la red luego del disparo de la transición $T_3$ haciendo uso de la ecuación de estado.
+
+En la figura \ref{fig:rdp2.2_marcada} se observan las transiciones sensibilizadas de la red para el marcado inicial $M_0$.
+\\
+La ecuación de estado requiere tres elementos:
+
+\begin{enumerate}
+    \item El marcado antes del disparo. Éste es:
+        \begin{equation}
+            M_i = M_0 = 
+            \begin{pmatrix}
+                1 \\
+                1 \\
+                2 \\
+                0
+            \end{pmatrix}
+        \end{equation}
+        
+    \item La matriz de incidencia de la red. La misma fue calculada en la sección 2.1.2 y es la siguiente:
+        \begin{equation}
+           I = 
+            \begin{pmatrix}
+                -1 & 0 & 0 & 1 \\
+                1 & -1 & 0 & 0 \\
+                1 & 0 & -1 & 0 \\
+                0 & 1 & 1 & -1 
+            \end{pmatrix}
+        \end{equation}
+        
+    \item El vector de disparo $\vec{\delta}$, que tendrá tantos elementos como transiciones haya en la red, cuyos valores serán cero para todas las transiciones excepto para aquella que se desee dispara:
+        \begin{equation}
+            \vec{\delta} = 
+            \begin{pmatrix}
+                0 \\
+                0 \\
+                1 \\
+                0
+            \end{pmatrix}
+        \end{equation}
+\end{enumerate}
+
+\noindent con lo cual el nuevo marcado está definido por:
+\begin{equation}
+    M_{i+1} = 
+    \begin{pmatrix}
+        1 \\
+        1 \\
+        2 \\
+        0
+    \end{pmatrix}
+    +
+    \begin{pmatrix}
+        -1 & 0 & 0 & 1 \\
+        1 & -1 & 0 & 0 \\
+        1 & 0 & -1 & 0 \\
+        0 & 1 & 1 & -1 
+    \end{pmatrix}
+    .
+    \begin{pmatrix}
+        0 \\
+        0 \\
+        1 \\
+        0
+    \end{pmatrix}
+    =
+    \begin{pmatrix}
+        1 \\
+        1 \\
+        1 \\
+        1
+    \end{pmatrix}    
+\end{equation}
+
+\noindent resultado que coincide con lo obtenido en la figura \ref{fig:rdp2.3_disparada}. La ecuación de estado representa matemáticamente el comportamiento dinámico del sistema, permitiendo calcular el nuevo estado del mismo luego de la ocurrencia de un evento a través de una simple ecuación.
+
+\subsection{Extensión de la ecuación de estado}
+Como se mencionó en la sección anterior, la ecuación \ref{ec:estado} permite calcular el siguiente estado luego del disparo de una transición. Sin embargo, puede que se desee obtener el marcado final luego de una secuencia de disparos. Suponiendo que se parte del estado inicial $M_0$, esto puede representarse como:
+
+\begin{equation}
+    M_i = M_0 + I \ . \sum_{j=1}^i u_j
+\end{equation}
+
+\noindent donde la sumatoria representa un vector asociado a la secuencia de transiciones que se desea disparar y se denomina vector S. Para ejemplificar, el cálculo de un marcado $M_i$ a partir del marcado inicial y luego del disparo de las transiciones {$T_3$, $T_4$, $T_1$, $T_2$,} está dado por:
+
+\begin{equation}
+    M_i = M_0 + I \ . \ \vec{S}
+\end{equation}
+
+\noindent donde $\vec{S}$ = \{ 1, 1, 1, 1 \} e $I$ es la matriz de incidencia asociada a la red.
+
+%----------------------------------------------------------------------------------------
+%	SECTION 3
+%----------------------------------------------------------------------------------------
+\section{Propiedades de las redes de Petri} \label{sec:gestionred}
+\subsection{Propiedades de limitación}
+Dada una red de Petri definida por $PN = \{ P, T, I^-, I^+, M_0 \}$, se dice que una plaza P está k-limitada si existe un número entero k que, para todo marcado posible de la red, se verifica que la cantidad de tokens de la plaza siempre es igual o menor a k. Es decir:
+
+
+\begin{equation}
+    \exists \ k \ \in \ N \ / \ \forall \ M \ \in \ marcados (PN) \Rightarrow M(P) \leq k
+\end{equation}
+
+\noindent Por otro lado, se dice que la red está \textbf{k-limitada} si todas las plazas que contiene son \textbf{k-limitadas}. \\ \par
+
+A partir de la definición de limitación surgen varios conceptos, entre los cuales se encuentran los siguientes:
+\begin{itemize}
+    \item Una red de Petri es \textbf{segura} si todas sus plazas son \textbf{1-limitadas}. Esto significa que nunca puede darse un disparo si la plaza de llegada ya contiene un $token$.
+    
+    \item Una red de Petri es \textbf{cíclica} si siempre existe la posibilidad de alcanzar el marcado inicial desde cualquier otro marcado alcanzable. Es decir, \break $\forall \ M  \in \ marcados(PN),\ M_0$ es dinámicamente alcanzable desde $M$.
+    
+    \item Una red de Petri es \textbf{repetitiva} si existe una secuencia de disparos $\sigma$ que contiene todas las transiciones de la red y existe un marcado $M$ que para el cual $M \xrightarrow{\sigma} M$. Es decir, existe una secuencia de disparos que contiene todas las transiciones y que lleva la red del marcado actual al mismo marcado.
+    
+    \item  Una red de Petri es \textbf{conservativa} si se cumple que $\forall \ M\ \in marcados (PN)$, el número total de $tokens$ en el marcado M es igual al número de tokens en el marcado $M_0$. En otras palabras, la red siempre contiene la misma cantidad de marcas.
+    
+\end{itemize}
+
+\subsection{Propiedades de vivacidad}
+La \textbf{vivacidad} de una transición indica que, en todo instante de la  evolución de la red, su disparo es posible. Este concepto es particularmente relevante ya que determina si la ejecución de la red puede  o no detenerse en un estado determinado. A partir de esto se puede definir la vivacidad de una red de Petri. Esta propiedad indica que una red $N = \{P, T, I^- , I^+ , M_0 \}$ es viva para un marcado si todas sus transiciones lo son.
+
+Por otro lado, la \textbf{cuasi-vivacidad} de una transición expresa la posibilidad de dispararla al menos una vez a partir de un marcado inicial $M_0$. De la misma manera que para el caso de la vivacidad, una red de Petri es cuasi-viva si todas sus transiciones lo son.
+
+Gracias a esta última definición, se puede definir la vivacidad en función de la cuasi-vivacidad de la siguiente manera: una transición es viva si la misma es cuasi-viva en la red para todo marcado alcanzable desde $M_0$. \\ \par
+
+\noindent La vivacidad está directamente asociada con la ausencia de \textbf{deadlock} o interbloqueo. En términos generales, el deadlock es el bloqueo permanente de un conjunto de procesos o hilos de ejecución en un sistema concurrente que compiten por recursos del sistema o bien se comunican entre ellos. En el caso de una red de Petri, esto suele ocurrir cuando dos o más transiciones esperan mutuamente por el disparo de la otra, produciendo el bloqueo permanente de esa porción de la red. 
+Una red de Petri viva garantiza la ausencia de interbloqueo sin importar la secuencia de disparos.
+
+
+\subsection{Alcanzabilidad de una red de Petri}
+La \textbf{alcanzabilidad} de una red de Petri es fundamental para el análisis de las propiedades dinámicas de un sistema. A grandes rasgos, permite determinar si el sistema modelado puede alcanzar un determinado estado.
+
+
+Un marcado $M_i$ es alcanzable desde $M_0$ si existe una secuencia finita de disparos $\sigma$ tal que $M_0 \xrightarrow{\sigma} M_i$.
+
+Los marcados alcanzables por la red pueden ser representados como nodos de un grafo o árbol, donde los arcos indican los disparos necesarios para alcanzar dicho marcado. El algoritmo para determinar el árbol de alcanzabilidad de una red de Petri será explicado con detalle en el desarrollo del proyecto.
+
+Entonces, el grafo de alcanzabilidad $A$ se define como el menor conjunto que cumpla con las expresiones 2.17 y 2.18.
+
+\begin{equation}
+    M_0 \ \in \ A
+\end{equation}
+
+\noindent Esta condición simplemente aclara que el marcado inicial de la red siempre forma parte del grafo de alcanzabilidad, ya que el mismo no requiere ninguna secuencia de disparos para ser alcanzable.
+
+\begin{equation}
+    \forall \ M \ sii \ M \xrightarrow{\sigma} M_i \Rightarrow M_i \ \in \ A
+\end{equation}
+
+
+\noindent Esto significa que para cualquier marcado $M$, si a partir del mismo puede alcanzarse otro marcado $M_i$, entonces $M_i$ forma parte del grafo. \\ \par
+
+\noindent \textsc{Ejemplo} \ Suponiendo una red simple como la de la figura \ref{fig:rdp2.4_estadosposibles}, compuesta por tres plazas y una única transición $T_1$ , se puede afirmar que sólo hay tres estados posibles en la red:
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=1.00]{Figures/marco teorico/imag4.png}
+	\caption{Red de Petri 3 estados posibles.}
+	\label{fig:rdp2.4_estadosposibles}
+  \end{figure}
+  
+\begin{itemize}
+    \item El marcado inicial [2, 3, 0]
+\end{itemize}
+
+Luego del segundo disparo no existen disparos posibles. Por lo tanto, la red de la figura \ref{fig:rdp2.4_estadosposibles} produce el grafo de alcanzabilidad  mostrado en la figura \ref{fig:rdp2.5_grafo}. \\
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.5]{Figures/marco teorico/grafoalcanzabilidad.png}
+	\caption{Grafo de alcanzabilidad.}
+	\label{fig:rdp2.5_grafo}
+  \end{figure}
+
+\subsection{Sifones y Trampas} \label{sec:tysalg2}
+Los conceptos de sifón y trampa están directamente relacionados con las propiedades de \textbf{interbloqueo} y \textbf{vivacidad} de una red de Petri.
+
+Un \textbf{sifón} se define como un subconjunto no vacío de plazas S para el cual se cumple que el subconjunto de transiciones entrantes a S está contenido dentro del subconjunto de transiciones salientes de S.
+En otras palabras, un grupo de plazas es un sifón si, una vez que un token sale del grupo de dichas plazas, el mismo nunca puede volver a entrar. 
+Decimos que un sifón S es \textbf{mínimo} si no contiene otro sifón como un subconjunto. En un sifón mínimo debe existir al menos dos lugares; de lo contrario, la estructura restante no puede considerarse un sifón.
+En la figura \ref{fig:rdp2.6-sifontrampa} se puede observar una red que contiene una trampa y un sifón.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=1.00]{Figures/marco teorico/imag6.png}
+	\caption{Sifón y trampa.}
+	\label{fig:rdp2.6-sifontrampa}
+  \end{figure}
+  
+Tomando el subconjunto de plazas $S = \{P_1 , P_2 \}$ se deben obtener los siguientes subconjuntos de transiciones:
+\begin{itemize}
+    \item El subconjunto $\bullet S = \{T_2, T_3 \}$ será aquel compuesto por las transiciones entrantes a las plazas que componen S.
+    \item El subconjunto $S \bullet = \{T_2, T_3\} $ será aquel compuesto por las transiciones entrantes a las plazas que componen S.
+\end{itemize}
+
+\noindent Por propiedad de los sifones, para que S pueda considerarse como tal debe cumplirse que:
+\begin{equation}
+    \bullet S \ \subseteq \ S \bullet 
+\end{equation}
+
+En este caso, se comprueba que ${T_2 , T_3} \subseteq \ \{T_1 , T_2 , T_3 \}$, quedando demostrado que $\{P_1,P_2\}$ es en efecto un sifón y que, si la transición $T_1$ se dispara, el token removido de $P_1$ nunca volverá a ingresar al subconjunto. \\ \par
+
+Por otro lado, una \textbf{trampa} se define como un subconjunto de plazas G para el cual se cumple que el subconjunto de transiciones salientes de G está contenido dentro del subconjunto de transiciones entrantes a G. Esto quiere decir que un conjunto de plazas constituyen una trampa si una vez que un token entra dicho grupo éste nunca vuelve
+a salir.
+
+Siguiendo con el ejemplo de la figura \ref{fig:rdp2.6-sifontrampa}, se analizará el subconjunto de plazas $G = \{P_3 , P_4\}$.  Los subconjuntos de transiciones serán:
+\begin{itemize}
+    \item El subconjunto $\bullet G = \{T_1 , T_4 , T_5 \}$ será aquél compuesto por las transiciones entrantes a las plazas que componen G.
+    \item El subconjunto $G \bullet = \{T_4, T_5 \}$ será aquél compuesto por las transiciones salientes de las plazas que componen G.
+\end{itemize}
+
+\noindent Por propiedad de las trampas, para que G pueda considerarse como tal, debe cumplirse que:
+\begin{equation}
+    G \bullet \ \subseteq \ \bullet G
+\end{equation}
+
+Propiedad que es simplemente comprobable ya que ${T_4 , T_5} \subseteq \{T_1 , T_4 , T_5 \}$, demostrando que $\{P_3 , P_4\}$ es una trampa.
+
+
+\subsection{Invariantes de plazas y transiciones}
+Las invariantes de una red son propiedades independientes tanto del marcado inicial como de la secuencia de disparos, y pueden asociarse a ciertos subconjuntos de plazas o de transiciones; con lo cual surgen dos conceptos:
+
+\subsubsection{P-invariantes}
+Una \textbf{invariante de plazas} o \textbf{P–invariante} es un conjunto de plazas cuya suma de tokens no se modifica con una secuencia de disparos arbitraria. 
+Esto se puede observar en el ejemplo de la figura \ref{fig:rdp2.7_p-invariante}:
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.8]{Figures/marco teorico/imag7.png}
+	\caption{P-invariantes de la red de Petri.}
+	\label{fig:rdp2.7_p-invariante}
+  \end{figure}
+ 
+ \noindent Tras el análisis de la red , se obtienen las siguientes invariantes de plazas:
+ 
+ \begin{equation}
+    \begin{array}{cc}
+        m(P_1) + m(P_2) = 1  \\
+        m(P_3) + m(P_4) = 1   \\
+        m(P_2) + m(P_4) + m(P_5) = 1 
+    \end{array}
+ \end{equation}
+
+El primer ítem expresa que la sumatoria de tokens en las plazas $P_1$ y $P_2$ siempre será igual a uno, afirmación completamente observable al mirar la red de la figura \ref{fig:rdp2.7_p-invariante}. Estas declaraciones implican la siguiente consecuencia:
+
+\begin{equation}
+    I . x = 0
+\end{equation}
+
+\noindent donde $I$ es la matriz de incidencia y $x$ es un vector característico de un subconjunto $Q$ de las plazas que forman parte de la invariante (un uno en una posición indica que esa plaza es parte de la invariante y un cero indica lo contrario). A partir de esto surge la siguiente fórmula:
+
+\begin{equation}
+    \sum_{P \in \bullet t \cap Q} W(p,t) = \sum_{P \in t \bullet \cap Q} W(t,p)
+\end{equation}
+
+\noindent la cual puede ser expresada en función de un vector t de la siguiente manera:
+
+\begin{equation}
+    \sum_{P \in \bullet t \cap Q} t(p) = \sum_{P \in t \bullet \cap Q} t(p)
+\end{equation}
+
+\noindent Esto quiere decir que:
+
+\begin{equation}
+    \sum_{P \in (t \bullet \cup \bullet t) \cap Q} t(p) = 0 \ \ y \  \sum_{P \in Q} t(p) = 0
+\end{equation}
+
+Si reemplazamos Q por los vectores característicos $I_q$ , estas dos igualdades pueden escribirse como:
+
+\begin{equation}
+    \sum_{P \in Q} t(p) I_q(p) = 0 \ \ y \  \sum_{p \in P} t(p)I(p) = 0
+\end{equation}
+
+\noindent Lo cual es simplemente la definición del producto escalar entre dos vectores:
+
+\begin{equation}
+    t.I_q = 0
+\end{equation}
+
+\noindent Como los disparos son arbitrarios, podemos establecer la siguiente relación:
+\begin{equation}
+    t_j I_q; \forall \ t_j \ \in \ T \Longleftrightarrow \ I^T I_q = 0
+\end{equation}
+
+\noindent donde $I^T$ es la matriz de incidencia transpuesta.
+
+
+\subsubsection{T-invariantes}
+Un \textbf{invariante de transición} ó \textbf{T-invariante} es el conjunto de transiciones que deben dispararse para que la red de Petri retorne a su estado inicial.
+
+Como se mencionó en el apartado anterior, para el cálculo de las P-invariantes se hace uso de la ecuación $I . x = 0$, siendo $I$ la matriz de incidencia y $x$ un vector característico constituido por las plazas que forman parte de la invariante. En este caso, para el cálculo de los vectores que constituyen las T-invariantes, la ecuación asociada será similar a las P-invariantes, a diferencia que se hace uso de  $I^T$ en vez de $I$:
+
+\begin{equation}
+    I^T . x = 0
+\end{equation}
+
+Aquí, a diferencia de las P-invariantes, el vector x está constituido por el conjunto de transiciones que deben dispararse para que la red retorne al estado inicial. Un "1" en una posición indica que esa transición es parte de la invariante y un "0" indica lo contrario.
+
+Tomando la figura \ref{fig:rdp2.7_p-invariante} como ejemplo y se obtienen las siguientes invariantes de transiciones:
+
+\begin{equation}
+    T-invariantes = 
+    \begin{pmatrix}
+         T0 & T1 & T2 & T3  \\
+         0 & 1 & 0 & 1  \\
+         1 & 0 & 1 & 0  
+    \end{pmatrix}
+\end{equation}
+
+Ambos vectores cumplen la condición planteada ($I^T .\ x = 0$) y si se observa la imagen en cuestión, se puede apreciar que la red retorna a su estado inicial si las transiciones especificadas en los vectores se disparan.
+
+
+%-----------------------------------------------------
+% Monitores (SECTION 4)
+%-----------------------------------------------------
+\section{Concurrencia y sincronización} \label{sec:monitor}
+En los sistemas de computación actuales conviven múltiples procesos que cooperan para lograr determinados objetivos y compiten por recursos del sistema, entre ellos el procesador, la memoria RAM, los puertos de entrada/salida, etc.\\
+Dado que generalmente el numero de procesos de un sistema supera ampliamente el numero de recursos, se deben establecer formas de comunicación y sincronización entre ellos que hagan que el sistema funcione correctamente. 
+
+\par En ésta sección se definirá cuando dos programa son concurrentes y/o paralelos y las condiciones que deben cumplirse para que dos secciones de código fuente puedan ser ejecutadas de manera concurrente. Luego, se verá que la ejecución concurrente de procesos trae aparejados ciertos problemas como el interbloqueo y la inanición.\\
+Por esta razón deben ejecutarse ciertos mecanismos de control para garantizar la correcta ejecución de los programas, entre ellos, los semáforos y monitores.\\
+El objetivo de esta sección es que el lector adquiera una idea general sobre la programación concurrente y sobre los problemas inherentes a la misma.
+
+
+\subsection{Concurrencia y paralelismo}
+Dos procesos serán concurrentes cuando la primera instrucción de uno de ellos se ejecuta después de la primera instrucción de otro proceso y antes de la última.
+No es necesario que estos se ejecuten al mismo tiempo, basta con el hecho de que se intercalen sus instrucciones. En caso de ejecutarse al mismo tiempo se dice que hay programación paralela.
+La programación concurrente es un paralelismo potencial, dependiente del hardware que lo soporte  \cite{mendez}.
+
+\subsubsection{Problemas inherentes a la programación concurrente}
+La intercalación de instrucciones de diferentes procesos, debe ser bien manejada y controlada dado que puede producir mal funcionamiento del sistema. Los problemas inherentes a la concurrencia son:
+\begin{itemize}
+    \item \textbf{Exclusión mutua}: Se debe garantizar que si un proceso adquiere el recurso los demás deberán esperar hasta que sea liberado.
+
+    \item \textbf{Condición de sincronización}: Hay situaciones en las que un proceso debe esperar que ocurra algún determinado evento para poder continuar. Por ello se debe garantizar que si el evento \textbf{no} ocurrió, el proceso \textbf{no} continúe. 
+    
+    \item \textbf{Interbloqueo}: Esta situación se produce cuando todos los procesos están esperando un evento que nunca ocurrirá. Se debe garantizar que estas situaciones no ocurran.
+    
+    \item \textbf{Inanición}: En este caso, el sistema en su conjunto hace progresos, pero existe un grupo de procesos que nunca progresaran pues no se les otorga tiempo de procesador para hacerlo.
+\end{itemize}
+
+\subsubsection{Exclusión mutua}
+La exclusión mutua implica que dos o más procesos intentan acceder a un único recurso compartido entre ellos pero solo uno puede acceder a cada instante.
+Cuando se da un caso de estas características, se desea que todo lo que necesite hacer unos de los procesos sobre el recurso se realice de manera indivisible y luego lo deje disponible para que otro proceso ejecute sus instrucciones sobre el recurso.
+\par A la porción de código que se desea que se ejecute de manera indivisible o atómica se le llama \textbf{sección crítica}. Se debe lograr que todas las instrucciones dentro de la sección crítica se ejecuten en exclusión mutua lo que implica que el hecho de que cuando uno de los procesos este ejecutando esa porción de código el resto no podrá hacerlo. \\
+\\
+\textbf{Solo uno de los procesos podrá estar en la sección crítica en un instante dado.}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.5]{Figures/marco teorico/seccion.jpg}
+	\caption{Sección crítica.}
+	\label{fig:seccioncritica}
+  \end{figure}
+  
+En la figura \ref{fig:seccioncritica} se observa como dos procesos $P1$ y $P2$ intentan ejecutar una porción de código de una sección crítica. La imagen de la izquierda (a) muestra que el proceso $P1$ consigue ingresar a ejecutar la sección crítica. La imagen de la derecha (b) muestra que el proceso $P2$ puede ingresar solo cuando el proceso $P1$ ya no esta en la misma.
+
+\noindent La exclusión mutua se puede representar de la siguiente manera.
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.7]{Figures/marco teorico/mutex.png}
+	\caption{Sección crítica.}
+	\label{fig:exmutuardp}
+  \end{figure}
+
+En la figura \ref{fig:exmutuardp} la plaza \textit{MUTEX} esta limitada a un único token y el análisis de invariantes de plazas demuestra formalmente la propiedad de exclusión mutua entre los procesos $P1$ y $P2$. 
+
+\begin{equation}
+    m(EjecutandoSCP1) + m(MUTEX) + m(EjecutandoSCP2) = 1
+\end{equation}
+
+\subsection{Interbloqueo} \label{sec:Interbloqueo}
+En un sistema donde los procesos compiten por limitados recursos, pueden producirse demandas contradictorias de los mismos. Por ejemplo, si existen dos procesos, \textit{A} y \textit{B}, y dos recursos \textit{R1} y \textit{R2}, y ambos procesos necesitan los dos recursos para proseguir, si el proceso \textit{A} toma el recurso \textit{R1} y el \textit{B} el recurso \textit{R2}, ambos procesos se bloquearan a la espera del otro recurso, pero ninguno liberará el recurso que posee hasta no conseguir los dos. A esta situación se la conoce como interbloqueo \cite{stallings}. 
+
+\subsubsection{Condiciones para producir interbloqueo: }
+\noindent Deben presentarse tres condiciones de gestión para que sea posible un interbloqueo:
+\begin{enumerate}
+    \item \textit{Exclusión mutua}: sólo un proceso puede utilizar un recurso en cada momento. Ningún proceso puede acceder a un recurso que se ha asignado a otro proceso.
+    
+    \item \textit{Retención y espera}: un proceso puede mantener los recursos asignados mientras espera la asignación de otros recursos.
+    
+    \item \textit{No apropiación}: ningún proceso podrá ser forzado a abandonar un recurso que retiene.
+    
+    \item \textit{Espera circular}: existe una cadena cerrada de procesos donde cada proceso retiene un recurso que necesita un proceso que le sigue en la cadena.
+\end{enumerate}
+
+Las tres primeras condiciones son necesarias pero no suficientes para que exista interbloqueo.
+La cuarta es una consecuencia potencial de las tres primeras y, en caso de darse, generará una \textbf{espera circular irresoluble}. Esta es de hecho la definición de interbloqueo.
+
+\subsection{Sincronización}
+Para solucionar los problemas inherentes a la programación concurrente, se utiliza lo que se llama \textit{sincronización entre los procesos} . \\
+Se habla de sincronización , en general, cuando determinados fenómenos ocurren o deben ocurrir en un determinado orden o a la vez.
+\par Para la computación, la sincronización es representada por las señales que se envían los procesos para colaborar entre ellos o para indicar el estado de recursos compartidos, para indicar que un evento o acción ocurrió o no y determinar la continuidad o no de un proceso, etcétera.
+\par La condición de sincronización puede definirse como la propiedad requerida para que un proceso no realice ninguna acción o evento hasta que otro proceso realice una determinada acción o evento.
+
+
+\subsubsection{Semáforos}
+Los semáforos son un sistema de señales simples utilizadas por los procesos para comunicarse entre ellos y lograr la sincronización requerida.
+Estos tienen una variable de sincronización, del tipo entero no negativo, que indica la cantidad de recursos disponibles. Sobre esta se realizan dos tipos de operaciones:
+
+\begin{itemize}
+    \item \textit{wait}: decrementa el valor del semáforo solo si este es mayor que cero. Este proceso indica que se utiliza uno de los recursos que controla el semáforo. Si el valor del semáforo al momento de ejecutar la operación \textit{wait} es cero, indica que no hay recursos disponibles y el proceso deben bloquearse hasta que se libere alguno.
+    \item \textit{signal}: es la acción de liberar un recurso que estaba siendo utilizado. En caso de haber algún proceso bloqueado en el semáforo se lo despierta para que utilice el recurso. De no existir algún proceso, se incrementa el valor del semáforo.
+\end{itemize}
+
+Los semáforos son primitivas con las cuales es difícil expresar una solución a grandes problemas de concurrencia, ya que tienen algunas debilidades:
+\begin{itemize}
+    \item La omisión de una de las primitivas puede corromper el funcionamiento de un sistema concurrente.
+    \item El control de concurrencia es responsabilidad del programador.
+    \item Las primitivas de control se encuentran esparcidas por todo el código, lo que hace muy difícil la corrección de errores y el mantenimiento del mismo.
+\end{itemize}
+
+Debido a estas razones existe otro mecanismo de software para el control de concurrencia denominado \textbf{monitor}.
+
+\subsubsection{Monitores}
+
+Como se dijo, los semáforos, generalmente se encuentran dispersos en el código, lo que lo hace más confuso y muchas veces es difícil notar cual es el recurso compartido y determinar si está correctamente sincronizado. Por ello, se necesita un sistema que sea igual de versátil que los semáforos pero que permita efectuar un control más estructurado de la exclusión mutua. Una herramienta con estas características fue propuesta por \textit{C.A.R Hoare} en 1975 y es conocida como \textbf{\textit{monitor}}.\\
+Un \textbf{monitor} es un mecanismo de abstracción de datos, lo que permite representar de forma abstracta un recurso compartido mediante variables que indican su estado. El acceso a esas variables solo es posible a través de un conjunto de funciones/métodos que el monitor exporta al exterior.\\
+
+Un monitor se compone de los siguientes elementos:
+\begin{itemize}
+    \item Un \textit{conjunto de variables} locales que pueden denominarse permanentes. Se utilizan para almacenar el estado interno del recurso que representa el monitor. Se denominan permanentes ya que permanecen sin modificarse entre dos llamadas consecutivas al monitor y solo pueden ser accedidas dentro del mismo.
+    
+    \item Un \textit{código de inicialización} que se ejecuta antes que la primera instrucción ejecutable del programa y su fin es inicializar las variables permanentes. 
+
+    \item Un \textit{conjunto de procedimientos internos} que manipulan las variables permanentes.
+    
+    \item Una \textit{declaración de los procedimientos} que son \textit{exportados} y pueden ser accedidos por los procesos activos externos.
+\end{itemize}
+
+\paragraph{Exclusión mutua en monitores}
+\hfill
+\par El control de la exclusión mutua en un monitor se basa en la existencia de una cola asociada al mismo que se denominara \textit{cola del monitor}. La gestión de esta cola se realiza de la siguiente manera:
+
+\begin{enumerate}
+    \item Cuando un proceso activo está dentro del monitor (ejecutando alguno de los procedimientos del mismo) y aparece otro proceso activo que intenta ejecutar otro (o el mismo) procedimiento, el código de acceso al monitor bloquea el proceso que realiza la llamada y lo inserta en la cola del monitor (con política FIFO). Así, se impide que dos procesos estén al mismo tiempo dentro del monitor.
+
+    \item Cuando un proceso activo abandona el monitor, este ultimo selecciona el proceso que esta al frente de la cola del monitor y lo desbloquea para que comience a ejecutar las operaciones que le solicitó al monitor. Si la cola estaba vacía, el monitor queda libre y cualquier proceso activo que llame alguno de sus procedimientos entrará al monitor.
+\end{enumerate}
+
+Esto asegura que las variables compartidas nunca son accedidas concurrentemente. Una cuestión importante es que la responsabilidad de bloquear un proceso es del monitor y no del proceso.
+Al comparar este sistema con un semáforo se ve que en el caso de los semáforos son los propios procesos activos los que manejan las políticas de acceso a variables compartidas.
+
+\paragraph{Condición de sincronización en monitores}
+\hfill
+\par El procedimiento anterior sólo controla la exclusión mutua, es decir, pueden haber casos donde un proceso activo tenga acceso al monitor (ha obtenido la exclusión mutua al mismo) pero no puede seguir su ejecución debido a alguna razón, tal como un \textit{buffer} lleno que no puede ser escrito. En estos casos, es necesario bloquear ese proceso y permitir que otro ingrese al monitor. Para realizar esto surgen nuevos componentes que deben formar parte del monitor:
+
+\begin{itemize}
+    \item Variables de condición
+    \begin{itemize}
+        \item Las mismas son declaradas en el monitor. 
+        \item Deben ser privadas. 
+        \item Tienen una cola \textit{FIFO} asociada.
+    \end{itemize}
+    \item Operaciones sobre las variables de condición
+    \begin{itemize}
+        \item \textit{Delay}
+        \item \textit{Resume}
+        \item \textit{Empty}
+    \end{itemize}
+\end{itemize}
+
+La operación delay se realiza sobre una variable de condición. Si se supone la existencia de una variable C, al realizar \textit{delay(C)}, el proceso que la ejecutó libera el mutex del monitor, se bloquea y se envía al final de la cola asociada a la condición C. A diferencia de la operación wait que se utiliza en los semáforos, delay bloquea al proceso incondicionalmente.\\
+
+\par La operación resume, cuando se realiza sobre una variable C, libera al primer proceso que ejecutó \textit{delay(C)}. Si la cola está vacía, resume es una operación nula. Por otra parte, la función empty simplemente devuelve un valor boolean true si una cola se encuentra vacía o false en caso contrario.\\
+
+Con lo dicho hasta este punto, se podría decir que si un proceso que se está ejecutando dentro del monitor ejecuta una operación \textit{resume(C)}, se desbloqueará un proceso de esa cola que continuará con su ejecución dentro del monitor también. Esto lleva a una situación con dos procesos dentro del monitor, lo que violaría la exclusión mutua. Para evitar esto, el proceso que ejecuta el \textit{resume} cederá la exclusión mutua al recien desbloqueado. Y espera en una cola diferente llamada \textbf{cola de cortesía} hasta que el proceso recién desbloqueado por el \textit{resume(C)} termine su ejecución teniendo preferencia por sobre los procesos esperando en otras colas.
+
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.5]{Figures/marco teorico/monitor.png}
+	\caption[Monitor.]{Monitor \footnotemark.}
+	\label{fig:monitor}
+\end{figure} \footnotetext{Figura adaptada del Proyecto Integrador \textit{Desarrollo de IP cores con procesamiento de Redes de Petri Temporales para sistemas multicore en FPGA} \cite{papermico, tesisnonino}.}  
+  
+
+\subsubsection{Implementación de monitores con redes de Petri}
+Es posible ver a un monitor formado por dos secciones: primero, la referida a la política de colas que se debe ejecutar para lograr que sólo un proceso esté en el monitor, que se bloqueen los procesos que no tienen los recursos y que se desbloqueen los que obtuvieron los recursos, y segundo, la lógica con que se administran los recursos.\\
+En la figura \ref{fig:monitor} se puede observar que existe una cola de entrada, para los procesos que aún no ingresaron al monitor y desean hacerlo, una serie de colas, una por cada recurso (cada condición de sincronización) y una cola de cortesía para que  proceso dentro del monitor pueda, de manera segura, ceder la exclusión mutua al cambiar el estado de un recurso.\\
+
+\par \textbf{\textit{Una red de Petri puede realizar el trabajo de la lógica del monitor}}, es decir, la administración y sincronización de recursos disponibles; esto es cuando el vector de estado que resultó del disparo no tiene componentes negativas es porque los recursos están disponibles, el disparo de la transición solicitada conduce a un nuevo estado valido. De no ser así, en caso de existir algún valor negativo en el nuevo vector de estado, se llegó a un estado no válido que indica que el recurso no está disponible. Además el vector de estado indica si el disparo ha devuelto o tomado recursos. Si la cantidad de tokens para un recurso dado disminuye, significa que se han tomado recursos, en caso contrario, que se han devuelto recursos \cite{papermico, tesisnonino}.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.5]{Figures/marco teorico/monitormico.png}
+	\caption[Monitor.]{Monitor \footnotemark.}
+	\label{fig:monitormico}
+\end{figure} \footnotetext{Figura adaptada del paper publicado por \textit{Micolini, Orlando \& Ventre, Luis \& Cebollada, Marcelo \& Eschoyez, Maximiliano} \cite{papermico}}
+
+Por lo tanto, el monitor integra la red de Petri (lógica), la política y las acciones, conformando un sistema heterogéneo. La importancia de la metodología aquí planteada radica en desacoplar la lógica de la política y las acciones, con el fin de obtener un sistema resultante modular, simple, mantenible y verificable. 
+
+En la figura \ref{fig:monitormico} se expone la arquitectura modular de un sistema reactivo y guiado por eventos. Para el interés de este proyecto sólo se investigó sobre la lógica del sistema y específicamente sobre como desbloquear las redes de Petri (del tipo S³PR) que la representa. 
+
+
+%----------------------------------------------------------------------------------------
+%	SECTION 5
+%----------------------------------------------------------------------------------------
+\section[S³PR]{S³PR}
+Definimos la clase de los procesos secuenciales simples (S²P); luego, lo extendemos para modelar el uso de recursos (la clase de S²PR) y, finalmente, definimos la clase de sistemas de procesos secuenciales simples con recursos (S³PR) por la composición neta de S²PR a través de un conjunto de lugares comunes \cite{libro2}.
+
+\subsection{Definición de S²P}
+Un sistema de proceso secuencial simple (S²P) es una red de petri $N = (P \cup \{P^0\}, T, F)$ donde:
+\begin{enumerate}
+    \item $P \neq \emptyset,\ p^0 \notin P$ ($p^0$ llamada plaza idle);
+    \item N es una máquina de estado fuertemente conectada
+    \item Cada circuito de N contiene la plaza $p^0$.
+\end{enumerate}
+
+\noindent La tercera condición impone una propiedad de "terminación" \ a los procesos de trabajo que estamos considerando: si un proceso evoluciona, terminará.
+
+\begin{figure} [H]
+    \centering
+    \includegraphics[scale=0.4]{Figures/marco teorico/s2p_chica.png}
+    \caption[Red de Petri S²P.]{Red de Petri S²P \footnotemark.}
+    \label{fig:rdp_s2p}
+\end{figure}  \footnotetext{Figura adaptada del libro \textit{Deadlock Resolution in Automated Manufacturing Systems} \cite{libro2} .}
+
+\noindent En la figura \ref{fig:rdp_s2p} se puede observar la plaza idle ($P_1$) destacada en lila. \\
+
+\par Definimos ahora un proceso secuencial simple con recursos (S²PR), como un S²P que necesita el uso de un recurso único en cada estado que no sea el estado idle. Debido a que las interacciones con el resto de los procesos en el sistema se realizarán compartiendo el conjunto de recursos, es natural suponer que en el estado idle no hay interacción con el resto del sistema y, por lo tanto, no se utiliza ningún recurso en este estado.
+
+\subsection{Definición de S²PR}
+Un sistema de proceso secuencial simple con recursos (S²PR) es una red de Petri 
+$N = \langle P \cup \{p^0\} \cup P_R, T, F \rangle $ tal que:
+\begin{enumerate}
+    \item La subred generada por $X = P \cup \{p^0\} \cup T$ es una S²P.
+    \item $P_R \neq \emptyset$ y $(P \cup \{p^0\}) \cap P_R = \emptyset$
+    \item $\forall p \in P.\ \forall \ t \in \bullet p.\ \forall \ t' \in p \bullet. \ \bullet t \cap P_R = \ t' \bullet \cap P_R = \{r_p\}$
+    \item Las dos siguientes declaraciones son verificadas:
+    \begin{enumerate}[a)]
+        \item $\forall \ r \in \ P_R. \ \bullet \bullet r \cap P = r \bullet \bullet \cap P \neq \emptyset$
+        \item $\forall \ r \in \ P_R. \ \bullet r \cap r \bullet = \emptyset$
+    \end{enumerate}
+    \item $\bullet \bullet (p^0) \cap P_R = (p^0) \bullet \bullet \cap P_R = \emptyset$
+\end{enumerate}
+
+\noindent $P_R$: conjunto de plazas de recursos. \\
+$P$: conjunto de plazas de estado.
+
+\begin{figure} [H]
+	\centering
+	\subfloat [] {
+	    \includegraphics[scale=0.65]{Figures/marco teorico/imag8.jpg}
+    	\label{fig:rdp_a}
+    }
+    \subfloat [] {
+        \includegraphics[scale=0.65]{Figures/marco teorico/imag9.jpg}
+    	\label{fig:rdp_b}
+    } 
+   \caption[Redes de Petri S²PR.]{Redes de Petri S²PR. (A) RdP (N1,M1) - (B) RdP (N2,M2) \footnotemark. } 
+\end{figure} \footnotetext{Figura adaptada del libro \textit{Deadlock Resolution in Automated Manufacturing Systems} \cite{libro2} .}
+
+\noindent Esto se puede ver representado en las figuras \ref{fig:rdp_a} y \ref{fig:rdp_b}. Las plazas idles ($P_1, P_5$) destacadas en lila, mientras que las plazas recursos ($P_9, P_{10}, P_{11}$) destacadas en naranja.\\
+
+
+\par Para una plaza de estado dado $p \in P$, la plaza $r \in P_R$ dado por la condición 3 en la definición modela el recurso utilizado en este estado. 
+Para un $r \in P_R$, denotaremos $H(r) = (\bullet \bullet r) \cap P$ conjunto de plazas complemento de r (estados que usan r). La condición 4 en la definición anterior impone que dos estados adyacentes de un proceso de trabajo (WP) (ambos diferentes del estado inactivo) no pueden usar el mismo recurso. Esto no es una restricción, ya que desde la perspectiva de la vivacidad, dos estados adyacentes que usan el mismo recurso puede colapsar en un estado único, preservando las propiedades de comportamiento de la red. 
+
+Nótese que $\bullet r$ representa las transiciones entrantes a las plazas r. \\
+$\bullet \bullet r = \sideset{}{_{t \in \bullet r}} \bigcup \bullet t$ es el conjunto de plazas de entrada de todas las transiciones de entrada de la plaza r. De manera similar,  $r \bullet \bullet = \sideset{}{_{t \in r \bullet}} \bigcup \bullet t$ representa el conjunto de todas las plazas de salida de todas las transiciones de salida de la plaza r. Por ejemplo, en la figura \ref{fig:s3pr}: $\bullet p9 = \{t_2,t_8\}$ y $\bullet \bullet p_9 =  \bullet t_2 \cup  \bullet t_8 = \{p_2, p_{10}, p_8 \}$.  $p_9 \bullet = \{ t_1, t_7 \}$ y $p_9 \bullet \bullet = t_1 \bullet \cup \ t_7 \bullet = \{ p_2, p_{10}, p_8 \}$. Claramente  $\bullet \bullet p_9 = p_9 \bullet \bullet$
+
+Sea $N = \langle P \cup \{p^0\} \cup P_R, T, F \rangle $ una S²PR. Un marcado inicial $m_0$ es llamado un marcado inicial aceptable para N sii:
+\bigskip
+
+\begin{enumerate}
+    \centering
+    \item $m_0 (p^0) \geq 1$
+    \item $m_0 (p) = 0, \ \forall \ p \in \ P$
+    \item $m_0 (r) \geq 1, \ \forall \ r \in \ P_R$
+\end{enumerate}
+\bigskip
+
+Observe que una marca aceptable asigna al menos un token en la plaza idle (entonces, suponemos que, inicialmente, cada marca -token- de cada proceso está inactiva) y al menos un token en cada recurso, es decir, hay al menos una marca de cada recurso en el sistema. Está claro que si existe un recurso para el que no hay marca, el sistema no está bien definido, porque puede tener alguna secuencia de producción que no se puede llevar a cabo. 
+\bigskip
+
+\subsection{Definición de S³PR}
+Entonces se puede concluir que un sistema de proceso secuencial simple con recursos 
+$S^3PR = \{N = \sideset{}{_{n=1}^{k}} \bigcirc = N_i = (P \cup P^0 \cup P_R, T, F)\}$
+se define como la unión de un conjunto de redes, de tipo $S^2PR= \{ N_i = (P_i \cup {pi^0} \cup P_{Ri}, T_i, F_i) \}$. Como se puede observar en la figura \ref{fig:s3pr}. \\
+
+\begin{figure} [H]
+    \centering
+    \includegraphics[scale=0.8]{Figures/marco teorico/imag10.jpg}
+    \caption[Composición de una red de Petri S³PR.]{Composición de una red de Petri S³PR.\footnotemark}
+    \label{fig:s3pr}
+\end{figure}  \footnotetext{Figura adaptada del libro \textit{Deadlock Resolution in Automated Manufacturing Systems} \cite{libro2} .}
+
+\newline
+Sean $(N_1,M_1)$ y $(N_2,M_2)$ dos redes de Petri con $N_1=(P_1, T_1, F_1, W_1)$ y $N_2 =  (P_2, T_2$, $F_2, W_2)$, donde $P_1 \cap P_2 = P_c \neq \emptyset$  y $T_1 \cap T_2 = \emptyset$. $(N,M)$ con $N = (P, T, F, W)$ es la red resultante de la unión entre $(N_1,M_1)$ y $(N_2,M_2)$ a través de compartir el conjunto de plazas $P_c \ sii (1) P = P_1 \cup P_2$ ,  $T = T_1 \cup T_2$, $F = F_1 \cup F_2$, y $W(x,y) = W_i(x,y)$ si  $(x,y) \in F_i$, $i=1,2$; y (2) $ \forall p \in P_1 \setminus P_c$ , $M(p)=M_1(p)$ , $\forall p \in P_2 \setminus P_c$ , $M(p)=M_2(p)$ y $\forall p \in P_c$ , $M(p)=max\{M_1(p), M_2(p)\}$. \\
+
+
+Por ejemplo: dos redes $(N_1, M_1)$ y $(N_2, M_2)$ se muestran en la figura \ref{fig:rdp_a} y figura \ref{fig:rdp_b}, respectivamente, donde $P_1= \{p_1-p_4, p_9-p_11\}$, $T_1={t_1-t_4}$, $P_2={p_5-p_{11}}$ y $T_2={t_2-t_8}$. Donde $P_1 \cap P_2 = \{p_9,p_{10},p_{11}\}$ y $T_1 \cap T_2 = \emptyset$. En la figura \ref{fig:s3pr} se observa la red resultante de la composición de $(N_1, M_1)$ y $(N_2, M_2)$ es denotado como $(N,M)$ donde $P = P_1 \cup P_2 = \{p_1-p_{11}\}$, $T = T_1 \cup T_2 = \{t_1-t_8\}$, $M(p_1) = M_1(p_1) = 10$, $M(p_2) = M_1(p_2) = 0$, $M(p_3) = M_1(p_3) = 0$, $M(p_4) = M_1(p_4) = 0$, $M(p_5) = M_2(p_5) = 10$, $M(p_6) = M_2(p_6) = 0$, $M(p_7) = M_2(p_7) = 0$, $M(p_8) = M_2(p_8) = 0$, $M(p_9) = max\{M_1(p_9),M_2(p_9)\} = 2$, $M(p_{10}) = max\{M_1(p_{10})$, $M_2(p_{10})\} = 2$, $M(p_11) = max\{M_1(p_{11}), M_2(p_{11})\} = 3$.
+
+

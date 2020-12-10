@@ -1,0 +1,34 @@
+% Chapter Template
+
+\chapter{Conclusión} % Main chapter title
+
+\label{Chapter7} % Change X to a consecutive number; for referencing this chapter elsewhere, use \ref{ChapterX}
+En el capítulo introductorio del presente documento se especificaron los objetivos planteados para el proyecto desarrollado. Una vez finalizadas las tareas asociadas a los mismos, es posible extraer algunas conclusiones. \\
+
+Por un lado se logró establecer una retroalimentación entre nuestro algoritmo y el software Petrinator, como ya se mencionó con anterioridad, en lo que sería la extracción manual de los archivos y su posterior procesamiento; así como también la actualización de la red con sus respectivos supervisores. \\
+
+Por otra parte, se detectó la necesidad de extraer los T-invariantes de la red original, dado que estos debían preservarse a lo largo del análisis ya que con la incorporación de un nuevo supervisor la estructura de la red se ve afectada pudiendo perder los mismos, alterando el análisis y el objetivo es conservar el comportamiento de la red, es decir, que mantenga sus T-invariantes (que los procesos se sigan ejecutando de la misma manera) pero de una forma controlada y manteniendo la concurrencia de los procesos. \\
+Esta modificación estructural que se presenta en la red es producto del nuevo supervisor, ya que al colocarlo no se tiene en cuenta si la red presenta conflictos o si las transiciones idle que le extraen el token son realmente necesarias. Para el primero se verificó que si la red presentaba conflictos antes de finalizar ese camino el token debía regresar el supervisor. Para el segundo se verificó que la transición idle le quitara token a los supervisores que realmente afectan al proceso que esta transición iba a desencadenar, de no ser así ese arco no debiera existir. \\
+
+A partir de lo mencionado y demostrado a lo largo de la evolución del algoritmo, este se fue probando en redes con estructuras diferentes (conflictos presentes en la red, la distribución/relación entre los bad siphons y los T-invariantes) que permitió demostrar fiabilidad del mismo como también agregarle nuevas características para llegar al objetivo planteado. \\
+De esta forma el algoritmo puede ser tomado como base para el estudio y posterior desarrollo en el área de control de redes de Petri.
+
+\newpage
+\section{Trabajo a futuro} \label{trabajofuturo}
+A continuación se listan los posibles avances que se podría realizar para continuar este proyecto:
+
+\begin{itemize}
+    \item Integrar este algoritmo como una nueva funcionalidad del software Petrinator permitiendo la ejecución automática del mismo sin necesidad de la extracción manual de archivos.
+    
+    \item Posibilidad de integrar este proyecto junto con los que también se están desarrollando en el LAC con la idea de lograr tanto el control de la red como la ejecución de la misma (tanto en hardware como en software) a partir de ciertas políticas definidas. 
+    
+    \item Posibilidad de realizar un análisis para la determinación de un criterio de elección óptimo del orden de supervisores a colocar para el control de las diferentes redes permitiendo el mayor paralelismo a la hora de ejecutar las mismas. 
+    
+%    \item Automatizar la tarea de incorporar/eliminar los arcos indicados por el análisis \textit{Red  con supervisores, tratamiento de conflictos y t\_idle} que actualmente se realiza manualmente.
+    
+    \item Realizar un generador aleatorio de redes de Petri que sirvan de entrada para el algoritmo.
+    
+    \item Se propone seguir investigando y testeando con nuevos tipos de redes bloqueadas que presenten diferentes características a las ya analizadas.
+    
+\end{itemize}
+

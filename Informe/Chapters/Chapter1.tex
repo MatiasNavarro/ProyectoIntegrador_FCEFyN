@@ -1,0 +1,278 @@
+% Chapter Template
+
+\chapter{Introducción} % Main chapter title
+
+\label{Chapter1} % Change X to a consecutive number; for referencing this chapter elsewhere, use \ref{ChapterX}
+
+\section{Motivación e importancia del proyecto}
+
+Las motivaciones para el desarrollo de este trabajo pueden dividirse en dos grandes pilares. Por un lado aquellas relacionadas al proyecto en sí, entre las cuales puede destacarse la necesidad de realizar una investigación y desarrollo de un algoritmo capaz de solucionar los problemas de vivacidad de las redes de Petri(RdP), puntualmente las que modelan Sistemas de procesos secuenciales simples con recursos($S^3PR$). Sumado a que el mismo podría formar parte de un proyecto más robusto que se está desarrollando en el Laboratorio de Arquitectura de Computadoras, y esto es algo emocionante.
+\bigskip 
+
+Por otra parte, existen sin duda ciertas motivaciones de naturaleza académica. Entre ellas podemos mencionar la integración de los conocimientos adquiridos a lo largo de nuestros estudios, la contribución a la comunidad de investigadores e incluso la puesta en práctica de procedimientos estrictos de investigación, de desarrollo de software y de documentación que nos serán sin duda de gran valor durante nuestro futuro ejercicio como profesionales.
+
+%----------------------------------------------------------------------
+% Estado del Arte
+%----------------------------------------------------------------------
+\section{Estado del arte}
+
+En 1962, Petri inventó un enfoque teórico de la red para modelar y analizar los sistemas de comunicación en su tesis \cite{petri1962kommunikation}. Este modelo se basó en los conceptos de funcionamiento asíncrono y concurrente de las partes de un sistema y en la comprensión de que las relaciones entre las partes podían representarse mediante una red. Se ha realizado una gran cantidad de investigaciones tanto sobre la naturaleza como sobre la aplicación de las redes de Petri, la cuál parece estar en expansión.\\
+Se ha demostrado que las redes de Petri son muy útiles en el modelado, análisis, simulación y control de sistemas concurrentes.
+
+\par El flujo simultáneo de varios procesos en un sistema de asignación de recursos (RAS), que compiten por un conjunto finito de recursos, puede conducir a un punto muerto. Un interbloqueo (deadlock) ocurre cuando un conjunto de procesos se encuentra en un estado de ``espera circular''\footnote{Definido en el Marco Teórico (Sección \ref{sec:Interbloqueo})}, donde cada proceso del conjunto está esperando que un recurso sea liberado por otro proceso del conjunto mientras ocupa un recurso que, a su vez, es necesario por uno de los otros procesos. La noción de deadlock parcial o total es frecuente y es preferible la validación antes de la implementación para reducir los riesgos \cite{LIU2016198}.
+
+Los estado de deadlock son una situación bastante indeseable en un sistema de fabricación automatizado. Su ocurrencia a menudo deteriora la utilización de recursos y pueden conducir a resultados catastróficos en sistemas críticos para la seguridad. Las redes de Petri son una herramienta matemática importante para manejar problemas de interbloqueo en sistemas de asignación de recursos.
+
+Un sistema de fabricación flexible (FMS) o un sistema de fabricación automatizado (AMS) son un conglomerado de máquinas herramienta controladas numéricamente por computadora, amortiguadores, accesorios, robots, vehículos guiados automatizados (AGV) y otros dispositivos de manejo de materiales. Por lo general, exhibe un alto grado de uso compartido de recursos para aumentar la flexibilidad. La existencia de recursos compartidos puede conducir a condiciones de espera circular. En tal sistema, una vez que ocurren los puntos muertos, persisten y no se resolverían sin la intervención de seres humanos u otro agente externo.
+
+En diversos estudios realizados por distintos autores, en busca de reducir estos estados de deadlock, se parte de la premisa de la existencia de cuatro estrategias para manejarlos.
+
+\subsection{Estrategias de manejo de deadlock}
+
+\subsubsection{Ignorar (Deadlock ignoring)}
+Ignorar los estados de deadlock, que se conoce como el algoritmo de Ostrich \footnote{Concepto informático para denominar el procedimiento de algunos sistemas operativos. Esta teoría, acuñada por A. S. Tanenbaum, señala que dichos sistemas, en lugar de enfrentar el problema de los bloqueos mutuos asumen que estos nunca ocurrirán.}, se emplea en un sistema de asignación de recursos si la probabilidad de que se produzcan puntos muertos es mínima y la aplicación de otras estrategias de control de deadlock es técnicamente difícil. En un FMS o AMS, ignorar el estado deadlock es factible y razonable desde el punto de vista técnico y económico si el grado de intercambio de recursos es bajo.
+
+\subsubsection{Prevenir (Deadlock prevention)}
+Se logra controlando la solicitud de recursos y garantizando que nunca se produzcan estados de deadlock. Los recursos se otorgan a los procesos de tal manera que una solicitud de un recurso nunca conduce a situaciones de deadlock. El objetivo es imponer limitaciones a la evolución de un sistema. En este caso, el calculo se realiza offline de forma estática y una vez establecida una política de control, el sistema ya no puede alcanzar esos estados indeseables.
+Una ventaja importante de los algoritmos de prevención de interbloqueo es que no requieren ningún costo de tiempo de ejecución, ya que los problemas se resuelven en las etapas de diseño y planificación del sistema.La principal crítica es que tienden a ser demasiado conservadores, lo que reduce la utilización de recursos y la productividad del sistema.
+
+\subsubsection{Evitar (Deadlock avoidance)}
+Para evitar los estados de deadlock se concede un recurso a un proceso solo si el estado resultante es seguro. Un estado se denomina seguro si existe al menos una secuencia de ejecución que permite que todos los procesos se ejecuten hasta su finalización. Para decidir si el próximo estado es seguro si se asigna un recurso a un proceso se debe realizar un seguimiento del estado del sistema global. Esto significa que son necesarios un gran almacenamiento y una amplia capacidad de comunicación.
+
+\subsubsection{Detectar y recuperar (Deadlock detection and recovery)}
+Se otorgan recursos a un proceso sin ningún control. El estado de la asignación de recursos y las solicitudes se examinan periódicamente para determinar si un conjunto de procesos está bloqueado. Este examen se realiza mediante un algoritmo de detección de interbloqueo. Si se encuentra un interbloqueo, el sistema se recupera abortando uno o más procesos interbloqueados y entregandole los recursos liberados a otros procesos. En la práctica de fabricación, a menudo se necesitan operadores humanos para esta estrategia y, por lo tanto, puede resultar muy costoso.
+
+\subsection{Revisión de la literatura}
+Las políticas de prevención de deadlock se han logrado ampliamente y han dado lugar a una gran cantidad de resultados. En esta sección, se revisan las estrategias de \textbf{prevención} de deadlock mediante el uso de redes de Petri y se desarrollan en base a diferentes técnicas como el análisis estructural y el análisis del grafo de alcanzabilidad.
+
+\subsubsection{Métodos de análisis estructural}
+Ezpeleta et al. \cite{paperezpeleta} utilizó una clase de redes de Petri, las del tipo S³PR y propuso un algoritmo para la asignación de recursos en FMS. El algoritmo propuesto agregó nuevos lugares a la red para imponer ciertas restricciones que prohíben la presencia de sifones vacíos.
+
+Los trabajos de Huang et al. \cite{YiShengBook} y Huang y et al. \cite{YHuangandJeng} presentan una nueva política de prevención de deadlock para la clase de redes de Petri, donde los estados de deadlock están relacionados con sifones sin marcar. Se agregan dos tipos de lugares de control al modelo original para un sistema de fabricación flexible llamado lugar de control ordinario y lugar de control ponderado para evitar que los sifones se desmarquen.
+
+En Li y Wei \cite{LiandWei} , se introduce el concepto de sifones elementales para diseñar un supervisor de red de Petri que haga cumplir la vivacidad para el mismo modelo de red de Petri. Basado en sifones elementales y conceptos de P-invariantes en redes de Petri, Li y Wei introducen un algoritmo de prevención de interbloqueo para una clase específica de redes de Petri que pueden modelar adecuadamente varios FMS \cite{LiandWei}, los sifones en un modelo de red de Petri se clasifican en dependientes y sifones elementales, y se agregan lugares de control para todos los sifones elementales, de modo que los sifones están controlados de forma invariante.
+
+Huang \cite{Huang2007} propone una nueva metodología para sintetizar supervisores para la asignación de recursos en los FMS; se considera la clase de red Petri, a saber, S³PR, donde los puntos muertos están relacionados con sifones mínimos no marcados; todos los sifones mínimos deben controlarse agregando plazas de control. En este estudio, el número de plazas de control se reduce utilizando el concepto de sifón elemental.
+
+Chen et al. \cite{paperchen}, presenta un algoritmo de prevención de deadlock y el concepto de extracción por sifón se utiliza para calcular sifones no marcados para el modelo de red de Petri. Primero, un algoritmo de extracción de sifón obtiene un sifón no marcado máximo, divide los lugares en él y determina un sifón necesario de los lugares divididos; esto se lleva a cabo para todos los sifones sin marcar. Luego, el algoritmo diseña un monitor conveniente para marcar cada sifón necesario hasta que el modelo de red de Petri controlado esté activo.
+
+Liu et al. \cite{LiuanLi2013} propuso una variedad de algoritmos de control de interbloqueo para AMS con recursos no confiables, los monitores y las subredes de recuperación están diseñadas para sifones mínimos estrictos (sifón vacío) y recursos no confiables, respectivamente, y se utilizan dos tipos de arcos que son normales e inhibidores para conectar monitores con subredes de recuperación. Para obtener un supervisor con complejidad estructural, los sifones elementales extraídos de todos los sifones mínimos estrictos están obviamente controlados. 
+
+
+\subsubsection{Enfoques basados en el grafo de alcanzabilidad}
+Viswanadham et al. \cite{Viswanadham} presentó métodos de asignación de recursos estáticos para eliminar los puntos muertos; En este estudio, se utiliza un grafo de alcanzabilidad del modelo de red de Petri para llegar al método de asignación de recursos estático. Se implementa un algoritmo de prevención de interbloqueo para un sistema de fabricación de tamaño pequeño que consta de una máquina y un vehículo guiado automatizado (AGV). Los autores observaron que el algoritmo propuesto se puede aplicar de manera efectiva sólo para sistemas de fabricación de tamaño pequeño.
+
+\par El trabajo de Uzam \cite{uzam2004, uzam2002} propone y mejora el método basado en una teoría de regiones para diseñar un supervisor de red de Petri óptimo. El tamaño del grafo de alcanzabilidad del modelo de red de Petri es un problema importante para aplicar la política de prevención de interbloqueos a un modelo de red de Petri muy grande. Por lo tanto, propusieron un algoritmo de reducción para simplificar modelos de redes de Petri muy grandes con el fin de facilitar los cálculos necesarios. Basado en la teoría de las regiones, Uzam y Zhou \cite{uzamandzhou2004} desarrollaron una política iterativa de prevención de interbloqueos para FMS. En su estudio, el grafo de alcanzabilidad de un modelo de red de Petri se divide en dos partes: zona libre de bloqueo (zona activa, LZ) y zona de bloqueo (DZ). La zona viva se desarrolla ya que el componente máximo fuertemente conectado contiene la marca inicial. La zona de interbloqueo contiene marcas desde las que no se puede alcanzar la marca inicial. FBM está definido como una marca en la zona de interbloqueo. Los interbloqueos se pueden eliminar prohibiendo el disparo de las transiciones habilitadas en FBM. En su trabajo, el enfoque presentado tiene dos problemas. Primero, no se puede garantizar un supervisor óptimo en general, incluso si existe un supervisor óptimo. En segundo lugar, en cada iteración se requiere el cálculo del grafo de alcanzabilidad total para verificar si las marcas en la zona de interbloqueo son accesibles. Este enfoque es fácil de usar y simple si el grafo de alcanzabilidad de un sistema es pequeño pero no puede garantizar la optimización del comportamiento del supervisor. Los monitores redundantes en el supervisor de red de Petri pueden existir cuando el supervisor está diseñado mediante un enfoque de control de sifón iterativo. Por tanto, Uzam et al. \cite{uzammuratli2007} introdujo un enfoque para identificar y eliminar los monitores redundantes mediante el cálculo del gráfico de accesibilidad de un modelo de red de Petri controlado. Si la red de Petri controlada no pierde la vivacidad cuando se eliminan los monitores redundantes, entonces los monitores redundantes se pueden eliminar del supervisor.\\
+
+El objetivo de esta sección fue presentar una revisión de la literatura sobre los distintos enfoques planteados hasta el momento respecto a la prevención de los estados de deadlock.
+Un enfoque híbrido de control de interbloqueos se refiere a aquel que combina distintas de estas planificaciones para tratarlos. La motivación esencial de plantear una estrategia de este tipo es aprovechar las ventajas o formalismos de múltiples de estas, evitando sus desventajas. Esto fue puntualmente lo que nos motivó a no regirnos por una única estrategia o estudio planteado.
+
+
+%----------------------------------------------------------------------
+% Objetivos
+%----------------------------------------------------------------------
+\section{Objetivos}
+Como se anticipó en la motivación, el objetivo final es el desarrollo de un algoritmo capaz de determinar las plazas y arcos necesarios a incorporar a la red original para lograr la ejecución de manera controlada, alcanzando la vivacidad de la misma. 
+
+Al tratarse de un trabajo de investigación en el cual se fue evolucionando sobre distintas situaciones que se fueron encontrando a lo largo de su desarrollo, fueron apareciendo diferentes objetivos intermedios (mencionados en las diferentes iteraciones del mismo) mediante los que se logró alcanzar el objetivo principal antes mencionado que es obtener una red viva o libre de deadlock(interbloqueo).
+
+\bigskip
+
+Para esto se propone usar como soporte el software Petrinator, el mismo se utilizará para simular la redes y extraer la información necesaria de las mismas. Para que esta última pueda ser utilizada por nuestro algoritmo se proponen los siguientes objetivos secundarios:
+
+\begin{itemize}
+    \item Implementar una interfaz que procese la información extraída del software antes mencionado.
+    
+    \item Realizar una segunda interfaz que conecta el algoritmo nuevamente con el software Petrinator, indicando mediante una retroalimentación los nuevos arcos y plazas a colocar.
+\end{itemize}
+
+%----------------------------------------------------------------------
+% Requerimientos
+%----------------------------------------------------------------------
+\section{Requerimientos}
+En la ingeniería, los requerimientos se utilizan como datos de entrada en la etapa de diseño del producto. Establecen qué debe hacer el sistema, aunque no especifican la manera en que debe hacerlo. La fase de captura y registro de requisitos puede estar precedida por una fase de análisis conceptual del proyecto. 
+\bigskip
+
+\subsection{Listado de requerimientos}
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|c|p{12.8cm}|}
+    \hline
+    \textbf{ID} & \textbf{Descripción}  \\  \hline
+    $R_{1}$ & Se debe usar el software Petrinator para la construcción, análisis y extracción de los archivos necesarios de la red de Petri.\\
+    \hline
+    
+    $R_{2}$ & El algoritmo debe ser capaz de leer los archivos de extensión '.html' de los diferentes análisis exportados del Petrinator y llevar a cabo su posterior procesamiento para su utilización. \\ 
+    \hline
+    
+    $R_{3}$ & El algoritmo debe modificar el archivo de extensión '.pflow' de la red en cuestión, para agregar plazas, arcos y quitar estos últimos en caso de ser necesario.\\
+    \hline
+    
+    $R_{4}$ & Se debe agregar una funcionalidad al Petrinator para poder recargar la red una vez modificada por el algoritmo. \\ 
+    \hline
+    
+    $R_{5}$ & El algoritmo debe converger en redes de Petri del tipo S³PR.  \\ 
+    \hline
+    
+    $R_{6}$ & El algoritmo debe ser desarrollado para poder ser integrado al Petrinator como una nueva funcionalidad del mismo.  \\ 
+    \hline
+    
+    \end{tabular}
+    \label{tab:listadoRiesgos}
+    \caption{Listado de requerimientos.}
+\end{table}
+
+%--------
+% Riesgos
+%--------
+\section{Análisis de riesgos}
+Un riesgo es un evento o condición incierta que, en caso de ocurrir, tendrá consecuencias negativas sobre al menos uno de los requerimientos del proyecto. Por esta razón es importante identificarlos con anticipación para mitigarlos.
+
+\subsection{Listado de riesgos}
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|c|p{12.8cm}|}
+    \hline
+    \textbf{ID} & \textbf{Descripción}  \\  \hline
+    $R_{1}$ & Recursos de hardware insuficientes.\\
+    \hline
+    
+    $R_{2}$ & Ausencia de algoritmo. \\ 
+    \hline
+    
+    $R_{3}$ & Algoritmo inadecuado. \\
+    \hline
+    
+    $R_{4}$ & Herramienta inadecuada. \\ 
+    \hline
+    
+    $R_{5}$ & Ausencia/escasez de datos. \\ 
+    \hline
+    
+    \end{tabular}
+    \label{tab:listadoRiesgos}
+    \caption{Listado de riesgos.}
+\end{table}
+
+%--------
+% R1
+%--------
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|p{13.7cm}|}
+    \hline
+    \textbf{R1 - Recurso de hardware insuficiente} \\
+    \hline \hline 
+    \textbf{Condición}: Los recursos de hardware disponibles (computador básico) son inferiores a los necesarios.\\
+    \hline
+    \textbf{Consecuencia}: No permite analizar redes de Petri demasiado complejas, es decir, que presentan un gran numero de estados. \\
+    \hline
+    \textbf{Efecto}: Limitar la implementación de nuestro algoritmo a redes con una cantidad reducida de estados. \\
+    \hline
+    \end{tabular}
+    \label{tab:R1}
+    \caption{R1 - Recurso de hardware insuficiente.}
+\end{table}
+
+%--------
+% R2
+%--------
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|p{13.7cm}|}
+    \hline
+    \textbf{R2 - Ausencia de algoritmo} \\
+    \hline \hline
+    \textbf{Condición}: Inexistencia del algoritmo.\\
+    \hline
+    \textbf{Consecuencia}: No lograr alcanzar la vivacidad de una red de Petri. \\
+    \hline
+    \textbf{Efecto}: Irrealizabilidad del proyecto. \\
+    \hline
+    \end{tabular}
+    \label{tab:R2}
+    \caption{R2 - Ausencia de algoritmo.}
+\end{table}
+
+%--------
+% R3
+%--------
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|p{13.7cm}|}
+    \hline
+    \textbf{R3 - Algoritmo inadecuado} \\
+    \hline \hline 
+    \textbf{Condición}: Encontrar un algoritmo pero que no converge en todas las redes del mismo tipo.\\
+    \hline
+    \textbf{Consecuencia}: Iteraciones infinitas del algoritmo. \\
+    \hline
+    \textbf{Efecto}: Incremento del tiempo dedicado en la investigación para la readaptación del algoritmo. \\
+    \hline
+    \end{tabular}
+    \label{tab:R3}
+    \caption{R3 - Algoritmo inadecuado.}
+\end{table}
+
+%--------
+% R4
+%--------
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|p{13.7cm}|}
+    \hline
+    \textbf{R4 - Herramienta inadecuada} \\
+    \hline \hline 
+    \textbf{Condición}: Elección incorrecta de la herramienta para implementar la red de Petri y/o utilización errónea.\\
+    \hline
+    \textbf{Consecuencia}: La herramienta no se adapta a nuestros datos ni a los requerimientos. \\
+    \hline
+    \textbf{Efecto}: Ineficiencia del modelo. \\
+    \hline
+    \end{tabular}
+    \label{tab:R4}
+    \caption{R4 - Herramienta inadecuada.}
+\end{table}
+
+%--------
+% R5
+%--------
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|p{13.7cm}|}
+    \hline
+    \textbf{R5 - Ausencia/escasez de datos} \\
+    \hline \hline 
+    \textbf{Condición}: Escasez de la obtención de datos.\\
+    \hline
+    \textbf{Consecuencia}: Imposibilidad de testear/desarrollar el algoritmo. \\
+    \hline
+    \textbf{Efecto}: Irrealizabilidad del proyecto. \\
+    \hline
+    \end{tabular}
+    \label{tab:R5}
+    \caption{R5 - Ausencia/escasez de datos.}
+\end{table}
+
+%----------------------------------------------------------------------
+% Estructura del texto
+%----------------------------------------------------------------------
+\section{Estructura del texto}
+
+Aquí se listan los distintos capítulos que conforman el proyecto, presentando una breve descripción de su contenido. El escrito está compuesto por 4 capítulos, los apéndices y la bibliografía.
+
+
+\begin{itemize}   
+    \item \textbf{Capítulo 1 - Introducción:} Se exponen en este capítulo los aspectos más significativos del proyecto, donde se incluye las motivaciones que llevaron a realizar el mismo junto con una revisión del estado del arte relacionado, el análisis de riesgos y requerimientos junto con los objetivos propuestos para el trabajo de fin de grado.
+    
+    \item \textbf{Capítulo 2 - Marco teórico:} Aquí se abordan los conceptos necesarios para comprender el enfoque del proyecto, además que los mismos dan fundamento a las posteriores implementaciones prácticas.
+    
+    \item \textbf{Capítulo 3 - Desarrollo:} En este capítulo se analizan todas las herramientas que permitieron la implementación del algoritmo desarrollado en este proyecto. Incluye el desarrollo en base a la investigación realizada a partir del estado del arte y los conceptos teóricos mencionados en el capítulo 2. Como también el algoritmo en sus 4 versiones, cada una con sus respectivos objetivos, desarrollo y conclusiones.
+    
+    \item \textbf{Capítulo 4 - Conclusión:} Se presenta en este capítulo las conclusiones obtenidas tras la realización del trabajo y posibles vías de trabajos futuros.
+	
+	\item \textbf{Apéndices:} En los apéndices se proporciona al lector dos tutoriales, uno que ejemplifica como desplegar el entorno de trabajo y el otro es la ejecución de la versión final del algoritmo desarrollado en este proyecto.
+    
+    \item \textbf{Bibliografía:} En esta parte final del documento, se muestran todas las referencias que se han consultado para el desarrollo del proyecto.
+    
+\end{itemize}

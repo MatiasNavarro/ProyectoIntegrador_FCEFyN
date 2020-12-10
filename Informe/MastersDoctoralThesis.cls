@@ -256,7 +256,8 @@
 \newcommand{\HRule}{\rule{.9\linewidth}{.6pt}} % New command to make the lines in the title page
 \newcommand{\decoRule}{\rule{.8\textwidth}{.4pt}} % New command for a rule to be used under figures
 
-\setcounter{tocdepth}{3} % The depth to which the document sections are printed to the table of contents
+\setcounter{secnumdepth}{4}
+\setcounter{tocdepth}{5} % The depth to which the document sections are printed to the table of contents
 \ProvideDocumentCommand{\addchaptertocentry}{ m }{%
 	\addcontentsline{toc}{chapter}{#1}%
 }
@@ -361,7 +362,7 @@ KOMA-script documentation for details.}]{fancyhdr}
 
 \DeclareDocumentCommand{\abstractauthorfont}{}{}
 \DeclareDocumentCommand{\abstracttitlefont}{}{}
-\newcommand{\byname}{by}
+%\newcommand{\byname}{by}
 \newcommand{\abstractname}{Resumen}
 \providecaptionname{german,ngerman,austrian,naustrian}{\byname}{von}
 \providecaptionname{american,australian,british,canadian,english,newzealand,UKenglish,USenglish}{\byname}{by}
@@ -377,6 +378,9 @@ KOMA-script documentation for details.}]{fancyhdr}
 }{%
 	\DeclareDocumentEnvironment{abstract}{ O{\null\vfill} }{
 		\checktoopen
+		\begin{center}
+		    {\normalsize\bfseries \@title \par}% Thesis title
+		\end{center}
 		\tttypeout{\abstractname}
 		#1%added to be able to have abstract more than one page long
 		\thispagestyle{plain}
@@ -388,9 +392,9 @@ KOMA-script documentation for details.}]{fancyhdr}
 			% \bigskip
 			% {\normalsize \degreename\par}% Degree name
 			% \bigskip
-			{\normalsize\bfseries \@title \par}% Thesis title
-			\medskip
-			{\normalsize \authornameA \par}% Author name
+			%{\normalsize\bfseries \@title \par}% Thesis title
+			%\medskip
+			%{\normalsize \authornameA \par}% Author name
 			\bigskip
 			\begin{center}{\huge\textit{\abstractname}\par}\end{center}
 			\bigskip
