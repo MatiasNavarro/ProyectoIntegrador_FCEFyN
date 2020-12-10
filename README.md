@@ -5,9 +5,9 @@ Proyecto Integrador - Ingenería en Computación  <br>
 Facultad de Ciencias Exactas Físicas y Naturales - UNC 
 </h3>
   Autores: 
-    - Izquierdo, Agustina 
-    - Navarro, Matias 
-    - Salvatierra, Andres
+    * Izquierdo, Agustina
+    * Navarro, Matias
+    * Salvatierra, Andres
 </center>
 
 Ejecución del algoritmo:
