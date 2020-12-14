@@ -16,6 +16,8 @@ En la carpeta **Videos** se encuentran los videos demostrativos correspondientes
 
 En la carpeta **Informe** se encuentran los PDF correspondientes, y en cada uno, en el *Anexo B* se encuentra la forma detallada de como ejecutar cada uno de los algotimos. 
 
+En la carpeta **Redes de Petri** se encuentran las redes utilizadas en ambos proyectos integradores. La red a controlar lleva el nombre de la carpeta junto con la palabra original (Por ejemplo: ezpeleta_original.pflow), mientras que la red ya controlada dependiendo con que versión del algoritmo fue resuelta será especificado en su nombre junto con la palabra controlada (Por ejemplo: controlada_pi_parte1.pflow, controlada_pi_parte2.pflow, controlada.pflow (en caso que coincidan las soluciones)).
+
 Ejecición del **algoritmo PI-Parte 1**:
 ``` bash
 $ cd Python/
