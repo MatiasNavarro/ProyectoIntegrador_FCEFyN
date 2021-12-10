@@ -5,6 +5,8 @@ Proyecto Integrador - Ingenería en Computación  <br>
 Facultad de Ciencias Exactas Físicas y Naturales - UNC 
 </h3>
 </center>
+   
+El tema a abarcar es principalmente el análisis de redes de Petri que presentan estados de deadlock, teniendo como objetivo desarrollar y documentar un algoritmo que permita el control de las mismas, restringiendo el alcance de estos estados. 
 
 - Autores: 
     * Izquierdo, Agustina
